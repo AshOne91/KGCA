@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pattern">
+      <UniqueIdentifier>{a93600fe-60f6-493c-91f5-51b175b1ec12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{2f33735c-c148-4b8c-ae0f-8feb2e3f314d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{1db65f04-f326-464d-8e29-14b0054cbacd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{0e40d10b-b9ca-4c59-bfc7-4fe880196c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Container">
+      <UniqueIdentifier>{66b13043-35ae-4c33-9a8a-dca1ee16e473}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Singleton.h">
+      <Filter>Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.hpp">
+      <Filter>Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.hpp">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneController.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneController.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Pair.h">
+      <Filter>Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Pair.hpp">
+      <Filter>Container</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.h">
+      <Filter>Container</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.hpp">
+      <Filter>Container</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
