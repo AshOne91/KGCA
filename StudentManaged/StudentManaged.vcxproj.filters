@@ -16,6 +16,12 @@
     <Filter Include="Container">
       <UniqueIdentifier>{66b13043-35ae-4c33-9a8a-dca1ee16e473}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{96982a4f-bf1f-4a67-b79c-aa1d50b9dc65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{b8acd8d8-283f-402b-9844-65ecb75673f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -48,10 +54,31 @@
     <ClInclude Include="LinkedList.hpp">
       <Filter>Container</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSubSystem.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSubSystem.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="AppSubSystem.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="AppSubSystem.hpp">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

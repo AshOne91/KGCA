@@ -3,7 +3,15 @@
 #include "Singleton.h"
 
 class TestManager : public Singleton<TestManager>
-{
+{public:
+	virtual void Construct()
+	{
+		Singleton<TestManager>::Construct();
+	}
+	virtual void Destruct()
+	{
+		Singleton<TestManager>::Destruct();
+	}
 public:
 	int main = 0;
 };
@@ -47,5 +55,7 @@ int main()
 
 
 	TestManager::Instance()->main = 1;
+	TestManager* pManager = TestManager::Instance();
+	pManager->Destruct();
 	std::cout << TestManager::Instance()->main << std::endl;
 }

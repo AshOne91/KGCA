@@ -141,16 +141,23 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="AppSubSystem.hpp" />
+    <ClInclude Include="BaseObject.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="Pair.hpp" />
     <ClInclude Include="SceneController.h" />
     <ClInclude Include="SceneController.hpp" />
+    <ClInclude Include="Interface.h" />
+    <ClInclude Include="SceneSubSystem.h" />
+    <ClInclude Include="SceneSubSystem.hpp" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Singleton.hpp" />
+    <ClInclude Include="AppSubSystem.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
