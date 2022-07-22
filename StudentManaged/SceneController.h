@@ -37,6 +37,9 @@ protected:
 
 public:
 	std::string GetSceneName();
+
+public:
+	virtual bool OnMessage(BaseObject* sender, const std::string& message);
 };
 
 #include "SceneController.hpp"

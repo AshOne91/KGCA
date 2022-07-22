@@ -48,6 +48,9 @@ protected:
 
 public:
 	std::string GetApplicationName();
+
+public:
+	virtual bool OnMessage(BaseObject* sender, const std::string& message);
 };
 
 #include "Application.hpp"

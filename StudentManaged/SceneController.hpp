@@ -64,3 +64,21 @@ std::string SceneController<T>::GetSceneName()
 {
 	return _sceneName;
 }
+
+template <typename T>
+bool SceneController<T>::OnMessage(BaseObject* sender, const std::string& message)
+{
+	switch (message)
+	{
+	default:
+		break;
+	}
+	for (auto iter = _sceneSubSystems.begin(); iter != _sceneSubSystems.end(); ++iter)
+	{
+		if (iter->_first->OnMessage(message) == true)
+		{
+			return true;
+		}
+	}
+	return false;
+}

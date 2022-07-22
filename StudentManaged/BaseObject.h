@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class BaseObject abstract
 {
@@ -17,4 +18,7 @@ public:
 	virtual void Construct();
 	//파괴자 호출에서 해야할 것들 정의
 	virtual void Destruct();
+
+public:
+	virtual bool OnMessage(BaseObject* sender, const std::string& message) = 0;
 };

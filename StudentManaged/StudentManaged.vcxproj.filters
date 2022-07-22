@@ -25,6 +25,15 @@
     <Filter Include="IO">
       <UniqueIdentifier>{7b937016-b300-4333-8d6a-1c598ed53815}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\App">
+      <UniqueIdentifier>{22c23728-fcd8-41fd-8213-79d88958b81c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Scene">
+      <UniqueIdentifier>{a43b17f3-f549-4909-bbbd-ccbd73228c1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Student">
+      <UniqueIdentifier>{f1e581e3-4160-4936-8cd6-e398abfd1f7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -76,7 +85,31 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="StudentManagedAppllication.h">
-      <Filter>Main</Filter>
+      <Filter>Main\App</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Main\App</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneEntry.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLoading.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneList.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Main\Student</Filter>
+    </ClInclude>
+    <ClInclude Include="Student.h">
+      <Filter>Main\Student</Filter>
+    </ClInclude>
+    <ClInclude Include="StudentManager.h">
+      <Filter>Main\Student</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,8 +119,20 @@
     <ClCompile Include="BaseObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="StudentManagedApplication.cpp">
+    <ClCompile Include="SceneMain.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="StudentManagedApplication.cpp">
+      <Filter>Main\App</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Main\App</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Main\Student</Filter>
+    </ClCompile>
+    <ClCompile Include="Student.cpp">
+      <Filter>Main\Student</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

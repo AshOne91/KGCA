@@ -5,6 +5,12 @@ class testSceneSubSystem : SceneSubSystem<testSceneSubSystem>
 {
 public:  
 	void DoUpdate() {};
+
+public:
+	virtual bool OnMessage(BaseObject* sender, const std::string& message)
+	{
+		return false;
+	}
 };
 
 int main()

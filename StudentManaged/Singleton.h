@@ -22,6 +22,9 @@ public:
 public:
 	virtual void Construct();
 	virtual void Destruct();
+
+public:
+	virtual bool OnMessage(BaseObject* sender, const std::string& message) = 0;
 };
 
 #include "Singleton.hpp"

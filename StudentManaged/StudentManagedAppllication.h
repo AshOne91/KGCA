@@ -4,8 +4,6 @@
 class StudentManagedApplication : public Application<StudentManagedApplication>
 {
 public:
-	int Test;
-public:
 	StudentManagedApplication();
 	virtual ~StudentManagedApplication();
 };

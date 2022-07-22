@@ -80,3 +80,27 @@ std::string Application<T>::GetApplicationName()
 {
 	return this->_applicationName;
 }
+
+template <typename T>
+bool Application<T>::OnMessage(BaseObject* sender, const std::string& message)
+{
+	if (message == "")
+	{
+		return true;
+	}
+	for (auto iter = _appSubSystem.begin(); iter != _appSubSystem.end(); ++iter)
+	{
+		if (iter->_first->OnMessage(sender, message) == true)
+		{
+			return true;
+		}
+	}
+	for (auto iter = _sceneController.begin(); iter != _sceneController.end(); ++iter)
+	{
+		if (iter->_first->OnMessage(sender, message) == true)
+		{
+			return true;
+		}
+	}
+	return false;
+}
