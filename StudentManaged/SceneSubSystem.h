@@ -4,21 +4,29 @@
 #include "Interface.h"
 
 template <typename T>
-class SceneSubSystem abstract : public Singleton<T>, public UpdatableInterface<T>
+class SceneSubSystem abstract : public Singleton<T>, public UpdatableInterface
 {
 private:
 	std::string _sceneControllerName;
 
 public:
-	SceneSubSystem();
-	virtual ~SceneSubSystem();
+	SceneSubSystem() = default;
+	virtual ~SceneSubSystem() = default;
 
 public:
 	virtual void DoUpdate() = 0;
 
 public:
+	virtual void OnEnalbe();
+	virtual void OnDisable();
+
+public:
+	virtual void Construct();
+	virtual void Destruct();
+
+public:
 	std::string GetSceneControllerName() const;
-	void OnSetSceneController(const std::string& sceneControllerName);
+	void OnSetParentName(const std::string& sceneControllerName);
 };
 
 #include "SceneSubSystem.hpp"

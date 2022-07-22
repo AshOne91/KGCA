@@ -22,6 +22,9 @@
     <Filter Include="Object">
       <UniqueIdentifier>{b8acd8d8-283f-402b-9844-65ecb75673f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{7b937016-b300-4333-8d6a-1c598ed53815}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -72,6 +75,9 @@
     <ClInclude Include="BaseObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="StudentManagedAppllication.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -79,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="BaseObject.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="StudentManagedApplication.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

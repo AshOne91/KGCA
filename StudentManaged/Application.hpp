@@ -1,7 +1,7 @@
 #include "Application.h"
 
 template <typename T>
-Application<T>::Application()
+Application<T>::Application(std::string applicationName):_applicationName(applicationName)
 {
 	_activeSceneController._first = nullptr;
 	_activeSceneController._second = nullptr;
@@ -17,13 +17,15 @@ void Application<T>::Construct()
 {
 	Singleton<T>::Construct();
 
+
+
 	OnInit();
 }
 
 template <typename T>
 void Application<T>::Destruct()
 {
-	Application<T>::Destruct();
+	Singleton<T>::Destruct();
 }
 
 template <typename T>
@@ -39,34 +41,38 @@ void Application<T>::Update()
 }
 
 template <typename T>
-void Application<T>::LoadScene(std::string sceneName)
+template <typename U>
+void Application<T>::LoadScene()
 {
-
+	if (_activeSceneController._first != nullptr)
+	{
+		_activeSceneController._first->OnDisable();
+		_activeSceneController._first = nullptr;
+		_activeSceneController._second = nullptr;
+	}
+	_activeSceneController._first = (U::Instance());
+	_activeSceneController._second = (U::Instance());
+	_activeSceneController._first->OnEnable();
 }
 
 template <typename T>
-template <typename U, class _SceneController, class _SceneControllerInterface>
+template <typename U>
 void Application<T>::CreateScene()
 {
-	if (_activeSceneController._first != nullptr)
-	{
-		_activeSceneController._first.OnDisable();
-		_activeSceneController._first = nullptr;
-		_activeSceneController._second = nullptr;
-	}
-	_SceneController::Instance()->OnEnable();
+	Pair<BaseObject*, SceneControllerInterface*> newScene;
+	newScene._first = (U::Instance());
+	newScene._second = (U::Instance());
+	_sceneController.push_back(newScene);
 }
 
 template <typename T>
-template <typename U, class _AppSubSystem, class _UpdatableInterface>
+template <typename U>
 void Application<T>::CreateAppSubSystem()
 {
-	if (_activeSceneController._first != nullptr)
-	{
-		_activeSceneController._first.OnDisable();
-		_activeSceneController._first = nullptr;
-		_activeSceneController._second = nullptr;
-	}
+	Pair<BaseObject*, SceneControllerInterface*> newSubSystem;
+	newSubSystem._first = (U::Instance());
+	newSubSystem._second = (U::Instance());
+	_appSubSystem.push_back(newSubSystem);
 }
 
 template <typename T>

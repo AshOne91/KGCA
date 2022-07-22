@@ -6,40 +6,26 @@
 #include "Pair.h"
 
 template <typename T>
-class SceneController abstract : public Singleton<T>, public SceneControllerInterface<T>
+class SceneController abstract : public Singleton<T>, public SceneControllerInterface
 {
 private:
 	std::string _sceneName;
-
-	template <typename U, class _SceneSubSystem = SceneSubSystem<U>, class _UpdatableInterface = UpdatableInterface<U>>
-	LinkedList<Pair<_SceneSubSystem*, _UpdatableInterface*>> _sceneSubSystems;
+	LinkedList<Pair<BaseObject*, UpdatableInterface*>> _sceneSubSystems;
 
 public:
-	SceneController();
-	virtual ~SceneController();
+	SceneController() = default;
+	virtual ~SceneController() = default;
 
 public:
-	template <typename U, class _SceneSubSystem = SceneSubSystem<U>, class _UpdatableInterface = UpdatableInterface<U>>
-	void Construct() override;
-	template <typename U, class _SceneSubSystem = SceneSubSystem<U>, class _UpdatableInterface = UpdatableInterface<U>>
-	void Destruct() override;
-
-
+	virtual void Construct();
+	virtual void Destruct();
 
 protected:
-	template <typename U, class _SceneSubSystem = SceneSubSystem<U>, class _UpdatableInterface = UpdatableInterface<U>>
-	void AddUpdatableInterface(_SceneSubSystem* sceneSubSystem);
+	//subSystem 생성 후 Construct 호출 안함
+	template <typename U>
+	U CreateSceneSubSystem();
 
-	template <typename U, class _SceneSubSystem = SceneSubSystem<U>, class _UpdatableInterface = UpdatableInterface<U>>
-	void RemoveUpdatableInterface(_SceneSubSystem* sceneSubSystem);
-
-	template <typename U, class _SceneSubSystem = SceneSubSystem<U>, class _UpdatableInterface = UpdatableInterface<U>>
-	_SceneSubSystem CreateSceneSubSystem();
-
-private:
-	void OnEnterManaged();
 public:
-	template <typename U, class _SceneSubSystem = SceneSubSystem<U>, class _UpdatableInterface = UpdatableInterface<U>>
 	void DoUpdateManaged();
 	void OnEnable();
 	void OnDisable();

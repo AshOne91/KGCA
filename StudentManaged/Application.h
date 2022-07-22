@@ -14,14 +14,12 @@ class Application abstract : public Singleton<T>
 private:
 	std::string _applicationName;
 
-	template <typename U, class _AppSubSystem = AppSubSystem<U>, class _UpdatableInterface = UpdatableInterface<U>>
-	LinkedList<Pair<_AppSubSystem*, _UpdatableInterface*>> _appSubSystem;
-	template <typename U, class _SceneController = SceneController<U>, class _SceneControllerInterface = SceneControllerInterface<U>>
-	Pair<_SceneController*, _SceneControllerInterface*> _activeSceneController;
-
+	LinkedList<Pair<BaseObject*, UpdatableInterface*>> _appSubSystem;
+	LinkedList<Pair<BaseObject*, SceneControllerInterface*>> _sceneController;
+	Pair<BaseObject*, SceneControllerInterface*> _activeSceneController;
 
 public:
-	Application();
+	Application(std::string applicationName);
 	virtual ~Application();
 
 public:
@@ -30,20 +28,18 @@ public:
 
 public:
 	void Update();
-	void LoadScene(std::string sceneName/*포인터로 변경*/);
+	template <typename U>
+	void LoadScene();
 
-	template <typename U, class _SceneController = SceneController<U>, class _SceneControllerInterface = SceneControllerInterface<U>>
+	template <typename U>
 	void CreateScene();
 
 protected:
-	template <typename U, class _AppSubSystem = AppSubSystem<U>, class _UpdatableInterface = UpdatableInterface<U>>
+	template <typename U>
 	void CreateAppSubSystem();
 
 private:
 	void OnApplicationQuit();
-
-	template <typename U, class _SceneController = SceneController<U>, class _SceneControllerInterface = SceneControllerInterface<U>>
-	void OnActivatedSceneController(_SceneController*, _SceneControllerInterface*);
 
 protected:
 	virtual void OnInit() = 0;

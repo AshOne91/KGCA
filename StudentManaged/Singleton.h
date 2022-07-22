@@ -12,8 +12,12 @@ public:
 	static void DestroyInstance();
 
 public:
-	Singleton();
-	virtual ~Singleton();
+	Singleton() = default;
+	virtual ~Singleton()  = default;
+
+public:
+	virtual void OnEnable();
+	virtual void OnDisable();
 
 public:
 	virtual void Construct();

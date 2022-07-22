@@ -4,7 +4,7 @@
 #include "Interface.h"
 
 template <typename T>
-class AppSubSystem abstract : public Singleton<T>, public UpdatableInterface<T>
+class AppSubSystem abstract : public Singleton<T>, public UpdatableInterface
 {
 private:
 	std::string _gameApplicationName;
@@ -13,7 +13,15 @@ public:
 	virtual void DoUpdate() = 0;
 
 public:
-	void OnSetGamePllication(const std::string& gameApplicationName);
+	virtual void OnEnable();
+	virtual void OnDisable();
+
+public:
+	virtual void Construct();
+	virtual void Destruct();
+
+public:
+	virtual void OnSetParentName(const std::string& name);
 };
 
 #include "AppSubSystem.hpp"

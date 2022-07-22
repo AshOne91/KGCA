@@ -1,11 +1,21 @@
 #include "BaseObject.h"
 
-void BaseObject::Awake()
+void BaseObject::OnEnable()
 {
-	Construct();
+
 }
 
-void BaseObject::OnDestroy()
+void BaseObject::OnDisable()
 {
-	Destruct();
+
+}
+
+void BaseObject::Construct()
+{
+
+}
+
+void BaseObject::Destruct()
+{
+	
 }

@@ -155,10 +155,12 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Singleton.hpp" />
     <ClInclude Include="AppSubSystem.h" />
+    <ClInclude Include="StudentManagedAppllication.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="StudentManagedApplication.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
