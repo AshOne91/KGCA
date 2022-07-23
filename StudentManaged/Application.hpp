@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "BaseObject.h"
 
 template <typename T>
 Application<T>::Application(std::string applicationName):_applicationName(applicationName)

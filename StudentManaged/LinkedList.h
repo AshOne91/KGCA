@@ -32,7 +32,7 @@ public:
 	bool operator==(const Iterator& rhs) const;
 	bool operator!=(const Iterator& rhs) const;
 	T operator*() const;
-	const T* operator->() const;
+	T* operator->() const;
 };
 
 

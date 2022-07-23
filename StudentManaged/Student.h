@@ -1,7 +1,26 @@
 #pragma once
-#include "BaseObject.h"
+#include <string>
+#include "Serialization.h"
+#include "LinkedList.h"
 
-class Student : BaseObject
+class Subject;
+class Student sealed : public SerializableInterface 
 {
+private:
+	unsigned __int64 _index;
+	LinkedList<Subject*> _subjects;
+	std::string _name;
 
+public:
+	Student();
+	~Student();
+
+public:
+	void SetIndex(unsigned __int64 index);
+	void AddSubject(Subject* pSubject);
+	void SetName(std::string& name);
+
+public:
+	virtual void Serialize(Packet* packet);
+	virtual void Deserialize(Packet* packet);
 };

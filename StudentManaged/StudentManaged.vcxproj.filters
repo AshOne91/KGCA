@@ -87,9 +87,6 @@
     <ClInclude Include="StudentManagedAppllication.h">
       <Filter>Main\App</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Main\App</Filter>
-    </ClInclude>
     <ClInclude Include="SceneBase.h">
       <Filter>Main\Scene</Filter>
     </ClInclude>
@@ -111,6 +108,15 @@
     <ClInclude Include="StudentManager.h">
       <Filter>Main\Student</Filter>
     </ClInclude>
+    <ClInclude Include="Serialization.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketAssist.h">
+      <Filter>IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -125,13 +131,19 @@
     <ClCompile Include="StudentManagedApplication.cpp">
       <Filter>Main\App</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Main\App</Filter>
-    </ClCompile>
     <ClCompile Include="Subject.cpp">
       <Filter>Main\Student</Filter>
     </ClCompile>
     <ClCompile Include="Student.cpp">
+      <Filter>Main\Student</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketAssist.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="StudentManager.cpp">
       <Filter>Main\Student</Filter>
     </ClCompile>
   </ItemGroup>

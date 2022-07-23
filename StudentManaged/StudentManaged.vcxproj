@@ -78,9 +78,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>../../output/Debug/</OutDir>
+    <IntDir>../../output/Debug/StudentManaged</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>../../output/Release/</OutDir>
+    <IntDir>../../output/Release/StudentManaged</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,6 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,9 +149,10 @@
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AppSubSystem.hpp" />
     <ClInclude Include="BaseObject.h" />
-    <ClInclude Include="InputManager.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedList.hpp" />
+    <ClInclude Include="Packet.h" />
+    <ClInclude Include="PacketAssist.h" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="Pair.hpp" />
     <ClInclude Include="SceneBase.h" />
@@ -157,6 +164,7 @@
     <ClInclude Include="SceneLoading.h" />
     <ClInclude Include="SceneSubSystem.h" />
     <ClInclude Include="SceneSubSystem.hpp" />
+    <ClInclude Include="Serialization.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Singleton.hpp" />
     <ClInclude Include="AppSubSystem.h" />
@@ -167,11 +175,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp" />
-    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Packet.cpp" />
+    <ClCompile Include="PacketAssist.cpp" />
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="StudentManagedApplication.cpp" />
+    <ClCompile Include="StudentManager.cpp" />
     <ClCompile Include="Subject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

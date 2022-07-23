@@ -9,3 +9,18 @@ StudentManagedApplication::~StudentManagedApplication()
 {
 
 }
+
+void StudentManagedApplication::OnInit()
+{
+
+}
+
+void StudentManagedApplication::OnDeinit()
+{
+
+}
+
+void StudentManagedApplication::DoUpdate()
+{
+
+}

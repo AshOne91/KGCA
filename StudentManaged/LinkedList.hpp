@@ -1,9 +1,11 @@
 #include "LinkedList.h"
 
+#pragma warning(disable:26495)
 template <typename T>
 Node<T>::Node() :_pNext(nullptr), _pPrev(nullptr)
 {
 }
+#pragma warning(default:26495)
 
 template <typename T>
 Node<T>::Node(T data) :_data(data), _pNext(nullptr), _pPrev(nullptr)
@@ -82,7 +84,7 @@ T Iterator<T>::operator*() const
 }
 
 template <typename T>
-const T* Iterator<T>::operator->() const
+T* Iterator<T>::operator->() const
 {
 	return &(_pNode->_data);
 }

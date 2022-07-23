@@ -8,6 +8,7 @@
 #include "Singleton.h"
 #include "LinkedList.h"
 
+class BaseObject;
 template <typename T>
 class Application abstract : public Singleton<T>
 {
