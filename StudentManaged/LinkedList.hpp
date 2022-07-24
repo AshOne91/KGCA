@@ -102,6 +102,7 @@ LinkedList<T>::LinkedList():_pHead(new Node<T>()), _pTail(new Node<T>()), _size(
 template <typename T>
 LinkedList<T>::~LinkedList()
 {
+	clear();
 	delete _pHead;
 	delete _pTail;
 }

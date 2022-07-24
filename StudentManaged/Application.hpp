@@ -14,12 +14,37 @@ Application<T>::~Application()
 }
 
 template <typename T>
+void Application<T>::OnEnable()
+{
+	Singleton<T>::OnEnable();
+	for (auto iter = _appSubSystem.begin(); iter != _appSubSystem.end(); ++iter)
+	{
+		iter->_first->OnEnable();
+	}
+	for (auto iter = _sceneController.begin(); iter != _sceneController.end(); ++iter)
+	{
+		iter->_first->OnDisable();
+	}
+}
+
+template <typename T>
+void Application<T>::OnDisable()
+{
+	for (auto iter = _appSubSystem.begin(); iter != _appSubSystem.end(); ++iter)
+	{
+		iter->_first->OnDisable();
+	}
+	for (auto iter = _sceneController.begin(); iter != _sceneController.end(); ++iter)
+	{
+		iter->_first->OnDisable();
+	}
+	Singleton<T>::OnDisable();
+}
+
+template <typename T>
 void Application<T>::Construct()
 {
 	Singleton<T>::Construct();
-
-
-
 	OnInit();
 }
 
@@ -38,6 +63,16 @@ void Application<T>::OnApplicationQuit()
 template <typename T>
 void Application<T>::Update()
 {
+	for (auto iter = _appSubSystem.begin(); iter != _appSubSystem.end(); ++iter)
+	{
+		iter->_second->DoUpdate();
+	}
+
+	if (_activeSceneController._first != nullptr)
+	{
+		_activeSceneController._second->DoUpdateManaged();
+	}
+
 	DoUpdate();
 }
 
@@ -70,9 +105,9 @@ template <typename T>
 template <typename U>
 void Application<T>::CreateAppSubSystem()
 {
-	Pair<BaseObject*, SceneControllerInterface*> newSubSystem;
-	newSubSystem._first = (U::Instance());
-	newSubSystem._second = (U::Instance());
+	Pair<BaseObject*, UpdatableInterface*> newSubSystem;
+	newSubSystem._first = U::Instance();
+	newSubSystem._second = U::Instance();
 	_appSubSystem.push_back(newSubSystem);
 }
 
@@ -85,10 +120,6 @@ std::string Application<T>::GetApplicationName()
 template <typename T>
 bool Application<T>::OnMessage(BaseObject* sender, const std::string& message)
 {
-	if (message == "")
-	{
-		return true;
-	}
 	for (auto iter = _appSubSystem.begin(); iter != _appSubSystem.end(); ++iter)
 	{
 		if (iter->_first->OnMessage(sender, message) == true)

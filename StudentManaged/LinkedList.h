@@ -21,7 +21,7 @@ public:
 
 public:
 	Iterator();
-	Iterator(Node<T>* pNode = nullptr);
+	Iterator(Node<T>* pNode);
 	~Iterator();
 
 public:

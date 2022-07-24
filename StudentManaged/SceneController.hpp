@@ -1,4 +1,5 @@
 #include "SceneController.h"
+#include "TokenSplit.h"
 
 template <typename T>
 void SceneController<T>::Construct()
@@ -9,7 +10,7 @@ void SceneController<T>::Construct()
 		BaseObject* pSceneSubSystem = (*iter)._first;
 		UpdatableInterface* pUpdatable = (*iter)._second;
 		pSceneSubSystem->Construct();
-		pUpdatable->OnSetSceneController(_sceneName);
+		pUpdatable->OnSetParentName(_sceneName);
 	}
 }
 
@@ -60,6 +61,12 @@ void SceneController<T>::OnDisable()
 }
 
 template <typename T>
+void SceneController<T>::OnSetApplicationName(const std::string& applicationName)
+{
+	_applicationName = applicationName;
+}
+
+template <typename T>
 std::string SceneController<T>::GetSceneName()
 {
 	return _sceneName;
@@ -68,14 +75,25 @@ std::string SceneController<T>::GetSceneName()
 template <typename T>
 bool SceneController<T>::OnMessage(BaseObject* sender, const std::string& message)
 {
-	switch (message)
+	LinkedList<std::string> onMessage;
+	std::string process;
+	std::string param;
+	Split(message, ":", onMessage);
+	if (onMessage.size() == 2)
 	{
-	default:
-		break;
+		process = (*onMessage.begin());
+		param = (*(++onMessage.begin()));
 	}
+
+	if (process == "OnSetApplicationName")
+	{
+		OnSetApplicationName(param);
+		return true;
+	}
+
 	for (auto iter = _sceneSubSystems.begin(); iter != _sceneSubSystems.end(); ++iter)
 	{
-		if (iter->_first->OnMessage(message) == true)
+		if (iter->_first->OnMessage(sender, message) == true)
 		{
 			return true;
 		}

@@ -3,6 +3,7 @@
 #include "AppSubSystem.h"
 #include "PacketAssist.h"
 #include "LinkedList.h"
+#include "enum.h"
 
 class Student;
 class Packet;
@@ -21,7 +22,19 @@ private:
 	unsigned __int64 AllocIndex();
 
 public:
+	void CreateDummy();
 	void CreateStudent(std::string name, LinkedList<Subject*>& subjectList);
+	bool DeleteStudnet(unsigned __int64 no);
+	void FindStudnet(std::string& name, LinkedList<unsigned __int64>& listno);
+	void SortStudent(bool totalAscending, LinkedList<unsigned __int64>& listno);
+	void Clear();
+
+public:
+	void GetIndexList(LinkedList<unsigned __int64>& studentIndexList);
+	std::string GetName(unsigned __int64 no);
+	short GetSubjectScore(unsigned __int64 no, ESubjectType type);
+	int GetTotalScore(unsigned __int64 no, LinkedList<ESubjectType>& subjects);
+	float GetAverage(unsigned __int64 no, LinkedList<ESubjectType>& subjects);
 
 public:
 	virtual void DoUpdate();

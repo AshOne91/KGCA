@@ -2,6 +2,7 @@
 #include <string>
 #include "Serialization.h"
 #include "LinkedList.h"
+#include "enum.h"
 
 class Subject;
 class Student sealed : public SerializableInterface 
@@ -14,6 +15,12 @@ private:
 public:
 	Student();
 	~Student();
+
+public:
+	unsigned __int64 GetIndex();
+	short GetSubjectScore(ESubjectType type);
+	short GetTotalScore();
+	std::string GetName();
 
 public:
 	void SetIndex(unsigned __int64 index);

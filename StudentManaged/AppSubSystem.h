@@ -24,7 +24,7 @@ public:
 	virtual void OnSetParentName(const std::string& name);
 
 public:
-	virtual bool OnMessage(BaseObject* sender, const std::string& message) = 0;
+	virtual bool OnMessage(BaseObject* sender, const std::string& message);
 };
 
 #include "AppSubSystem.hpp"

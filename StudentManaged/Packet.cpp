@@ -105,7 +105,7 @@ void Packet::Read(std::string* data)
 		char* temp = new char[size];
 		_ifs.read(temp, size);
 		(*data) = temp;
-		delete temp;
+		delete[] temp;
 	}
 }
 void Packet::Read(__int8* data)

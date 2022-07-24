@@ -1,41 +1,28 @@
 #include <iostream>
-#include <filesystem>
-#include "StudentManager.h"
+#include <Windows.h>
 #include "StudentManagedAppllication.h"
-#include "Subject.h"
+#include "StudentManager.h"
 
-/*class testSceneSubSystem : SceneSubSystem<testSceneSubSystem>
+/*BOOL CtrlHandler(DWORD fdwCtrlType)
 {
-public:  
-	void DoUpdate() {};
-
-public:
-	virtual bool OnMessage(BaseObject* sender, const std::string& message)
+	switch (fdwCtrlType)
 	{
-		return false;
+	case CTRL_CLOSE_EVENT:
+		StudentManagedApplication::Instance()->OnApplicationQuit();
+		break;
 	}
-};*/
+	return FALSE;
+}*/
 
 int main()
 {
-	std::string aa = std::filesystem::current_path().string();
-	aa += "\\Record.bin";
-	std::cout << aa;
-
-	StudentManager::Instance();
-	StudentManager::Instance()->Construct();
-	Subject* pSubject = new Subject();
-	pSubject->SetScore(100);
-	pSubject->SetType(ESubjectType::Korean);
-	Subject* pESubject = new Subject();
-	pESubject->SetScore(50);
-	pESubject->SetType(ESubjectType::English);
-	LinkedList<Subject*> list;
-	list.push_back(pSubject);
-	list.push_back(pESubject);
-	StudentManager::Instance()->CreateStudent("ksh", list);
-	StudentManager::Instance()->Destruct();
-	/*StudentManagedApplication::Instance()->Test = 1;
-	std::cout << StudentManagedApplication::Instance()->Test << std::endl;*/
-	//testSceneSubSystem test;
+	//SetConsoleCtrlHandler((PHANDLER_ROUTINE)CtrlHandler, TRUE);
+	StudentManagedApplication::Instance();
+	StudentManagedApplication::Instance()->Construct();
+	for (;;)
+	{
+		StudentManagedApplication::Instance()->Update();
+	}
+	StudentManagedApplication::Instance()->Destruct();
+	StudentManagedApplication::Instance()->OnApplicationQuit();
 }

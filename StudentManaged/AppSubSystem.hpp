@@ -1,4 +1,6 @@
 #include "AppSubSystem.h"
+#include "TokenSplit.h"
+#include "LinkedList.h"
 
 template <typename T>
 void AppSubSystem<T>::OnSetParentName(const std::string& name)
@@ -28,4 +30,25 @@ template <typename T>
 void AppSubSystem<T>::Destruct()
 {
 	Singleton<T>::Destruct();
+}
+
+template <typename T>
+bool AppSubSystem<T>::OnMessage(BaseObject* sender, const std::string& message)
+{
+	LinkedList<std::string> onMessage;
+	std::string process;
+	std::string param;
+	Split(message, ":", onMessage);
+	if (onMessage.size() == 2)
+	{
+		process = (*onMessage.begin());
+		param = (*(++onMessage.begin()));
+	}
+
+	if (process == "OnSetParentName")
+	{
+		OnSetParentName(param);
+		return true;
+	}
+	return false;
 }

@@ -24,6 +24,10 @@ public:
 	virtual ~Application();
 
 public:
+	virtual void OnEnable();
+	virtual void OnDisable();
+
+public:
 	virtual void Construct();
 	virtual void Destruct();
 
@@ -39,7 +43,7 @@ protected:
 	template <typename U>
 	void CreateAppSubSystem();
 
-private:
+public:
 	void OnApplicationQuit();
 
 protected:

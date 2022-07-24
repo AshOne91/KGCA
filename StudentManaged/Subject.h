@@ -1,20 +1,12 @@
 #pragma once
 #include <iostream>
 #include "Serialization.h"
-
-enum class ESubjectType : int
-{
-	None = 0,
-	Korean = 1,
-	English = 2,
-	Math = 3,
-	MAX = INT_MAX
-};
+#include "enum.h"
 
 class Subject sealed: public SerializableInterface
 {
 private:
-	ESubjectType _type = ESubjectType::None;
+	ESubjectType _type;
 	short _score = 0;
 
 public:

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <array>
 #include <vector>
+#include <string>
 
 class Array
 {
@@ -35,6 +36,17 @@ public:
 
 int main()
 {
+	std::string tesfft{ "fuckyou" };
+	switch (tesfft)
+	{
+	case "fuckyou":
+	{
+
+	}
+
+	default:
+		break;
+	}
 	Container* pContainer = new Container();
 	delete pContainer;
 	return 0;

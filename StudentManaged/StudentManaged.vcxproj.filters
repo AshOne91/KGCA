@@ -34,6 +34,12 @@
     <Filter Include="Main\Student">
       <UniqueIdentifier>{f1e581e3-4160-4936-8cd6-e398abfd1f7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{f3d2e59e-2425-4537-9f54-6b38c1053d3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{1dd7d8ac-b368-4116-bd4a-d1a242606bac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -87,16 +93,7 @@
     <ClInclude Include="StudentManagedAppllication.h">
       <Filter>Main\App</Filter>
     </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>Main\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="SceneEntry.h">
-      <Filter>Main\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneLoading.h">
-      <Filter>Main\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneList.h">
       <Filter>Main\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Subject.h">
@@ -117,6 +114,36 @@
     <ClInclude Include="PacketAssist.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="ConsoleManager.h">
+      <Filter>Main\Student</Filter>
+    </ClInclude>
+    <ClInclude Include="TokenSplit.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMain.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneCreate.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSave.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLoad.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDelete.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSort.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneFind.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -124,9 +151,6 @@
     </ClCompile>
     <ClCompile Include="BaseObject.cpp">
       <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneMain.cpp">
-      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="StudentManagedApplication.cpp">
       <Filter>Main\App</Filter>
@@ -145,6 +169,36 @@
     </ClCompile>
     <ClCompile Include="StudentManager.cpp">
       <Filter>Main\Student</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleManager.cpp">
+      <Filter>Main\Student</Filter>
+    </ClCompile>
+    <ClCompile Include="TokenSplit.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneEntry.cpp">
+      <Filter>Main\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMain.cpp">
+      <Filter>Main\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneCreate.cpp">
+      <Filter>Main\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSave.cpp">
+      <Filter>Main\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLoad.cpp">
+      <Filter>Main\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneDelete.cpp">
+      <Filter>Main\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSort.cpp">
+      <Filter>Main\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneFind.cpp">
+      <Filter>Main\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

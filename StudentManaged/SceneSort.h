@@ -1,14 +1,12 @@
 #pragma once
-#include  "SceneController.h"
+#include "SceneController.h"
+#include "enum.h"
 
-class SceneEntry : public SceneController<SceneEntry>
+class SceneSort : public SceneController<SceneSort>
 {
-private:
-	std::string _entryLogo;
-
 public:
-	SceneEntry();
-	virtual ~SceneEntry();
+	SceneSort();
+	virtual ~SceneSort();
 
 public:
 	virtual void Construct();

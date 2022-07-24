@@ -149,19 +149,25 @@
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="AppSubSystem.hpp" />
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="ConsoleManager.h" />
+    <ClInclude Include="enum.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="PacketAssist.h" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="Pair.hpp" />
-    <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneController.h" />
     <ClInclude Include="SceneController.hpp" />
     <ClInclude Include="Interface.h" />
+    <ClInclude Include="SceneCreate.h" />
+    <ClInclude Include="SceneDelete.h" />
     <ClInclude Include="SceneEntry.h" />
-    <ClInclude Include="SceneList.h" />
-    <ClInclude Include="SceneLoading.h" />
+    <ClInclude Include="SceneFind.h" />
+    <ClInclude Include="SceneLoad.h" />
+    <ClInclude Include="SceneMain.h" />
+    <ClInclude Include="SceneSave.h" />
+    <ClInclude Include="SceneSort.h" />
     <ClInclude Include="SceneSubSystem.h" />
     <ClInclude Include="SceneSubSystem.hpp" />
     <ClInclude Include="Serialization.h" />
@@ -172,17 +178,27 @@
     <ClInclude Include="StudentManagedAppllication.h" />
     <ClInclude Include="StudentManager.h" />
     <ClInclude Include="Subject.h" />
+    <ClInclude Include="TokenSplit.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="ConsoleManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="PacketAssist.cpp" />
+    <ClCompile Include="SceneCreate.cpp" />
+    <ClCompile Include="SceneDelete.cpp" />
+    <ClCompile Include="SceneEntry.cpp" />
+    <ClCompile Include="SceneFind.cpp" />
+    <ClCompile Include="SceneLoad.cpp" />
     <ClCompile Include="SceneMain.cpp" />
+    <ClCompile Include="SceneSave.cpp" />
+    <ClCompile Include="SceneSort.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="StudentManagedApplication.cpp" />
     <ClCompile Include="StudentManager.cpp" />
     <ClCompile Include="Subject.cpp" />
+    <ClCompile Include="TokenSplit.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

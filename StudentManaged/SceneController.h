@@ -9,6 +9,7 @@ template <typename T>
 class SceneController abstract : public Singleton<T>, public SceneControllerInterface
 {
 private:
+	std::string _applicationName;
 	std::string _sceneName;
 	LinkedList<Pair<BaseObject*, UpdatableInterface*>> _sceneSubSystems;
 
@@ -34,6 +35,9 @@ protected:
 	virtual void OnEnter() = 0;
 	virtual void OnLeave() = 0;
 	virtual void DoUpdate() = 0;
+
+public:
+	virtual void OnSetApplicationName(const std::string& applicationName);
 
 public:
 	std::string GetSceneName();
