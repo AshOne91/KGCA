@@ -16,6 +16,7 @@ ConsoleManager::~ConsoleManager()
 
 void ConsoleManager::Initial()
 {
+	system("mode con:cols=75 lines=60");
 	CONSOLE_CURSOR_INFO stConsoleCursor;
 	stConsoleCursor.bVisible = FALSE;
 	stConsoleCursor.dwSize = 1;
