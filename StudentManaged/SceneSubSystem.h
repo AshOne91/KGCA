@@ -17,7 +17,7 @@ public:
 	virtual void DoUpdate() = 0;
 
 public:
-	virtual void OnEnalbe();
+	virtual void OnEnable();
 	virtual void OnDisable();
 
 public:

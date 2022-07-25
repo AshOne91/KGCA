@@ -13,7 +13,7 @@ void SceneSubSystem<T>::OnSetParentName(const std::string& sceneControllerName)
 }
 
 template <typename T>
-void SceneSubSystem<T>::OnEnalbe()
+void SceneSubSystem<T>::OnEnable()
 {
 	Singleton<T>::OnEnable();
 }

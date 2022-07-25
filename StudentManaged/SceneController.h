@@ -28,8 +28,8 @@ protected:
 
 public:
 	void DoUpdateManaged();
-	void OnEnable();
-	void OnDisable();
+	virtual void OnEnable();
+	virtual void OnDisable();
 
 protected:
 	virtual void OnEnter() = 0;
