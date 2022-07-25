@@ -13,7 +13,7 @@ public:
 
 public:
 	Singleton() = default;
-	virtual ~Singleton()  = default;
+	virtual ~Singleton();
 
 public:
 	virtual void OnEnable();

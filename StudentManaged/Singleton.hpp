@@ -3,6 +3,12 @@
 template <typename T> T* Singleton<T>::_instance = nullptr;
 
 template <typename T>
+Singleton<T>::~Singleton()
+{
+	DestroyInstance();
+}
+
+template <typename T>
 T* Singleton<T>::Instance()
 {
 	if (_instance == nullptr)

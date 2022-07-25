@@ -10,7 +10,7 @@ class Packet;
 class Subject;
 class StudentManager : public AppSubSystem<StudentManager>, public PacketAssist
 {
-public:
+private:
 	static unsigned __int64 _AllocIndex;
 	LinkedList<Student*> _listStudent;
 

@@ -4,7 +4,7 @@
 class Packet;
 class PacketAssist abstract
 {
-public:
+private:
 	std::string _filePath;
 
 public:
