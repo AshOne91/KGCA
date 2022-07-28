@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Application&lt;T&gt;" Collapsed="true">
+    <Position X="4.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAFAAABAAgBAAAEAAGAAAACACEAwIQACAAAAACAA=</HashCode>
+      <FileName>Application.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AppSubSystem&lt;T&gt;" Collapsed="true">
+    <Position X="6.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAgAAIAAAAEAAAAAAAEAAIAACAAAAACAA=</HashCode>
+      <FileName>AppSubSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Node&lt;T&gt;" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAACEAAAEAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>LinkedList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Iterator&lt;T&gt;" Collapsed="true">
+    <Position X="13.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACAAAIAAAAAAQAEAAwAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>LinkedList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LinkedList&lt;T&gt;" Collapsed="true">
+    <Position X="13.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAGACABAIAAAAgIEIBAASAAAAAAAgAAAgAAIAAAA=</HashCode>
+      <FileName>LinkedList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pair&lt;T1, T2&gt;" Collapsed="true">
+    <Position X="13.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pair.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneControllerInterface" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UpdatableInterface" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Packet" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAQABAACAAAgAAAAAAAAIAAAAAEAACg=</HashCode>
+      <FileName>Packet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PacketAssist" Collapsed="true">
+    <Position X="10" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAACAAAAACBAAAQAAAAAACAAAAA=</HashCode>
+      <FileName>PacketAssist.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SerializableInterface" Collapsed="true">
+    <Position X="7.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Serialization.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StudentManagedApplication" Collapsed="true">
+    <Position X="4.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAABAAAAAAEAAAAAAAEAQAAAAAAAAAAAA=</HashCode>
+      <FileName>StudentManagedAppllication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneCreate" Collapsed="true">
+    <Position X="13.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAgAAAAAAAEBAAAAAAEAgAAIAAAAAAgAA=</HashCode>
+      <FileName>SceneCreate.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneDelete" Collapsed="true">
+    <Position X="5.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAEBAAAAAAEAAAAIAQAAAAAAg=</HashCode>
+      <FileName>SceneDelete.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneEntry" Collapsed="true">
+    <Position X="8.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAgAAAAAAAEBAAAAAAEBAABIAAAAAAAAA=</HashCode>
+      <FileName>SceneEntry.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneFind" Collapsed="true">
+    <Position X="2.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAEEBAAAAAAEAAAAIAAAACAAAA=</HashCode>
+      <FileName>SceneFind.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneLoad" Collapsed="true">
+    <Position X="10" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAgAAAAAAAEBAAAAAAEAAAAICAAAAAAAA=</HashCode>
+      <FileName>SceneLoad.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneMain" Collapsed="true">
+    <Position X="6.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAiAAAAAAAEBgAAAAAEAAAAIACAAAAAAA=</HashCode>
+      <FileName>SceneMain.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneSave" Collapsed="true">
+    <Position X="8.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAGBAAAAAEEAAAAIAAAAAAAAA=</HashCode>
+      <FileName>SceneSave.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneSort" Collapsed="true">
+    <Position X="11.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAgAAAAAAAEBAAAAAAEAAAAIAAAAAAEAA=</HashCode>
+      <FileName>SceneSort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleManager" Collapsed="true">
+    <Position X="10" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAgAQAAAAAAiQBAQAAAGASAEABAMAAIAACAAAgICEA=</HashCode>
+      <FileName>ConsoleManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Student" Collapsed="true">
+    <Position X="4.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAIAAAYAAAAAAQBAEgAAAAACBAAAAAAAAAQAAADAA=</HashCode>
+      <FileName>Student.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StudentManager" Collapsed="true">
+    <Position X="11.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAEIAAEoAAAAAAAMEAIACBAEABIgACAAAFADII=</HashCode>
+      <FileName>StudentManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Subject" Collapsed="true">
+    <Position X="6.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAgQAAIAAAAAAACBAAAEQAAgAgAAAAAA=</HashCode>
+      <FileName>Subject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseObject" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAgQAAAAAAAEAAIAACAAAAACAA=</HashCode>
+      <FileName>BaseObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Singleton&lt;T&gt;" Collapsed="true">
+    <Position X="4.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAgAAAACCAAAAAAAAAEAEIQACAAAAACAA=</HashCode>
+      <FileName>Singleton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneController&lt;T&gt;" Collapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GAAAAAAAAQAAgCAAAEAAEBAAAACAkAAIAICQAAAACAA=</HashCode>
+      <FileName>SceneController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneSubSystem&lt;T&gt;" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAIAAAAEAIAAAAAEAAIAAAAACAAGAA=</HashCode>
+      <FileName>SceneSubSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ESubjectType" Collapsed="true">
+    <Position X="13.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAQAAEAAEA=</HashCode>
+      <FileName>enum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EStudentManaged" Collapsed="true">
+    <Position X="13.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAQAAAAAAEIAEAAAAAAAAEAAAA=</HashCode>
+      <FileName>enum.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EIOType" Collapsed="true">
+    <Position X="13.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Packet.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
