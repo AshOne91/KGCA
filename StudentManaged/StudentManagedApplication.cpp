@@ -33,6 +33,7 @@ void StudentManagedApplication::OnInit()
 	CreateScene<SceneEntry>();
 	CreateScene<SceneMain>();
 	CreateScene<SceneCreate>();
+	CreateScene<SceneDelete>();
 	CreateScene<SceneSave>();
 	CreateScene<SceneLoad>();
 	CreateScene<SceneSort>();
@@ -40,6 +41,7 @@ void StudentManagedApplication::OnInit()
 	SceneEntry::Instance()->Construct();
 	SceneMain::Instance()->Construct();
 	SceneCreate::Instance()->Construct();
+	SceneDelete::Instance()->Construct();
 	SceneSave::Instance()->Construct();
 	SceneLoad::Instance()->Construct();
 	SceneSort::Instance()->Construct();
