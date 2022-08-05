@@ -2,6 +2,7 @@
 #include <array>
 #include <vector>
 #include <string>
+#include <map>
 
 class Array
 {
@@ -36,19 +37,20 @@ public:
 
 int main()
 {
-	std::string tesfft{ "fuckyou" };
-	switch (tesfft)
-	{
-	case "fuckyou":
-	{
-
-	}
-
-	default:
-		break;
-	}
-	Container* pContainer = new Container();
+	/*Container* pContainer = new Container();
 	delete pContainer;
+	return 0;*/
+
+	std::string test = { "Å×½ºÆ®" };
+	std::cout << test.size() << std::endl;
+	std::cout << test.length() << std::endl;
+
+	std::map<std::string, int> te;
+	te["È«±æµ¿"] = 1;
+	te["°¨ÀÚÈ«"] = 2;
+	te["È«±æµ¿"] = 3;
+
+	te.emplace( "È«±æµ¿", 4 );
 	return 0;
 
 	/*Array* pTest = dynamic_cast<Array*>(pContainer);
