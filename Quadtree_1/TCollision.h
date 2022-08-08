@@ -52,6 +52,8 @@ struct TRect : Rect
         this->_h = h;
         _x2 = x + w;
         _y2 = y + h;
+        _cx = (x + _x2) / 2.0f;
+        _cy = (y + _y2) / 2.0f;
     }
 };
 
