@@ -9,12 +9,16 @@ public:
     float _y;
     float _w;
     float _h;
+    void SetPosition(float x, float y, float w, float h)
+    {
+        _x = x;
+        _y = y;
+        _w = w;
+        _h = h;
+    }
     TObject()
     {
-        _x = rand() % 100;
-        _y = rand() % 100;
-        _w = 2.0f + (rand() % 10);
-        _h = 2.0f + (rand() % 10);
+
     }
 };
 class TNode
@@ -55,20 +59,123 @@ class TQuadtree
 public:
     TNode* _pRootNode;
 public:
+    std::vector<TObject*> Collision(TObject* pObj);
     void Create(float width, float height);
     TNode* CreateNode(TNode* pParent,
         float fPosX, float fPosY, float fWidth, float fHeight);
     void Buildtree(TNode* pNode);
     void AddObject(TObject* pObj);
     TNode* FindNode(TNode* pNode, TObject* pObj);
-    bool RectToRect(TNode* pNode, TObject* pObj);
+    bool RectToInRect(TNode* pNode, TObject* pObj);
+    int RectToRect(TNode* pNode, TObject* pObj);
+    int RectToRect(TObject* pDestObj, TObject* pSrcObj);
+    void GetCollisionObject(TNode* pNode, TObject* pObj, std::vector<TObject*>&);
     ~TQuadtree()
     {
         delete _pRootNode;
     }
 };
+int TQuadtree::RectToRect(TObject* pDestObj, TObject* pSrcObj)
+{
+    // 0 완전제외(0)
+    // 1 완전포함(1) -> 걸쳐져 있는 상태(2)
+    // x1(10)----30----x2(40)
+    float x1 = pDestObj->_x;
+    float y1 = pDestObj->_y;
+    float x2 = pDestObj->_x + pDestObj->_w;
+    float y2 = pDestObj->_y + pDestObj->_h;
 
-bool TQuadtree::RectToRect(TNode* pNode, TObject* pObj)
+    float z1 = pSrcObj->_x;
+    float w1 = pSrcObj->_y;
+    float z2 = pSrcObj->_x + pSrcObj->_w;
+    float w2 = pSrcObj->_y + pSrcObj->_h;
+
+    // 합집합
+    float fMinX; float fMinY;
+    float fMaxX; float fMaxY;
+    fMinX = x1 < z1 ? x1 : z1;
+    fMinY = y1 < w1 ? y1 : w1;
+    fMaxX = x2 < z2 ? x2 : z2;
+    fMaxY = y2 < w2 ? y2 : w2;
+
+    // 가로 판정
+    if ((pDestObj->_w + pSrcObj->_w) > (fMaxX - fMinX))
+    {
+        //세로 판정
+        if ((pDestObj->_h + pSrcObj->_h) > (fMaxY - fMinY))
+        {
+            //교차한다.// 교집합
+            return 1;
+        }
+    }
+    return 0;
+}
+int TQuadtree::RectToRect(TNode* pNode, TObject* pObj)
+{
+    // 0 완전제외(0)
+    // 1 완전포함(1) -> 걸쳐져 있는 상태(2)
+    // x1(10)----30----x2(40)
+    float x1 = pNode->_x;
+    float y1 = pNode->_y;
+    float x2 = pNode->_x + pNode->_w;
+    float y2 = pNode->_y + pNode->_h;
+
+    float z1 = pObj->_x;
+    float w1 = pObj->_y;
+    float z2 = pObj->_x + pObj->_w;
+    float w2 = pObj->_y + pObj->_h;
+
+    // 합집합
+    float fMinX; float fMinY;
+    float fMaxX; float fMaxY;
+    fMinX = x1 < z1 ? x1 : z1;
+    fMinY = y1 < w1 ? y1 : w1;
+    fMaxX = x2 > z2 ? x2 : z2;
+    fMaxY = y2 > w2 ? y2 : w2;
+
+    // 가로 판정
+    if ((pNode->_w + pObj->_w) > (fMaxX - fMinX))
+    {
+        //세로 판정
+        if ((pNode->_h + pObj->_h) > (fMaxY - fMinY))
+        {
+            //교차한다.// 교집합
+            return 1;
+        }
+    }
+
+    return 0;
+}
+std::vector<TObject*> TQuadtree::Collision(TObject* pObj)
+{
+    std::vector<TObject*> list;
+    GetCollisionObject(_pRootNode, pObj, list);
+    return list;
+}
+void TQuadtree::GetCollisionObject(TNode* pNode, TObject* pSrcObject, std::vector<TObject*>& list)
+{
+    if (pNode == nullptr) return;
+    for (int iObj = 0; iObj < pNode->_objectList.size(); ++iObj)
+    {
+        //노드 교차여부
+        if (RectToRect(pNode->_objectList[iObj], pSrcObject))
+        {
+            list.push_back(_pRootNode->_objectList[iObj]);
+        }
+    }
+    if (pNode->_pChild[0] != nullptr)
+    {
+        for (int iChild = 0; iChild < 4; iChild++)
+        {
+            //노드 교차여부(걸쳐져만 있어도)
+            if (RectToRect(pNode->_pChild[iChild], pSrcObject))
+            {
+                GetCollisionObject(pNode->_pChild[iChild], pSrcObject, list);
+            }
+        }
+    }
+}
+bool TQuadtree::RectToInRect(TNode* pNode, TObject* pObj)
 {
     if (pNode->_x <= pObj->_x)
     {
@@ -111,7 +218,7 @@ TNode* TQuadtree::FindNode(TNode* pNode, TObject* pObj)
         {
             if (pNode->_pChild[iNode] != nullptr)
             {
-                bool bIn = RectToRect(pNode->_pChild[iNode], pObj);
+                bool bIn = RectToInRect(pNode->_pChild[iNode], pObj);
                 if (bIn > 0)
                 {
                     g_Queue.push(pNode->_pChild[iNode]);
@@ -164,6 +271,8 @@ TNode* TQuadtree::CreateNode(TNode* pParent,
 }
 int main()
 {
+    TObject player;
+    player.SetPosition(40, 60, 10, 10);
     TQuadtree quadtree;
     quadtree.Create(100.0f, 100.0f);
     for (int i = 0; i < 10; ++i)
@@ -171,10 +280,21 @@ int main()
         TObject* pObj = new TObject;
         quadtree.AddObject(pObj);
     }
-    while (true)
+    //TNode* pNodePlayer = quadtree.FindNode(quadtree._pRootNode, &player);
+    std::vector<TObject*> list = quadtree.Collision(&player);
+    if (!list.empty())
     {
-        //quadtree.MoveObject();
+        for (int iObj = 0; iObj < list.size(); iObj++)
+        {
+            std::cout << pNodePlayer->_objectList[iObj]->_x 
+                << pNodePlayer->_objectList[iObj]->_y << std::endl;
+        }
     }
+
+    //while (true)
+    //{
+        //quadtree.MoveObject();
+    //}
     //화면좌표계
     //0,0 -> x   50,0       100(x), 0(y)
     //|     0           1
