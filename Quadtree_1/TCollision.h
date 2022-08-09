@@ -16,6 +16,19 @@ struct Rect
     float _w;
     float _h;
 };
+struct TCircle
+{
+    float cx;
+    float cy;
+    float fRadius;
+    TCircle() {};
+    TCircle(float x, float y, float r)
+    {
+        cx = x;
+        cy = y;
+        fRadius = r;
+    };
+};
 struct TRect : Rect
 {
     float _x2; // x + w;
@@ -62,4 +75,5 @@ class TCollision
 public:
     static TCollisionType RectToRect(TRect& a, TRect& b);
     static bool           RectToInRect(TRect& a, TRect& b);
+    static bool           CircleToCircle(TCircle& a, TCircle& b);
 };

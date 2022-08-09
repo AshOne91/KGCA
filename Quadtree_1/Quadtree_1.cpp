@@ -4,9 +4,19 @@ class TObject
 {
 public:
     TRect _rt;
+    TCircle _circle;
+    void SetCircle(float x, float y, float w, float h)
+    {
+        _circle.cx = x;
+        _circle.cy = y;
+        float tempX = w / 2.0f;
+        float tempY = h/ 2.0f;
+        _circle.fRadius = sqrt(tempX * tempX + tempY * tempY);
+    }
     void SetPosition(float x, float y, float w, float h)
     {
         _rt.Set(x, y, w, h);
+        SetCircle(_rt._cx, _rt._cy, _rt._w, _rt._h);
     }
     TObject()
     {
@@ -73,10 +83,13 @@ void TQuadtree::GetCollisionObject(TNode* pNode, TObject* pSrcObject, std::vecto
     if (pNode == nullptr) return;
     for (int iObj = 0; iObj < pNode->_objectList.size(); ++iObj)
     {
-        //노드 교차여부
-        if (TCollision::RectToRect(pNode->_objectList[iObj]->_rt, pSrcObject->_rt))
+        if (TCollision::CircleToCircle(pNode->_objectList[iObj]->_circle, pSrcObject->_circle))
         {
-            list.push_back(_pRootNode->_objectList[iObj]);
+            //노드 교차여부
+            if (TCollision::RectToRect(pNode->_objectList[iObj]->_rt, pSrcObject->_rt))
+            {
+                list.push_back(_pRootNode->_objectList[iObj]);
+            }
         }
     }
     if (pNode->_pChild[0] != nullptr)
@@ -178,6 +191,9 @@ int main()
     {
         TObject* pObj = new TObject;
         quadtree.AddObject(pObj);
+        float x = player._rt._x - pObj->_rt._x;
+        float y = player._rt._y - pObj->_rt._y;
+        float fDistance = sqrt(x * x + y * y);
     }
     //TNode* pNodePlayer = quadtree.FindNode(quadtree._pRootNode, &player);
     std::vector<TObject*> list = quadtree.Collision(&player);
