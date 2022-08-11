@@ -1,10 +1,12 @@
 #include "TCollision.h"
+#include "TVector.h"
 std::queue<TNode*> g_Queue;
 class TObject
 {
 public:
     TRect _rt;
     TCircle _circle;
+    TVector2D _vDirection;
     void SetCircle(float x, float y, float w, float h)
     {
         _circle.cx = x;
@@ -20,7 +22,15 @@ public:
     }
     TObject()
     {
-        _rt.Set(20 + (rand() % 80), 20 + (rand() % 80), 10, 10);
+        _rt.Set(20 + (rand() % 80), 20 + (rand() % 80), 5.0f + (rand() % 5), 5.0f + (rand() % 5));
+        _vDirection.x = cos(rand());
+        _vDirection.y = sin(rand());
+        _vDirection.Normalized();
+    }
+
+    void Frame()
+    {
+
     }
 };
 class TNode
@@ -28,7 +38,8 @@ class TNode
 public:
     TRect _rt;
     int _depth;
-    std::vector<TObject*> _objectList;
+    std::vector<TObject*> _objectStaticlist;
+    std::vector<TObject*> _objectDynamiclist;
     TNode* _pChild[4];
     TNode* _pParent;
 public:
@@ -63,7 +74,8 @@ public:
     TNode* CreateNode(TNode* pParent,
         float fPosX, float fPosY, float fWidth, float fHeight);
     void Buildtree(TNode* pNode);
-    void AddObject(TObject* pObj);
+    void AddStaticObject(TObject* pObj);
+    void AddDynamicObject(TObject* pObj);
     TNode* FindNode(TNode* pNode, TObject* pObj);
     void GetCollisionObject(TNode* pNode, TObject* pObj, std::vector<TObject*>&);
     ~TQuadtree()
@@ -206,6 +218,9 @@ int main()
         }
     }
 
+    TVector2D vPos(player._rt._x, player._rt._y);
+    TVector2D vTmp = player._vDirection * 1.0f;
+    vPos = vPos + vTmp;
     //while (true)
     //{
         //quadtree.MoveObject();
@@ -216,5 +231,7 @@ int main()
     //y 0,50    50,50       100,50
     //      2           3
     //0, 100    50,100      100, 100
+
+    quadtree.AddStaticObject
     std::cout << "Hello World!\n";
 }
