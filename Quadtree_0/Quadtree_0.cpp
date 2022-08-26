@@ -271,8 +271,8 @@ TNode* TQuadtree::CreateNode(TNode* pParent,
 }
 int main()
 {
-    TObject player;
-    player.SetPosition(40, 60, 10, 10);
+    TObject m_player;
+    m_player.SetPosition(40, 60, 10, 10);
     TQuadtree quadtree;
     quadtree.Create(100.0f, 100.0f);
     for (int i = 0; i < 10; ++i)
@@ -280,14 +280,14 @@ int main()
         TObject* pObj = new TObject;
         quadtree.AddObject(pObj);
     }
-    //TNode* pNodePlayer = quadtree.FindNode(quadtree._pRootNode, &player);
-    std::vector<TObject*> list = quadtree.Collision(&player);
+    //TNode* pNodem_player = quadtree.FindNode(quadtree._pRootNode, &m_player);
+    std::vector<TObject*> list = quadtree.Collision(&m_player);
     if (!list.empty())
     {
         for (int iObj = 0; iObj < list.size(); iObj++)
         {
-            std::cout << pNodePlayer->_objectList[iObj]->_x 
-                << pNodePlayer->_objectList[iObj]->_y << std::endl;
+            std::cout << pNodem_player->_objectList[iObj]->_x 
+                << pNodem_player->_objectList[iObj]->_y << std::endl;
         }
     }
 

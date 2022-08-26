@@ -195,20 +195,20 @@ TNode* TQuadtree::CreateNode(TNode* pParent,
 }
 int main()
 {
-    TObject player;
-    player.SetPosition(40, 60, 10, 10);
+    TObject m_player;
+    m_player.SetPosition(40, 60, 10, 10);
     TQuadtree quadtree;
     quadtree.Create(100.0f, 100.0f);
     for (int i = 0; i < 10; ++i)
     {
         TObject* pObj = new TObject;
         quadtree.AddObject(pObj);
-        float x = player._rt._x - pObj->_rt._x;
-        float y = player._rt._y - pObj->_rt._y;
+        float x = m_player._rt._x - pObj->_rt._x;
+        float y = m_player._rt._y - pObj->_rt._y;
         float fDistance = sqrt(x * x + y * y);
     }
-    //TNode* pNodePlayer = quadtree.FindNode(quadtree._pRootNode, &player);
-    std::vector<TObject*> list = quadtree.Collision(&player);
+    //TNode* pNodem_player = quadtree.FindNode(quadtree._pRootNode, &m_player);
+    std::vector<TObject*> list = quadtree.Collision(&m_player);
     if (!list.empty())
     {
         for (int iObj = 0; iObj < list.size(); iObj++)
@@ -218,8 +218,8 @@ int main()
         }
     }
 
-    TVector2D vPos(player._rt._x, player._rt._y);
-    TVector2D vTmp = player._vDirection * 1.0f;
+    TVector2D vPos(m_player._rt._x, m_player._rt._y);
+    TVector2D vTmp = m_player._vDirection * 1.0f;
     vPos = vPos + vTmp;
     //while (true)
     //{

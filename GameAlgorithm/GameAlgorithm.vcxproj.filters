@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="FrameWork">
+      <UniqueIdentifier>{1432026f-adbc-4b5d-a72b-95d496b0d565}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWork\Common">
+      <UniqueIdentifier>{dc038c2b-d318-4f9f-81e9-27f802460155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWork\Game">
+      <UniqueIdentifier>{3f6f6b05-ae65-4be0-9ba8-c088ff6bf474}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>FrameWork\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleManager.cpp">
+      <Filter>FrameWork\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application.h">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.hpp">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="AppSubSystem.h">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="AppSubSystem.hpp">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleManager.h">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneController.h">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneController.hpp">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSubSystem.h">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSubSystem.hpp">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Serialization.h">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.hpp">
+      <Filter>FrameWork\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Collison.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

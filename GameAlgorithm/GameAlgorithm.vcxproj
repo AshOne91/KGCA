@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ff608017-83c7-44f9-bcb2-fe2473e21aab}</ProjectGuid>
-    <RootNamespace>StudentManaged</RootNamespace>
+    <ProjectGuid>{9bb63f9b-d4ee-45dd-a3b4-0a1e0720d68f}</ProjectGuid>
+    <RootNamespace>GameAlgorithm</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -72,19 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>../../output/Debug/GameAlgorithm</OutDir>
+    <IntDir>../../output/Debug/GameAlgorithm</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>../../output/Release/GameAlgorithm</OutDir>
+    <IntDir>../../output/Release/GameAlgorithm</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>../../output/Debug/</OutDir>
-    <IntDir>../../output/Debug/StudentManaged</IntDir>
+    <OutDir>../../output/Debug/GameAlgorithm</OutDir>
+    <IntDir>../../output/Debug/GameAlgorithm</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>../../output/Release/</OutDir>
-    <IntDir>../../output/Release/StudentManaged</IntDir>
+    <OutDir>../../output/Release/GameAlgorithm</OutDir>
+    <IntDir>../../output/Release/GameAlgorithm</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,7 +96,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,7 +124,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,7 +138,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,63 +147,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="ConsoleManager.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Vector.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Application.hpp" />
+    <ClInclude Include="AppSubSystem.h" />
     <ClInclude Include="AppSubSystem.hpp" />
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="Collison.h" />
     <ClInclude Include="ConsoleManager.h" />
-    <ClInclude Include="enum.h" />
-    <ClInclude Include="LinkedList.h" />
-    <ClInclude Include="LinkedList.hpp" />
-    <ClInclude Include="Packet.h" />
-    <ClInclude Include="PacketAssist.h" />
-    <ClInclude Include="Pair.h" />
-    <ClInclude Include="Pair.hpp" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="SceneController.h" />
     <ClInclude Include="SceneController.hpp" />
-    <ClInclude Include="Interface.h" />
-    <ClInclude Include="SceneCreate.h" />
-    <ClInclude Include="SceneDelete.h" />
-    <ClInclude Include="SceneEntry.h" />
-    <ClInclude Include="SceneFind.h" />
-    <ClInclude Include="SceneLoad.h" />
-    <ClInclude Include="SceneMain.h" />
-    <ClInclude Include="SceneSave.h" />
-    <ClInclude Include="SceneSort.h" />
     <ClInclude Include="SceneSubSystem.h" />
     <ClInclude Include="SceneSubSystem.hpp" />
     <ClInclude Include="Serialization.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Singleton.hpp" />
-    <ClInclude Include="AppSubSystem.h" />
-    <ClInclude Include="Student.h" />
-    <ClInclude Include="StudentManagedAppllication.h" />
-    <ClInclude Include="StudentManager.h" />
-    <ClInclude Include="Subject.h" />
-    <ClInclude Include="TokenSplit.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="BaseObject.cpp" />
-    <ClCompile Include="ConsoleManager.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Packet.cpp" />
-    <ClCompile Include="PacketAssist.cpp" />
-    <ClCompile Include="SceneCreate.cpp" />
-    <ClCompile Include="SceneDelete.cpp" />
-    <ClCompile Include="SceneEntry.cpp" />
-    <ClCompile Include="SceneFind.cpp" />
-    <ClCompile Include="SceneLoad.cpp" />
-    <ClCompile Include="SceneMain.cpp" />
-    <ClCompile Include="SceneSave.cpp" />
-    <ClCompile Include="SceneSort.cpp" />
-    <ClCompile Include="Student.cpp" />
-    <ClCompile Include="StudentManagedApplication.cpp" />
-    <ClCompile Include="StudentManager.cpp" />
-    <ClCompile Include="Subject.cpp" />
-    <ClCompile Include="TokenSplit.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

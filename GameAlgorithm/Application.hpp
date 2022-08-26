@@ -21,20 +21,12 @@ void Application<T>::OnEnable()
 	{
 		iter->_first->OnEnable();
 	}
-	/*for (auto iter = _sceneController.begin(); iter != _sceneController.end(); ++iter)
-	{
-		iter->_first->OnEnable();
-	}*/
 }
 
 template <typename T>
 void Application<T>::OnDisable()
 {
 	for (auto iter = _appSubSystem.begin(); iter != _appSubSystem.end(); ++iter)
-	{
-		iter->_first->OnDisable();
-	}
-	for (auto iter = _sceneController.begin(); iter != _sceneController.end(); ++iter)
 	{
 		iter->_first->OnDisable();
 	}
