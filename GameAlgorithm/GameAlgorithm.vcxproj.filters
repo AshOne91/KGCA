@@ -36,6 +36,21 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Collison.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SpacePartition.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Octree.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -71,9 +86,6 @@
     <ClInclude Include="SceneSubSystem.hpp">
       <Filter>FrameWork\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Serialization.h">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>FrameWork\Common</Filter>
     </ClInclude>
@@ -84,6 +96,21 @@
       <Filter>FrameWork\Game</Filter>
     </ClInclude>
     <ClInclude Include="Collison.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SpacePartition.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Octree.h">
       <Filter>FrameWork\Game</Filter>
     </ClInclude>
   </ItemGroup>

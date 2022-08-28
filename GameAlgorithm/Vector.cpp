@@ -45,7 +45,20 @@ float Vector2D::LengthSq() const
 	return length;
 }
 
-float Vector2D::Distance(const Vector2D& vector)
+float Vector2D::Distance(const Vector2D& vector1, const Vector2D& vector2)
+{
+	auto distance = sqrtf(DistanceSq(vector1, vector2));
+	return distance;
+}
+
+float Vector2D::DistanceSq(const Vector2D& vector1, const Vector2D& vector2)
+{
+	auto dx = vector1.x - vector2.x;
+	auto dy = vector1.y - vector2.y;
+	return (dx * dx + dy * dy);
+}
+
+/*float Vector2D::Distance(const Vector2D& vector)
 {
 	auto distance = sqrtf(DistanceSq(vector));
 	return distance;
@@ -56,7 +69,7 @@ float Vector2D::DistanceSq(const Vector2D& vector)
 	auto dx = x - vector.x;
 	auto dy = y - vector.y;
 	return (dx * dx + dy * dy);
-}
+}*/
 
 void Vector2D::Normalize()
 {
@@ -117,6 +130,13 @@ Vector2D Vector2D::operator/(float scala)
 	return Vector2D(x / scala, y / scala);
 }
 
+Vector2D& Vector2D::operator=(const Vector2D& vector)
+{
+	this->x = vector.x;
+	this->y = vector.y;
+	return *this;
+}
+
 Vector2D& Vector2D::operator*=(float scala)
 {
 	x *= scala;
@@ -147,9 +167,9 @@ Vector2D& Vector2D::operator /= (const Vector2D& vector)
 
 bool Vector2D::operator==(const Vector2D& vector)
 {
-	if (fabs(x - vector.x) < Epsilon)
+	if (fabsf(x - vector.x) < Epsilon)
 	{
-		if (fabs(y - vector.y) < Epsilon)
+		if (fabsf(y - vector.y) < Epsilon)
 		{
 			return true;
 		}
@@ -159,9 +179,9 @@ bool Vector2D::operator==(const Vector2D& vector)
 
 bool Vector2D::operator>(const Vector2D& vector)
 {
-	if (fabs(x - vector.x) > Epsilon)
+	if (fabsf(x - vector.x) > Epsilon)
 	{
-		if (fabs(y - vector.y) > Epsilon)
+		if (fabsf(y - vector.y) > Epsilon)
 		{
 			return true;
 		}
@@ -171,9 +191,9 @@ bool Vector2D::operator>(const Vector2D& vector)
 
 bool Vector2D::operator<(const Vector2D& vector)
 {
-	if (fabs(x - vector.x) < Epsilon)
+	if (fabsf(x - vector.x) < Epsilon)
 	{
-		if (fabs(y - vector.y) < Epsilon)
+		if (fabsf(y - vector.y) < Epsilon)
 		{
 			return true;
 		}
@@ -183,9 +203,9 @@ bool Vector2D::operator<(const Vector2D& vector)
 
 bool Vector2D::operator>=(const Vector2D& vector)
 {
-	if (fabs(x - vector.x) >= Epsilon)
+	if (fabsf(x - vector.x) >= Epsilon)
 	{
-		if (fabs(y - vector.y) >= Epsilon)
+		if (fabsf(y - vector.y) >= Epsilon)
 		{
 			return true;
 		}
@@ -195,9 +215,9 @@ bool Vector2D::operator>=(const Vector2D& vector)
 
 bool Vector2D::operator<=(const Vector2D& vector)
 {
-	if (fabs(x - vector.x) <= Epsilon)
+	if (fabsf(x - vector.x) <= Epsilon)
 	{
-		if (fabs(y - vector.y) <= Epsilon)
+		if (fabsf(y - vector.y) <= Epsilon)
 		{
 			return true;
 		}
@@ -207,140 +227,266 @@ bool Vector2D::operator<=(const Vector2D& vector)
 
 Vector3D::Vector3D()
 {
+	x = y = z = 0.0f;
 }
 
-Vector3D::Vector3D(float x, float y)
+Vector3D::Vector3D(float x, float y, float z)
 {
+	v[0] = x;
+	v[1] = y;
+	v[2] = z;
 }
 
 Vector3D::Vector3D(const Vector3D& vector)
 {
+	x = vector.x;
+	y = vector.y;
+	z = vector.z;
 }
 
 void Vector3D::Zero()
 {
+	x = 0.0f;
+	y = 0.0f;
+	z = 0.0f;
 }
 
 bool Vector3D::IsZero()
 {
+	if (x == 0.0f && y == 0.0f && z == 0.0f)
+	{
+		return true;
+	}
 	return false;
 }
 
-float Vector3D::Length()
+float Vector3D::Length() const
 {
-	return 0.0f;
+	auto length = sqrtf(LengthSq());
+	return sqrt(LengthSq());
 }
 
-float Vector3D::LengthSq()
+float Vector3D::LengthSq() const
 {
-	return 0.0f;
+	auto length = x * x + y * y + z * z;
+	return length;
 }
 
-float Vector3D::Distance(const Vector3D& vector)
+float Vector3D::Distance(const Vector3D& vector1, const Vector3D& vector2)
 {
-	return 0.0f;
+	auto distance = sqrtf(DistanceSq(vector1, vector2));
+	return distance;
+}
+
+float Vector3D::DistanceSq(const Vector3D& vector1, const Vector3D& vector2)
+{
+	auto dx = vector1.x - vector2.x;
+	auto dy = vector1.y - vector2.y;
+	auto dz = vector1.z - vector2.z;
+	return (dx * dx + dy * dy + dz * dz);
+}
+
+/*float Vector3D::Distance(const Vector3D& vector)
+{
+	auto distance = sqrtf(DistanceSq(vector));
+	return distance;
 }
 
 float Vector3D::DistanceSq(const Vector3D& vector)
 {
-	return 0.0f;
-}
+	auto dx = x - vector.x;
+	auto dy = y - vector.y;
+	auto dz = z - vector.z;
+	return (dx * dx + dy * dy);
+}*/
 
 void Vector3D::Normalize()
 {
+	auto invertLength = Length();
+	if (invertLength != 0.0f)
+	{
+		invertLength = 1.0f / invertLength;
+		x = x * invertLength;
+		y = y * invertLength;
+		z = z * invertLength;
+	}
 }
 
 Vector3D Vector3D::Identity()
 {
-	return Vector3D();
+	auto result = *this;
+	auto invertLength = Length();
+	if (invertLength != 0.0f)
+	{
+		invertLength = 1.0f / invertLength;
+		result.x = result.x * invertLength;
+		result.y = result.y * invertLength;
+		result.z = result.z * invertLength;
+	}
+	return result;
 }
 
 float Vector3D::Dot(const Vector3D& vector) const
 {
-	return 0.0f;
+	return x * vector.x + y * vector.y + z * vector.z;
 }
 
 Vector3D Vector3D::Cross(const Vector3D& vector) const
 {
-	return Vector3D();
+	return Vector3D(y * vector.z - z * vector.y, z * vector.x - x * vector.z, x * vector.y - y * vector.x);
 }
 
 float Vector3D::GetRadianBetweenVectorDot(const Vector3D& vector)
 {
-	return 0.0f;
+	return acosf(Dot(vector) / (Length() * vector.Length()));
 }
 
 float Vector3D::GetRadianBetweenVectorCross(const Vector3D& vector)
 {
-	return 0.0f;
+	return asinf(Cross(vector).Length() / (Length() * vector.Length()));
 }
 
 float Vector3D::GetDegreeBetweenVectorDot(const Vector3D& vector)
 {
-	return 0.0f;
+	return RadianToDegree(GetRadianBetweenVectorDot(vector));
 }
 
 float Vector3D::GetDegreeBetweenVectorCross(const Vector3D& vector)
 {
-	return 0.0f;
+	return RadianToDegree(GetRadianBetweenVectorCross(vector));
 }
 
 Vector3D Vector3D::operator+(const Vector3D& vector)
 {
-	return Vector3D();
+	return Vector3D(x + vector.x, y + vector.y, z + vector.z);
 }
 
 Vector3D Vector3D::operator-(const Vector3D& vector)
 {
-	return Vector3D();
+	return Vector3D(x - vector.x, y - vector.y, z - vector.z);
 }
 
 Vector3D Vector3D::operator*(float scala)
 {
-	return Vector3D();
+	return Vector3D(x * scala,y * scala, z * scala);
 }
 
 Vector3D Vector3D::operator/(float scala)
 {
-	return Vector3D();
+	return Vector3D(x / scala, y / scala, z / scala);
 }
 
-Vector3D Vector3D::operator*=(float scala)
+Vector3D& Vector3D::operator=(const Vector3D& vector)
 {
-	return Vector3D();
+	this->x = vector.x;
+	this->y = vector.y;
+	this->z = vector.z;
+	return *this;
 }
 
-Vector3D Vector3D::operator+=(const Vector3D& vector)
+Vector3D& Vector3D::operator*=(float scala)
 {
-	return Vector3D();
+	x *= scala;
+	y *= scala;
+	z *= scala;
+	return *this;
 }
 
-Vector3D Vector3D::operator-=(const Vector3D& vector)
+Vector3D& Vector3D::operator+=(const Vector3D& vector)
 {
-	return Vector3D();
+	x += vector.x;
+	y += vector.y;
+	z += vector.z;
+	return *this;
+}
+
+Vector3D& Vector3D::operator-=(const Vector3D& vector)
+{
+	x -= vector.x;
+	y -= vector.y;
+	z -= vector.z;
+	return *this;
+}
+
+Vector3D& Vector3D::operator/=(const Vector3D& vector)
+{
+	x /= vector.x;
+	y /= vector.y;
+	z /= vector.z;
+	return *this;
 }
 
 bool Vector3D::operator==(const Vector3D& vector)
 {
+	if (fabsf(x - vector.x) < Epsilon)
+	{
+		if (fabsf(y - vector.y) < Epsilon)
+		{
+			if (fabsf(z - vector.z) < Epsilon)
+			{
+				return true;
+			}
+		}
+	}
 	return false;
 }
 
 bool Vector3D::operator>(const Vector3D& vector)
 {
+	if (fabsf(x - vector.x) > Epsilon)
+	{
+		if (fabsf(y - vector.y) > Epsilon)
+		{
+			if (fabsf(z - vector.z) > Epsilon)
+			{
+				return true;
+			}
+		}
+	}
 	return false;
 }
 
 bool Vector3D::operator<(const Vector3D& vector)
 {
+	if (fabsf(x - vector.x) < Epsilon)
+	{
+		if (fabsf(y - vector.y) < Epsilon)
+		{
+			if (fabsf(z - vector.z) < Epsilon)
+			{
+				return true;
+			}
+		}
+	}
 	return false;
 }
 
 bool Vector3D::operator>=(const Vector3D& vector)
 {
+	if (fabsf(x - vector.x) >= Epsilon)
+	{
+		if (fabsf(y - vector.y) >= Epsilon)
+		{
+			if (fabsf(z - vector.z) >= Epsilon)
+			{
+				return true;
+			}
+		}
+	}
 	return false;
 }
 
 bool Vector3D::operator<=(const Vector3D& vector)
 {
+	if (fabsf(x - vector.x) <= Epsilon)
+	{
+		if (fabsf(y - vector.y) <= Epsilon)
+		{
+			if (fabsf(z - vector.z) <= Epsilon)
+			{
+				return true;
+			}
+		}
+	}
 	return false;
 }

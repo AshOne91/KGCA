@@ -12,8 +12,8 @@ public:
 	virtual bool IsZero() = 0;
 	virtual float Length() const = 0;
 	virtual float LengthSq() const = 0;
-	virtual float Distance(const T& vector) = 0;
-	virtual float DistanceSq(const T& vector) = 0;
+	static float Distance(const T& vector) { return 0.0f; };
+	static float DistanceSq(const T& vector) { return 0.0f; };
 	virtual void Normalize() = 0;
 	virtual T Identity() = 0;
 	virtual float Dot(const T& vector) const = 0;
@@ -24,6 +24,7 @@ public:
 	virtual T operator - (const T& vector) = 0;
 	virtual T operator * (float scala) = 0;
 	virtual T operator / (float scala) = 0;
+	virtual T& operator = (const T& vector) = 0;
 	virtual T& operator *= (float scala) = 0;
 	virtual T& operator += (const T& vector) = 0;
 	virtual T& operator -= (const T& vector) = 0;
@@ -90,8 +91,8 @@ public:
 	virtual bool IsZero() override;
 	virtual float Length() const override;
 	virtual float LengthSq() const override;
-	virtual float Distance(const Vector2D& vector) override;
-	virtual float DistanceSq(const Vector2D& vector) override;
+	static float Distance(const Vector2D& vector1, const Vector2D& vector2);
+	static float DistanceSq(const Vector2D& vector1, const Vector2D& vector2);
 	virtual void Normalize() override;
 	virtual Vector2D Identity() override;
 	virtual float Dot(const Vector2D& vector) const override;
@@ -103,6 +104,7 @@ public:
 	virtual Vector2D operator - (const Vector2D& vector) override;
 	virtual Vector2D operator * (float scala) override;
 	virtual Vector2D operator / (float scala) override;
+	virtual Vector2D& operator = (const Vector2D& vector) override;
 	virtual Vector2D& operator *= (float scala) override;
 	virtual Vector2D& operator += (const Vector2D& vector) override;
 	virtual Vector2D& operator -= (const Vector2D& vector) override;
@@ -118,16 +120,16 @@ class Vector3D : public Float3, public Vector3Interface<Vector3D>
 {
 public:
 	Vector3D();
-	Vector3D(float x, float y);
+	Vector3D(float x, float y, float z);
 	Vector3D(const Vector3D& vector);
 
 public:
 	virtual void Zero() override;
 	virtual bool IsZero() override;
-	virtual float Length() override;
-	virtual float LengthSq() override;
-	virtual float Distance(const Vector3D& vector) override;
-	virtual float DistanceSq(const Vector3D& vector) override;
+	virtual float Length() const override;
+	virtual float LengthSq() const override;
+	static float Distance(const Vector3D& vector1, const Vector3D& vector2);
+	static float DistanceSq(const Vector3D& vector1, const Vector3D& vector2);
 	virtual void Normalize() override;
 	virtual Vector3D Identity() override;
 	virtual float Dot(const Vector3D& vector) const override;
@@ -142,9 +144,11 @@ public:
 	virtual Vector3D operator - (const Vector3D& vector) override;
 	virtual Vector3D operator * (float scala) override;
 	virtual Vector3D operator / (float scala) override;
-	virtual Vector3D operator *= (float scala) override;
-	virtual Vector3D operator += (const Vector3D& vector) override;
-	virtual Vector3D operator -= (const Vector3D& vector) override;
+	virtual Vector3D& operator = (const Vector3D& vector) override;
+	virtual Vector3D& operator *= (float scala) override;
+	virtual Vector3D& operator += (const Vector3D& vector) override;
+	virtual Vector3D& operator -= (const Vector3D& vector) override;
+	virtual Vector3D& operator /= (const Vector3D& vector) override;
 	virtual bool operator == (const Vector3D& vector) override;
 	virtual bool operator > (const Vector3D& vector) override;
 	virtual bool operator < (const Vector3D& vector) override;
