@@ -1,0 +1,29 @@
+// HLSL -> 컴파일러
+// 정점쉐이더란 정점 버퍼에 있는 모든 정점을
+// 1번씩 작업한다.
+// 반드시 정점위치(SV_POSITION레지스터에)는 반드시 float4로 반환해야 한다.(동차 좌표계)
+// POSITION(시멘틱:의미구조) //코드에서 이름과 동일해야 함, 갯수 짝이 맞아야 한다.
+struct VS_in
+{
+	float3 p : POSITION;
+	float4 color : COLOR;
+};
+struct VS_out
+{
+	float4 p : SV_POSITION;
+	float4 c : COLOR0; // COLOR1
+};
+/*float4 main(float4 color : COLOR, float3 p : POSITION) : SV_POSITION
+{
+//  px, py, pz, 1.0f;
+//return float4(p, 1.0f); //수의즐링
+	return float4(p.x, p.y, p.z, 1.0f);
+}*/
+
+VS_out main(VS_in input)
+{
+	VS_out output = (VS_out)0;
+	output.p = float4(input.p, 1.0f);
+	output.c = input.color;
+	return output;
+}

@@ -1,0 +1,7 @@
+// 픽셀마다 호출된다.
+
+// 해당 픽셀(SV_Target레지스터에)의 컬러를 반환한다.
+float4 PSMain(float4 p : SV_POSITION, float4 c : COLOR0) : SV_Target
+{
+	return c;
+}
