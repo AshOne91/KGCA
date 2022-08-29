@@ -1,13 +1,13 @@
 #include "Node.h"
 
-QuadtreeNode::QuadtreeNode()
+Node::Node() :_pParent(nullptr), _depth(0)
 {
-
 }
 
-QuadtreeNode::QuadtreeNode(QuadtreeNode* pParent, Vector2D pos, Vector2D size)
+Node::Node(Node* pParent, Vector2D pos, Vector2D size) :_pParent(nullptr), _depth(0)
 {
 	_box2D.Set(pos.x, pos.y, size.x, size.y);
+	_circle.Set(_box2D);
 	if (pParent != nullptr)
 	{
 		_pParent = pParent;
@@ -15,19 +15,10 @@ QuadtreeNode::QuadtreeNode(QuadtreeNode* pParent, Vector2D pos, Vector2D size)
 	}
 }
 
-QuadtreeNode::~QuadtreeNode()
-{
-
-}
-
-OctreeNode::OctreeNode()
-{
-
-}
-
-OctreeNode::OctreeNode(OctreeNode* pParent, Vector3D pos, Vector3D size)
+Node::Node(Node* pParent, Vector3D pos, Vector3D size):_pParent(nullptr), _depth(0)
 {
 	_box3D.Set(pos, size);
+	_sphere.Set(_box3D);
 	if (pParent != pParent)
 	{
 		_pParent = pParent;
@@ -35,7 +26,10 @@ OctreeNode::OctreeNode(OctreeNode* pParent, Vector3D pos, Vector3D size)
 	}
 }
 
-OctreeNode::~OctreeNode()
+Node::~Node()
 {
-
+	for (int iChild = 0; iChild < _pChild.size(); ++iChild)
+	{
+		delete _pChild[iChild];
+	}
 }

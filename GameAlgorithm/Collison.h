@@ -9,20 +9,6 @@ enum class CollisionType : int
 	OVERLAP
 };
 
-struct Collision
-{
-	CollisionType type = CollisionType::OUT;
-	GameObject* collisionObject = nullptr;
-};
-
-template <typename T>
-struct Collider abstract
-{
-public:
-	virtual bool operator == (const T& dest) = 0;
-	virtual CollisionType CheckCollision(const T& a, const T& b) = 0;
-};
-
 struct Rect
 {
 	float x1;
@@ -31,7 +17,7 @@ struct Rect
 	float h;
 };
 
-struct Box2D : Rect, Collider<Box2D>
+struct Box2D : Rect
 {
 public:
 	Vector2D center;
@@ -58,7 +44,6 @@ public:
 
 public:
 	bool operator == (const Box2D& dest);
-	CollisionType CheckCollision(const Box2D& a, const Box2D& b);
 };
 
 struct Box
@@ -67,7 +52,7 @@ struct Box
 	Vector3D size;
 };
 
-struct Box3D : Box, Collider<Box3D>
+struct Box3D : Box
 {
 public:
 	Vector3D center;
@@ -89,10 +74,9 @@ public:
 
 public:
 	bool operator == (const Box3D& dest);
-	CollisionType CheckCollision(const Box3D& a, const Box3D& b);
 };
 
-struct Circle : Collider<Circle>
+struct Circle
 {
 public:
 	Vector2D center;
@@ -123,10 +107,9 @@ public:
 	}
 public:
 	bool operator == (const Circle& dest);
-	CollisionType CheckCollision(const Circle& a, const Circle& b);
 };
 
-struct Sphere : Collider<Sphere>
+struct Sphere
 {
 public:
 	Vector3D center;
@@ -157,7 +140,16 @@ public:
 
 public:
 	bool operator == (const Sphere& dest);
-	CollisionType CheckCollision(const Sphere& a, const Sphere& b);
+};
+
+struct Collision
+{
+	CollisionType type = CollisionType::OUT;
+	GameObject* collisionObject = nullptr;
+	static CollisionType CheckCollision(const Box2D& a, const Box2D& b);
+	static CollisionType CheckCollision(const Box3D& a, const Box3D& b);
+	static CollisionType CheckCollision(const Circle& a, const Circle& b);
+	static CollisionType CheckCollision(const Sphere& a, const Sphere& b);
 };
 
 

@@ -147,35 +147,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Collison.cpp" />
-    <ClCompile Include="ConsoleManager.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="FrameSkip.cpp" />
+    <ClCompile Include="GameApp.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Octree.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="SpacePartition.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="Application.hpp" />
-    <ClInclude Include="AppSubSystem.h" />
-    <ClInclude Include="AppSubSystem.hpp" />
-    <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="Behaviors.h" />
     <ClInclude Include="Collison.h" />
-    <ClInclude Include="ConsoleManager.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="FrameSkip.h" />
+    <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Interface.h" />
+    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="Missile.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Octree.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Quadtree.h" />
-    <ClInclude Include="SceneController.h" />
-    <ClInclude Include="SceneController.hpp" />
-    <ClInclude Include="SceneSubSystem.h" />
-    <ClInclude Include="SceneSubSystem.hpp" />
-    <ClInclude Include="Singleton.h" />
-    <ClInclude Include="Singleton.hpp" />
     <ClInclude Include="SpacePartition.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

@@ -1,8 +1,10 @@
-#include "Vector.h"
+#include "GameApp.h"
+#include "Config.h"
 
 int main()
 {
-	Vector3D test;
-	test = test * 3.0;
-	test = 3.0 * test;
+	Config config;
+	config._frame = 5;
+
+	GameApp::Instance()->
 }

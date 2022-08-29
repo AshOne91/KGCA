@@ -2,13 +2,6 @@
 #include <string>
 #include "Node.h"
 
-enum class TYPE : int
-{
-	QUADTREE,
-	OCTREE,
-	BSP
-};
-
 class GameObject;
 class SpacePartition
 {

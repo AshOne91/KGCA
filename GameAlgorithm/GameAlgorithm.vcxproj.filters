@@ -16,20 +16,11 @@
     <Filter Include="FrameWork">
       <UniqueIdentifier>{1432026f-adbc-4b5d-a72b-95d496b0d565}</UniqueIdentifier>
     </Filter>
-    <Filter Include="FrameWork\Common">
-      <UniqueIdentifier>{dc038c2b-d318-4f9f-81e9-27f802460155}</UniqueIdentifier>
-    </Filter>
     <Filter Include="FrameWork\Game">
       <UniqueIdentifier>{3f6f6b05-ae65-4be0-9ba8-c088ff6bf474}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BaseObject.cpp">
-      <Filter>FrameWork\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="ConsoleManager.cpp">
-      <Filter>FrameWork\Common</Filter>
-    </ClCompile>
     <ClCompile Include="Vector.cpp">
       <Filter>FrameWork\Game</Filter>
     </ClCompile>
@@ -51,47 +42,32 @@
     <ClCompile Include="Octree.cpp">
       <Filter>FrameWork\Game</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameSkip.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>FrameWork\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.hpp">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="AppSubSystem.h">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="AppSubSystem.hpp">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseObject.h">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="ConsoleManager.h">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface.h">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneController.h">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneController.hpp">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSubSystem.h">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSubSystem.hpp">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.hpp">
-      <Filter>FrameWork\Common</Filter>
-    </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>FrameWork\Game</Filter>
     </ClInclude>
@@ -111,6 +87,33 @@
       <Filter>FrameWork\Game</Filter>
     </ClInclude>
     <ClInclude Include="Octree.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameSkip.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Behaviors.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>FrameWork\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
       <Filter>FrameWork\Game</Filter>
     </ClInclude>
   </ItemGroup>
