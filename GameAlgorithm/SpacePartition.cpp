@@ -20,6 +20,14 @@ void SpacePartition::AddDynamicObject(GameObject* pGameObject)
 {
 }
 
+void SpacePartition::RemoveDynamicObject(GameObject* pGameObject)
+{
+}
+
+void SpacePartition::Pick(const Sphere& sphere, std::list<GameObject*>& pObject)
+{
+}
+
 Node* SpacePartition::FindNode(Node* pNode, GameObject* pObject)
 {
 	return nullptr;

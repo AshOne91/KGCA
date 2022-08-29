@@ -4,7 +4,7 @@
 class Monster : public GameObject
 {
 public:
-	Monster(GameApp* app, unsigned __int64 faction, float posX, float posY, float posZ, float radius);
+	Monster(GameApp* app, unsigned __int64 faction, Vector3D pos, Vector3D size);
 	virtual ~Monster();
 
 public:

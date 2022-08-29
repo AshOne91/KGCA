@@ -36,7 +36,7 @@ bool Vector2D::IsZero()
 float Vector2D::Length() const
 {
 	auto length = sqrtf(LengthSq());
-	return sqrt(LengthSq());
+	return sqrtf(LengthSq());
 }
 
 float Vector2D::LengthSq() const
@@ -263,7 +263,7 @@ bool Vector3D::IsZero()
 float Vector3D::Length() const
 {
 	auto length = sqrtf(LengthSq());
-	return sqrt(LengthSq());
+	return sqrtf(LengthSq());
 }
 
 float Vector3D::LengthSq() const

@@ -3,7 +3,7 @@
 class Player : public GameObject
 {
 public:
-	Player(GameApp* app, float posX, float posY, float posZ, float radius);
+	Player(GameApp* app, Vector3D pos, Vector3D size);
 	virtual ~Player();
 
 public:

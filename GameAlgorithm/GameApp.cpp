@@ -15,7 +15,11 @@ GameApp::GameApp() :
 
 GameApp::~GameApp()
 {
-
+	delete _pPartiton;
+	for (auto kv : _objectList)
+	{
+		delete kv.second;
+	}
 }
 
 void GameApp::Create(Config config)
@@ -25,7 +29,7 @@ void GameApp::Create(Config config)
 	_frameDelay = 1000 / _frame;
 	_frameSkip.SetFramePerSec((float)_frame);
 	_CreateOcTree();
-	_pPossessObj = new Player(this, 25.0f, 25.0f, 17.0f, 1.0f);
+	_pPossessObj = new Player(this, Vector3D(25.0f,25.0f,25.0f), Vector3D(1.0f, 1.0f, 1.0f));
 	_objectList.insert({ _pPossessObj->GetObjectIdx(), _pPossessObj });
 	_running = true;
 }
@@ -52,6 +56,7 @@ bool GameApp::Run()
 			_Render();
 		}
 	}
+	return true;
 }
 
 void GameApp::_Input()
@@ -69,11 +74,12 @@ void GameApp::_Update(float dt)
 
 	for (auto obj : _objectList)
 	{
-		if (obj.second->GetActive() == GameObject::enActive::Active)
+		if (obj.second->GetActive() == enActive::Active)
 		{
 			obj.second->Update(dt);
 		}
 	}
+	OctreeUpdate();
 	_PendingRemoveObj();
 }
 
@@ -83,17 +89,17 @@ void GameApp::_Render()
 	{
 		switch (obj.second->GetType())
 		{
-		case GameObject::enObjectType::Player:
+		case enObjectType::Player:
 		{
 			_console.Sprite_Draw(obj.second->GetPosition().x, obj.second->GetPosition().y, 'P');
 			break;
 		}
-		case GameObject::enObjectType::Monster:
+		case enObjectType::Monster:
 		{
 			_console.Sprite_Draw(obj.second->GetPosition().x, obj.second->GetPosition().y, 'M');
 			break;
 		}
-		case GameObject::enObjectType::Missile:
+		case enObjectType::Missile:
 		{
 			_console.Sprite_Draw(obj.second->GetPosition().x, obj.second->GetPosition().y, '*');
 			break;
@@ -132,14 +138,33 @@ void GameApp::_SpawnMonster(float dt)
 		_spawnDelay = 0.0f;
 		float x = rand() % dfSCREEN_WIDTH;
 		float y = 0;
-		GameObject* monster = new Monster(this, (unsigned __int64)GameObject::enFaction::Monster, x, y, 17.0f, 1.0f);
+		GameObject* monster = new Monster(this, (unsigned __int64)enFaction::Monster, Vector3D(x, y, 25.0f), Vector3D(1.0f, 1.0f, 1.0f));
 		AddObject(monster);
 	}
 }
 
 std::list<GameObject*> GameApp::GetObjects(Vector3D position, float radius, unsigned __int64 faction)
 {
+	std::list<GameObject*> pickedList;
+	Sphere sphere;
+	sphere.center = position;
+	sphere.radius = radius;
+	_pPartiton->Pick(sphere, pickedList);
 
+	std::list<GameObject*> resultObjs;
+	for (auto obj : pickedList)
+	{
+		GameObject* castObj = dynamic_cast<GameObject*>(obj);
+		if (castObj != nullptr)
+		{
+			if (castObj->CheckFaction((unsigned __int64)faction))
+			{
+				resultObjs.push_back(castObj);
+			}
+		}
+	}
+
+	return resultObjs;
 }
 
 GameObject* GameApp::GetObject(unsigned __int64 objectIdx)
@@ -152,25 +177,50 @@ GameObject* GameApp::GetObject(unsigned __int64 objectIdx)
 	return nullptr;
 }
 
-void GameApp::OctreeUpdateNode(GameObject* obj)
+void GameApp::OctreeUpdate()
 {
+	_pPartiton->DynamicObjectReset();
+	for (auto kv : _objectList)
+	{
+		_pPartiton->AddDynamicObject(kv.second);
+	}
 }
 
 void GameApp::InsertObjectOctree(GameObject* obj)
 {
+	_pPartiton->AddDynamicObject(obj);
 }
 
 bool GameApp::RemoveObjectOctree(GameObject* obj)
 {
+	_pPartiton->RemoveDynamicObject(obj);
 	return false;
 }
 
 bool GameApp::AddObject(GameObject* obj)
 {
+	_objectList.insert({ obj->GetObjectIdx(), obj });
 	return false;
 }
 
 bool GameApp::Destroy(GameObject* obj)
 {
+	obj->SetActive(enActive::Destroy);
+	_pendingRemoveObjectIdx.push_back(obj->GetObjectIdx());
+	RemoveObjectOctree(obj);
+	return false;
+}
+
+bool CheckRangeOut(float x, float y)
+{
+	if (y < 0)
+		return true;
+	if (y > dfSCREEN_HEIGHT)
+		return true;
+	if (x < 0)
+		return true;
+	if (x > dfSCREEN_WIDTH)
+		return true;
+
 	return false;
 }

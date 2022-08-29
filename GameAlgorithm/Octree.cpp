@@ -31,6 +31,29 @@ void Octree::AddDynamicObject(GameObject* pGameObject)
 	}
 }
 
+void Octree::RemoveDynamicObject(GameObject* pGameObject)
+{
+    if (pGameObject->_pNode == nullptr)
+    {
+        return;
+    }
+
+    auto it = pGameObject->_pNode->_objectDynamicList.begin();
+    while (it != pGameObject->_pNode->_objectDynamicList.end())
+    {
+        if ((*it) == pGameObject)
+        {
+            pGameObject->_pNode->_objectDynamicList.erase(it);
+            break;
+        }
+    }
+}
+
+void Octree::Pick(const Sphere& sphere, std::list<GameObject*>& pObject)
+{
+    Pick(_pRootNode, sphere, pObject);
+}
+
 Node* Octree::FindNode(Node* pNode, GameObject* pObject)
 {
     std::queue<Node*> g_Queue;
@@ -63,7 +86,7 @@ Node* Octree::CreateNode(Node* pParent, Vector3D pos, Vector3D size)
 
 void Octree::Buildtree(Node* pNode)
 {
-    if (pNode->_depth >= 3) return;
+    if (pNode->_depth >= 2) return;
     if (pNode == nullptr) return;
 
     Vector3D pos;
@@ -113,7 +136,112 @@ void Octree::DynamicReset(Node* pNode)
 bool Octree::IsNodeInObject(Node* pNode, GameObject* pGameObject)
 {
     auto type = Collision::CheckCollision(pNode->_box3D, pGameObject->_box3d);
-	return type == CollisionType::IN;
+	return type == CollisionType::COLLISON_IN;
+}
+
+bool Octree::IsCollision(GameObject* pDest, GameObject* pSrc)
+{
+    auto type = Collision::CheckCollision(pDest->_sphere, pSrc->_sphere);
+    if (type != CollisionType::COLLISON_OUT)
+    {
+        type = Collision::CheckCollision(pDest->_box3d, pDest->_box3d);
+        if (type != CollisionType::COLLISON_OUT)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Octree::IsCollision(Node* pNode, GameObject* pSrc)
+{
+    auto type = Collision::CheckCollision(pNode->_box3D, pNode->_box3D);
+    if (type != CollisionType::COLLISON_OUT)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Octree::IsCollision(const Sphere& sphere, GameObject* pSrc)
+{
+    auto type = Collision::CheckCollision(sphere, pSrc->_sphere);
+    if (type != CollisionType::COLLISON_OUT)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Octree::IsCollision(const Sphere& sphere, Node* pNode)
+{
+    auto type = Collision::CheckCollision(sphere, pNode->_sphere);
+    if (type != CollisionType::COLLISON_OUT)
+    {
+        return true;
+    }
+    return false;
+}
+
+void Octree::GetCollisitionObject(Node* pNode, GameObject* pSrcObject, std::vector<GameObject*>& list)
+{
+    if (pNode == nullptr) return;
+    for (int iObj = 0; iObj < pNode->_objectStaticList.size(); iObj++)
+    {
+        if (IsCollision(pNode->_objectStaticList[iObj], pSrcObject))
+        {
+            list.push_back(pNode->_objectStaticList[iObj]);
+        }
+    }
+    for (int iObj = 0; iObj < pNode->_objectDynamicList.size(); iObj++)
+    {
+        if (IsCollision(pNode->_objectDynamicList[iObj], pSrcObject))
+        {
+            list.push_back(pNode->_objectDynamicList[iObj]);
+        }
+    }
+    if (pNode->_pChild[0] != nullptr)
+    {
+        for (int iChild = 0; iChild < pNode->_pChild.size(); iChild++)
+        {
+            if (IsCollision(pNode->_pChild[iChild], pSrcObject))
+            {
+                GetCollisitionObject(pNode->_pChild[iChild], pSrcObject, list);
+            }
+        }
+    }
+}
+
+void Octree::Pick(Node* pNode, const Sphere& sphere, std::list<GameObject*>& list)
+{
+    if (pNode == nullptr)
+    {
+        return;
+    }
+    for (int iObj = 0; iObj < pNode->_objectStaticList.size(); iObj++)
+    {
+        if (IsCollision(sphere, pNode->_objectStaticList[iObj]))
+        {
+            list.push_back(pNode->_objectStaticList[iObj]);
+        }
+    }
+    for (int iObj = 0; iObj < pNode->_objectDynamicList.size(); iObj++)
+    {
+        if (IsCollision(sphere, pNode->_objectDynamicList[iObj]))
+        {
+            list.push_back(pNode->_objectDynamicList[iObj]);
+        }
+    }
+    if (pNode->_pChild[0] != nullptr)
+    {
+        for (int iChild = 0; iChild < pNode->_pChild.size(); iChild++)
+        {
+            if (IsCollision(sphere, pNode->_pChild[iChild]))
+            {
+                Pick(pNode->_pChild[iChild], sphere, list);
+            }
+        }
+    }
 }
 
 Octree::Octree()

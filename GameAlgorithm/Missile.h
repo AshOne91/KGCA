@@ -4,7 +4,7 @@
 class Missile : public GameObject
 {
 public:
-	Missile(GameApp* app, unsigned __int64 faction, float posX, float posY, float posZ, float radius);
+	Missile(GameApp* app, unsigned __int64 faction, Vector3D pos, Vector3D size);
 	virtual ~Missile();
 
 public:

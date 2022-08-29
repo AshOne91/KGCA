@@ -2,59 +2,68 @@
 #include <unordered_map>
 #include "Collison.h"
 
+enum class enFaction : unsigned __int64
+{
+	Player = 1 << 0,
+	Monster = 1 << 1
+};
+
+enum class enObjectType : int
+{
+	Player = 0,
+	Monster = 1,
+	Missile = 2
+};
+
+enum class enActive : int
+{
+	InActive = 0,
+	Active = 1,
+	Destroy = 2
+};
+
 class GameApp;
 class Behaviors;
+class Node;
 class GameObject
 {
 public:
-	enum class enFaction : unsigned __int64
-	{
-		Player = 1 << 0,
-		Monster = 1 << 1
-	};
-
-	enum class enObjectType : int
-	{
-		Player = 0,
-		Monster = 1,
-		Missile = 2
-	};
-
-	enum class enActive : int
-	{
-		InActive = 0,
-		Active = 1,
-		Destroy = 2
-	};
+	GameObject(GameApp* app, enObjectType type, unsigned __int64 faction, Vector3D pos, Vector3D size);
+	virtual ~GameObject();
 
 private:
 	static unsigned __int64 _AllocObjectIdx;
 
 protected:
-	GameApp* m_App;
-	Behaviors* m_Behaviors;
+	GameApp* _app;
+	Behaviors* _behaviors;
 
-	enObjectType m_ObjectType;
-	unsigned __int64 m_Faction;
+	enObjectType _objectType;
+	unsigned __int64 _faction;
 
 public:
 	std::string _name;
 
 public:
 	Box3D _box3d;
+	Box2D _box2D;
 	Sphere _sphere;
+	Node* _pNode = nullptr;
 
 protected:
 	Vector3D _pos;
 	float _radius;
-	Vector3D velocity;
+	Vector3D _velocity;
 	Vector3D _heading;
 	float _maxSpeed;
 
-	enActive m_Active = enActive::InActive;
-	unsigned __int64 m_ObjectIdx;
+	enActive _active = enActive::InActive;
+	unsigned __int64 _objectIdx;
 
 public:
+	GameApp* GetApp();
+	Behaviors* GetBehaviors();
+
 	virtual void Update(float dt) = 0;
 	unsigned __int64 GetFaction();
 	bool CheckFaction(unsigned __int64 otherFaction);

@@ -104,8 +104,8 @@ void Quadtree::DynamicReset(Node* pNode)
 
 bool Quadtree::IsNodeInObject(Node* pNode, GameObject* pGameObject)
 {
-    auto type = Collision::CheckCollision(pNode->_box2D, pGameObject->_box2d);
-    return type == CollisionType::IN;
+    auto type = Collision::CheckCollision(pNode->_box2D, pGameObject->_box2D);
+    return type == CollisionType::COLLISON_IN;
 }
 
 Quadtree::Quadtree()

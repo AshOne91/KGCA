@@ -60,17 +60,17 @@ CollisionType Collision::CheckCollision(const Circle& a, const Circle& b)
     float lsq = Vector2D::DistanceSq(a.center, b.center);
     if (lsq > ((a.radius + b.radius) * (a.radius + b.radius)))
     {
-        return CollisionType::OUT;
+        return CollisionType::COLLISON_OUT;
     }
 
     float sumRadius = a.radius + b.radius;
     float distance = Vector2D::Distance(a.center, b.center);
     if (distance <= sumRadius)
     {
-        return CollisionType::IN;
+        return CollisionType::COLLISON_IN;
     }
 
-    return CollisionType::OVERLAP;
+    return CollisionType::COLLISON_OVERLAP;
 }
 
 CollisionType Collision::CheckCollision(const Sphere& a, const Sphere& b)
@@ -78,17 +78,17 @@ CollisionType Collision::CheckCollision(const Sphere& a, const Sphere& b)
     float lsq = Vector3D::DistanceSq(a.center, b.center);
     if (lsq > ((a.radius + b.radius) * (a.radius + b.radius)))
     {
-        return CollisionType::OUT;
+        return CollisionType::COLLISON_OUT;
     }
 
     float sumRadius = a.radius + b.radius;
     float distance = Vector3D::Distance(a.center, b.center);
     if (distance <= sumRadius)
     {
-        return CollisionType::IN;
+        return CollisionType::COLLISON_IN;
     }
 
-    return CollisionType::OVERLAP;
+    return CollisionType::COLLISON_OVERLAP;
 }
 
 CollisionType Collision::CheckCollision(const Box2D& a, const Box2D& b)
@@ -115,12 +115,12 @@ CollisionType Collision::CheckCollision(const Box2D& a, const Box2D& b)
             Intersect.Set(x, y, x2 - x, y2 - y);
             if (Intersect == a || Intersect == b)
             {
-                return CollisionType::IN;
+                return CollisionType::COLLISON_IN;
             }
-            return CollisionType::OVERLAP;
+            return CollisionType::COLLISON_OVERLAP;
         }
     }
-    return CollisionType::OUT;
+    return CollisionType::COLLISON_OUT;
 }
 
 CollisionType Collision::CheckCollision(const Box3D& a, const Box3D& b)
@@ -162,11 +162,11 @@ CollisionType Collision::CheckCollision(const Box3D& a, const Box3D& b)
                 Intersect.Set(vMin, vMax - vMin);
                 if (Intersect == a || Intersect == b)
                 {
-                    return CollisionType::IN;
+                    return CollisionType::COLLISON_IN;
                 }
-                return CollisionType::OVERLAP;
+                return CollisionType::COLLISON_OVERLAP;
             }
         }
     }
-    return CollisionType::OUT;
+    return CollisionType::COLLISON_OUT;
 }

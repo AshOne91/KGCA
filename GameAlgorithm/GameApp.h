@@ -43,11 +43,12 @@ private:
 public:
 	std::list<GameObject*> GetObjects(Vector3D position, float radius, unsigned __int64 faction);
 	GameObject* GetObject(unsigned __int64 objectIdx);
-	void OctreeUpdateNode(GameObject* obj);
+	void OctreeUpdate();
 	void InsertObjectOctree(GameObject* obj);
 	bool RemoveObjectOctree(GameObject* obj);
 
 	bool AddObject(GameObject* obj);
 	bool Destroy(GameObject* obj);
-
 };
+
+bool CheckRangeOut(float x, float y);

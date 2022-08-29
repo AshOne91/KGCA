@@ -52,6 +52,7 @@ void Console::BufferDraw()
 		{
 			std::cout<<_buffers[_activeIndex][y][x];
 		}
+		std::cout << std::endl;
 	}
 }
 void Console::BufferClear()

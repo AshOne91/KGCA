@@ -6,5 +6,7 @@ int main()
 	Config config;
 	config._frame = 5;
 
-	GameApp::Instance()->
+	GameApp app;
+	app.Create(config);
+	app.Run();
 }

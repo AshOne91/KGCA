@@ -1,12 +1,11 @@
 #pragma once
 #include "Vector.h"
 
-class GameObject;
-enum class CollisionType : int
+enum class CollisionType
 {
-	OUT = 0,
-	IN,
-	OVERLAP
+	COLLISON_OUT,
+	COLLISON_IN,
+	COLLISON_OVERLAP
 };
 
 struct Rect
@@ -142,9 +141,10 @@ public:
 	bool operator == (const Sphere& dest);
 };
 
+class GameObject;
 struct Collision
 {
-	CollisionType type = CollisionType::OUT;
+	CollisionType type;
 	GameObject* collisionObject = nullptr;
 	static CollisionType CheckCollision(const Box2D& a, const Box2D& b);
 	static CollisionType CheckCollision(const Box3D& a, const Box3D& b);

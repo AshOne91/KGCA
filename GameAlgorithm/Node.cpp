@@ -19,7 +19,7 @@ Node::Node(Node* pParent, Vector3D pos, Vector3D size):_pParent(nullptr), _depth
 {
 	_box3D.Set(pos, size);
 	_sphere.Set(_box3D);
-	if (pParent != pParent)
+	if (pParent != nullptr)
 	{
 		_pParent = pParent;
 		_depth = pParent->_depth + 1;
