@@ -45,7 +45,7 @@ bool GameApp::Run()
 		lastTick = curTick;
 		float dt = deltaTick.count() * 0.001f;
 		totalDeltaTime += dt;
-		_Input();
+		_Input(dt);
 		if (_frameSkip.Update(dt))
 		{
 			_Update(totalDeltaTime);
@@ -59,19 +59,20 @@ bool GameApp::Run()
 	return true;
 }
 
-void GameApp::_Input()
+void GameApp::_Input(float dt)
 {
 	Command* command = _InputHandler.handleInput();
 	if (command)
 	{
-		command->execute(_pPossessObj);
+		command->execute(_pPossessObj, dt);
 	}
 }
 
 void GameApp::_Update(float dt)
 {
+	_PendingRemoveObj();
+	OctreeUpdate();
 	_SpawnMonster(dt);
-
 	for (auto obj : _objectList)
 	{
 		if (obj.second->GetActive() == enActive::Active)
@@ -79,8 +80,6 @@ void GameApp::_Update(float dt)
 			obj.second->Update(dt);
 		}
 	}
-	OctreeUpdate();
-	_PendingRemoveObj();
 }
 
 void GameApp::_Render()
@@ -182,7 +181,10 @@ void GameApp::OctreeUpdate()
 	_pPartiton->DynamicObjectReset();
 	for (auto kv : _objectList)
 	{
-		_pPartiton->AddDynamicObject(kv.second);
+		if (kv.second->GetActive() == enActive::Active)
+		{
+			_pPartiton->AddDynamicObject(kv.second);
+		}
 	}
 }
 

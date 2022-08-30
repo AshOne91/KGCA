@@ -7,14 +7,14 @@ class Command
 {
 public:
 	virtual ~Command() {}
-	virtual void execute(GameObject* obj) = 0;
+	virtual void execute(GameObject* obj, float dt) = 0;
 };
 
 class MoveUnitCommand : public Command
 {
 public:
 	MoveUnitCommand(float x, float y);
-	virtual void execute(GameObject* obj);
+	virtual void execute(GameObject* obj, float dt);
 
 private:
 	float m_MoveX;
@@ -24,7 +24,9 @@ private:
 class SpaceCommand : public Command
 {
 public:
-	virtual void execute(GameObject* obj);
+	float _fireDelay;
+public:
+	virtual void execute(GameObject* obj, float dt);
 };
 
 class InputHandler

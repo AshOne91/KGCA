@@ -6,7 +6,8 @@
 Missile::Missile(GameApp* app, unsigned __int64 faction, Vector3D pos, Vector3D size)
 	:GameObject(app, enObjectType::Missile, faction, pos, size)
 {
-	_maxSpeed = 1.5f;
+	_maxSpeed = 5.0f;
+	_velocity.y = -1.0f;
 }
 
 Missile::~Missile()

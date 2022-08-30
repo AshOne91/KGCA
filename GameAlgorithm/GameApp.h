@@ -33,7 +33,7 @@ public:
 	bool Run();
 
 private:
-	void _Input();
+	void _Input(float dt);
 	void _Update(float dt);
 	void _Render();
 	void _CreateOcTree();

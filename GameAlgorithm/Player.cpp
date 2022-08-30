@@ -17,6 +17,8 @@ void Player::Update(float dt)
 
 void Player::FireMissile()
 {
-	GameObject* missile = new Missile(GetApp(), GetFaction(), _box3d.min, _box3d.size);
+	Box3D box(_box3d);
+	box.min.y += -1.0f;
+	GameObject* missile = new Missile(GetApp(), GetFaction(), box.min, box.size);
 	GetApp()->AddObject(missile);
 }

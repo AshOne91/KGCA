@@ -12,10 +12,10 @@ MoveUnitCommand::MoveUnitCommand(float x, float y)
 	m_MoveY = y;
 }
 
-void MoveUnitCommand::execute(GameObject* obj)
+void MoveUnitCommand::execute(GameObject* obj, float dt)
 {
-	float posX = obj->GetPosition().x + m_MoveX;
-	float posY = obj->GetPosition().y + m_MoveY;
+	float posX = obj->GetPosition().x + (float)(m_MoveX * dt * 5.0f);
+	float posY = obj->GetPosition().y + (float)(m_MoveY * dt * 5.0f);
 	float posZ = obj->GetPosition().z;
 	if (posY < 0)
 		return;
@@ -28,7 +28,7 @@ void MoveUnitCommand::execute(GameObject* obj)
 	obj->SetPosition({ posX, posY, posZ });
 }
 
-void SpaceCommand::execute(GameObject* obj)
+void SpaceCommand::execute(GameObject* obj, float dt)
 {
 	Player* player = dynamic_cast<Player*>(obj);
 	if (player != nullptr)
@@ -68,7 +68,7 @@ Command* InputHandler::handleInput()
 		return m_Right;
 	}
 
-	if (GetAsyncKeyState(VK_SPACE))
+	if ((GetAsyncKeyState(VK_SPACE) & 0x8000))
 	{
 		return m_Space;
 	}

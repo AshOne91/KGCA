@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9bb63f9b-d4ee-45dd-a3b4-0a1e0720d68f}</ProjectGuid>
-    <RootNamespace>GameAlgorithm</RootNamespace>
+    <ProjectGuid>{2fed282a-4ffa-4a3b-9774-9c412842f46d}</ProjectGuid>
+    <RootNamespace>DrawOctree</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -72,33 +72,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>../../output/Debug/GameAlgorithm</OutDir>
-    <IntDir>../../output/Debug/GameAlgorithm</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>../../output/Release/GameAlgorithm</OutDir>
-    <IntDir>../../output/Release/GameAlgorithm</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>../../output/Debug/GameAlgorithm</OutDir>
-    <IntDir>../../output/Debug/GameAlgorithm</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>../../output/Release/GameAlgorithm</OutDir>
-    <IntDir>../../output/Release/GameAlgorithm</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -108,11 +100,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -122,11 +114,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -136,53 +128,52 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Collison.cpp" />
-    <ClCompile Include="Console.cpp" />
-    <ClCompile Include="FrameSkip.cpp" />
-    <ClCompile Include="GameApp.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="InputHandler.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Missile.cpp" />
-    <ClCompile Include="Monster.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Octree.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Quadtree.cpp" />
-    <ClCompile Include="SpacePartition.cpp" />
-    <ClCompile Include="Vector.cpp" />
+    <ClInclude Include="Sample.h" />
+    <ClInclude Include="TBaseObject.h" />
+    <ClInclude Include="TCollision.h" />
+    <ClInclude Include="TDevice.h" />
+    <ClInclude Include="TEnemy.h" />
+    <ClInclude Include="TGameCore.h" />
+    <ClInclude Include="TGamePlayer.h" />
+    <ClInclude Include="TNode.h" />
+    <ClInclude Include="TObject.h" />
+    <ClInclude Include="TOctree.h" />
+    <ClInclude Include="TQuadtree.h" />
+    <ClInclude Include="TSpacePartition.h" />
+    <ClInclude Include="TStd.h" />
+    <ClInclude Include="TVector.h" />
+    <ClInclude Include="TWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Behaviors.h" />
-    <ClInclude Include="Collison.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="Console.h" />
-    <ClInclude Include="FrameSkip.h" />
-    <ClInclude Include="GameApp.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="InputHandler.h" />
-    <ClInclude Include="Missile.h" />
-    <ClInclude Include="Monster.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Octree.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Quadtree.h" />
-    <ClInclude Include="SpacePartition.h" />
-    <ClInclude Include="Vector.h" />
+    <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="TBaseObject.cpp" />
+    <ClCompile Include="TCollision.cpp" />
+    <ClCompile Include="TDevice.cpp" />
+    <ClCompile Include="TEnemy.cpp" />
+    <ClCompile Include="TGameCore.cpp" />
+    <ClCompile Include="TGamePlayer.cpp" />
+    <ClCompile Include="TNode.cpp" />
+    <ClCompile Include="TObject.cpp" />
+    <ClCompile Include="TOctree.cpp" />
+    <ClCompile Include="TQuadtree.cpp" />
+    <ClCompile Include="TSpacePartition.cpp" />
+    <ClCompile Include="TVector.cpp" />
+    <ClCompile Include="TWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <Text Include="PixelShader.txt" />
+    <Text Include="VertexShader.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

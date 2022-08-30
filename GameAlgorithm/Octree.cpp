@@ -36,7 +36,7 @@ void Octree::RemoveDynamicObject(GameObject* pGameObject)
     if (pGameObject->_pNode == nullptr)
     {
         return;
-    }
+     }
 
     auto it = pGameObject->_pNode->_objectDynamicList.begin();
     while (it != pGameObject->_pNode->_objectDynamicList.end())
