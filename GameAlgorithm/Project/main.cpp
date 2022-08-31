@@ -4,7 +4,7 @@
 int main()
 {
 	Config config;
-	config._frame = 5;
+	config._frame = 60;
 
 	GameApp app;
 	app.Create(config);

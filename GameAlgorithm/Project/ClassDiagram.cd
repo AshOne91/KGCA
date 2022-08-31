@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Behaviors" Collapsed="true">
+    <Position X="7" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KAAAAAAAAAAAAAAACAAAAAAAASAAAAAAAAAAAACAQAA=</HashCode>
+      <FileName>Behaviors.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Config" Collapsed="true">
+    <Position X="14.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAgAAAAAAAAAAQAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Config.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Console" Collapsed="true">
+    <Position X="13.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABCAAAAAAAAACQAAQAAACCSAEAAAIAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Console.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FrameSkip" Collapsed="true">
+    <Position X="11" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAAAAgAAAIAAAAAAAAAAAAACAAAAAAAABAEAA=</HashCode>
+      <FileName>FrameSkip.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameApp" Collapsed="true">
+    <Position X="11" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAIAAAAAAIAEQAEECACCABABAoEEKAAAAkQAUAQM=</HashCode>
+      <FileName>GameApp.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_console" />
+      <Field Name="_frameSkip" />
+      <Field Name="_InputHandler" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GameObject" Collapsed="true">
+    <Position X="5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBQAIEAECCJgAEQAAAAAAAIAAEhAAkEASAAYAIIoIAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_behaviors" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Command" Collapsed="true">
+    <Position X="10.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InputHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveUnitCommand" Collapsed="true">
+    <Position X="9.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAGAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>InputHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceCommand" Collapsed="true">
+    <Position X="11.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InputHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputHandler" Collapsed="true">
+    <Position X="9.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIEAAAAAAAAAAAAAAAAAAAAAAARAAAAAEAAAAAAAAAI=</HashCode>
+      <FileName>InputHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Missile" Collapsed="true">
+    <Position X="5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAgAAAAAAAEAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Missile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Monster" Collapsed="true">
+    <Position X="7.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAACAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Monster.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Node" Collapsed="true">
+    <Position X="12.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAIAAAEAAAAAAAAAAAAgGAQAABAAAAAAAAQAAEAIAA=</HashCode>
+      <FileName>Node.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_box2D" />
+      <Field Name="_box3D" />
+      <Field Name="_circle" />
+      <Field Name="_sphere" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Octree" Collapsed="true">
+    <Position X="2" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAUAAAAAAEAAAAEEABAACBAAAAEAAQAgAAIAAIAA=</HashCode>
+      <FileName>Octree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAABA=</HashCode>
+      <FileName>Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Quadtree" Collapsed="true">
+    <Position X="4.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABEAAAAAAAAAAAEEAAAACBAAAAEAAQAgAAICAAAA=</HashCode>
+      <FileName>Quadtree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpacePartition" Collapsed="true">
+    <Position X="3" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAgAEABAACAAAAAEAAQAQCAAAAAAA=</HashCode>
+      <FileName>SpacePartition.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VectorInterface&lt;T&gt;" Collapsed="true">
+    <Position X="5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAMAECAQBACQAAAABAAEAgAAAAACA=</HashCode>
+      <FileName>Vector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector3Interface&lt;T&gt;" Collapsed="true">
+    <Position X="5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACEAAAACAAAAAAAA=</HashCode>
+      <FileName>Vector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector2D" Collapsed="true">
+    <Position X="2" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAFAAAMAECAQBACQAAAABAAEAgAAAAACA=</HashCode>
+      <FileName>Vector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector3D" Collapsed="true">
+    <Position X="5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAADAAAMAECAQBACQAACEBAAECgAAAAACA=</HashCode>
+      <FileName>Vector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Rect" Collapsed="true">
+    <Position X="10.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQQgAAAAAAAA=</HashCode>
+      <FileName>Collison.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Box2D" Collapsed="true">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAABAAAAAAAAQAAAwAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Collison.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Box" Collapsed="true">
+    <Position X="12" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collison.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Box3D" Collapsed="true">
+    <Position X="12" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAEAAAAAAABAAAAAAAAQAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Collison.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Circle" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAACAAABAAAAAAAAQAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collison.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Sphere" Collapsed="true">
+    <Position X="15.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAACAAABAAAAAQAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collison.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Collision" Collapsed="true">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAACAAAAAAAAAQAA=</HashCode>
+      <FileName>Collison.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Float2" Collapsed="true">
+    <Position X="8" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vector.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Float3" Collapsed="true">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vector.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="CollisionType" Collapsed="true">
+    <Position X="19.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACQIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Collison.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SpacePartitionType" Collapsed="true">
+    <Position X="21.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAI=</HashCode>
+      <FileName>Config.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="enFaction" Collapsed="true">
+    <Position X="23" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAQAAAAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="enObjectType" Collapsed="true">
+    <Position X="19.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAgAAAQAAAAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="enActive" Collapsed="true">
+    <Position X="21.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAABAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
