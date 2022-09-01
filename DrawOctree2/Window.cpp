@@ -105,7 +105,7 @@ bool Window::Run()
 		}
 		else
 		{
-			if (!CoreFrame() || CoreRender())
+			if (!CoreFrame() || !CoreRender())
 			{
 				_bGameRun = false;
 			}
@@ -164,11 +164,6 @@ bool Window::CoreRender()
 bool Window::CoreRelease()
 {
 	return false;
-}
-
-LRESULT Window::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	return LRESULT();
 }
 
 Window::Window()
