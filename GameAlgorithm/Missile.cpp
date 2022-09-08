@@ -20,7 +20,7 @@ void Missile::Update(float dt)
 	Vector3D pos = GetPosition();
 	if (target == nullptr)
 	{
-		auto monsterObjects = GetApp()->GetObjects(GetPosition(), 50.0f, (unsigned __int64)enFaction::Monster);
+		auto monsterObjects = GetApp()->GetObjects(GetPosition(), 10.0f, (unsigned __int64)enFaction::Monster);
 		float minDistance = (std::numeric_limits<float>::max)();
 		for (auto obj : monsterObjects)
 		{
