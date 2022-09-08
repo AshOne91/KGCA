@@ -5,6 +5,8 @@
 #include <list>
 #include <set>
 #include <string>
+#include "Vector.h"
+
 #define KSHCORE
 
 extern HWND g_hWnd;

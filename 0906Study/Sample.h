@@ -1,12 +1,18 @@
 #pragma once
 #include "GameCore.h"
+#include "BaseObject.h"
+#include "TextureManager.h"
 
 class Sample : public GameCore
 {
 public:
-	virtual bool Init() final;
-	virtual bool Frame() final;
-	virtual bool Render() final;
-	virtual bool Release() final;
+	ID3D11SamplerState* g_pDefaultSS;
+	std::vector<BaseObject*>	_ObjectList;
+	std::vector<Texture*>		_ObjectTextureList;
+public:
+	virtual bool		Init() override;
+	virtual bool		Frame() override;
+	virtual bool		Render() override;
+	virtual bool		Release() override;
 };
 

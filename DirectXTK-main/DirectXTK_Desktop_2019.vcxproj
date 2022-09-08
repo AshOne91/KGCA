@@ -225,13 +225,13 @@
     <TargetName>DirectXTK</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>Bin\Desktop_2019\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>Bin\Desktop_2019\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>../../output/debug/dxtk</OutDir>
+    <IntDir>../../output/debug/dxtk</IntDir>
     <TargetName>DirectXTK</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>Bin\Desktop_2019\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>Bin\Desktop_2019\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>../../output/release/dxtk</OutDir>
+    <IntDir>../../output/release/dxtk</IntDir>
     <TargetName>DirectXTK</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -255,6 +255,10 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "..\\..\\output\\debug\\dxtk\\DirectXTK.lib" "..\\..\\lib\\DirectXTK_d.lib
+copy "$(ProjectDir)\\Inc\\*.h" "..\\..\\include\\dxtk"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -301,6 +305,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "..\\..\\output\\release\\dxtk\\DirectXTK.lib" "..\\..\\lib\\DirectXTK_r.lib
+copy "$(ProjectDir)\\Inc\\*.h" "..\\..\\include\\dxtk"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

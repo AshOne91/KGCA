@@ -1,9 +1,10 @@
 #pragma once
 #include "Device.h"
-
+#include "Writer.h"
 class GameCore : public Device
 {
 public:
+	Writer _Writer;
 	bool _bGameRun = true;
 
 public:
