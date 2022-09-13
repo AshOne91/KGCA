@@ -1,0 +1,31 @@
+#pragma once
+#include "Vector.h"
+
+enum class Deceleration : int
+{
+	slow = 3, 
+	normal = 2,
+	fast = 1
+};
+class Vehicle;
+class SteeringBehaviors
+{
+private:
+	// 에이전트 앞에 배회하기 원이 투사되는 거리
+	float _fWanderJitter;
+	// 제한하는 원의 반경
+	float _fWanderRadius;
+	// 투사되는 원의 투사거리
+	float _fWanderDistance;
+
+public:
+	Vehicle* _pVehicle;
+	Vector2D Seek(Vector2D TargetPos);
+	Vector2D Flee(Vector2D TargetPos);
+	Vector2D Arrive(Vector2D TargetPos, Deceleration deceleration);
+	Vector2D Pursuit(const Vehicle* evader);
+	Vector2D Evade(const Vehicle* pursuer);
+
+	static float TurnaroundTIme(const Vehicle* pAgent, const Vector2D& TargetPos);
+};
+

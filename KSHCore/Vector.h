@@ -6,6 +6,7 @@
 #define DegreeToRadian(x) (x *(T_PI / 180.0f))
 #define RadianToDegree(x) (x *(180.0f / PI))
 #define Epsilon 0.001f
+enum class Sign { clockwise = 1, anticlockwise = -1 };
 struct Float2
 {
 	union
@@ -121,6 +122,9 @@ public:
 	float Dot(const Vector2D& vector) const;
 	float GetRadianBetweenVectorDot(const Vector2D& vector);
 	float GetDegreeBetweenVectorDot(const Vector2D& vector);
+	void Truncate(float max);
+	Vector2D Perp() const;
+	Sign Sign(const Vector2D& v2) const;
 };
 
 class Vector3D : public Float3//, public VectorInterface<Vector3D>
@@ -158,6 +162,7 @@ public:
 	float Dot(const Vector3D& vector) const;
 	float GetRadianBetweenVectorDot(const Vector3D& vector);
 	float GetDegreeBetweenVectorDot(const Vector3D& vector);
+	void Truncate(float max);
 };
 
 class Vector4D : public Float4//, public VectorInterface<Vector4D>
@@ -195,5 +200,6 @@ public:
 	float Dot(const Vector4D& vector) const;
 	float GetRadianBetweenVectorDot(const Vector4D& vector);
 	float GetDegreeBetweenVectorDot(const Vector4D& vector);
+	void Truncate(float max);
 };
 

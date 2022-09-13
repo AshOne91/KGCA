@@ -110,6 +110,32 @@ float Vector2D::GetDegreeBetweenVectorDot(const Vector2D& vector)
 	return RadianToDegree(GetRadianBetweenVectorDot(vector));
 }
 
+void Vector2D::Truncate(float max)
+{
+	if (this->Length() > max)
+	{
+		this->Normalize();
+		*this *= max;
+	}
+}
+
+Vector2D Vector2D::Perp() const
+{
+	return Vector2D(-y, x);
+}
+
+Sign Vector2D::Sign(const Vector2D& v2) const
+{
+	if (y * v2.x > x * v2.y)
+	{
+		return Sign::anticlockwise;
+	}
+	else
+	{
+		return Sign::clockwise;
+	}
+}
+
 Vector2D Vector2D::operator+(const Vector2D& vector) const
 {
 	return Vector2D(x + vector.x, y + vector.y);
@@ -349,6 +375,15 @@ float Vector3D::GetRadianBetweenVectorDot(const Vector3D& vector)
 float Vector3D::GetDegreeBetweenVectorDot(const Vector3D& vector)
 {
 	return RadianToDegree(GetRadianBetweenVectorDot(vector));
+}
+
+void Vector3D::Truncate(float max)
+{
+	if (this->Length() > max)
+	{
+		this->Normalize();
+		*this *= max;
+	}
 }
 
 /*float Vector3D::GetDegreeBetweenVectorCross(const Vector3D& vector)
@@ -621,6 +656,15 @@ float Vector4D::GetRadianBetweenVectorDot(const Vector4D& vector)
 float Vector4D::GetDegreeBetweenVectorDot(const Vector4D& vector)
 {
 	return RadianToDegree(GetRadianBetweenVectorDot(vector));
+}
+
+void Vector4D::Truncate(float max)
+{
+	if (this->Length() > max)
+	{
+		this->Normalize();
+		*this *= max;
+	}
 }
 
 /*float Vector3D::GetDegreeBetweenVectorCross(const Vector3D& vector)
