@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector.h"
+#include "BaseObject.h"
 
 enum class Deceleration : int
 {
@@ -11,6 +12,8 @@ class Vehicle;
 class SteeringBehaviors
 {
 private:
+	Vector2D _vWanderTarget;
+
 	// 에이전트 앞에 배회하기 원이 투사되는 거리
 	float _fWanderJitter;
 	// 제한하는 원의 반경
@@ -25,6 +28,8 @@ public:
 	Vector2D Arrive(Vector2D TargetPos, Deceleration deceleration);
 	Vector2D Pursuit(const Vehicle* evader);
 	Vector2D Evade(const Vehicle* pursuer);
+	Vector2D Wander();
+	Vector2D ObstacleAvoidance(const std::vector<BaseObject*>& obstacles);
 
 	static float TurnaroundTIme(const Vehicle* pAgent, const Vector2D& TargetPos);
 };

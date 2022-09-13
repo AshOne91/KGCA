@@ -1,5 +1,7 @@
 #include "SteeringBehaviors.h"
 #include "Vehicle.h"
+#include "Utils.h"
+#include "Transformations.h"
 
 Vector2D SteeringBehaviors::Seek(Vector2D TargetPos)
 {
@@ -74,4 +76,26 @@ float SteeringBehaviors::TurnaroundTIme(const Vehicle* pAgent, const Vector2D& T
 
 	const float coefficient = 0.5f;
 	return (dot - 1.0f) * -coefficient;
+}
+
+Vector2D SteeringBehaviors::Wander()
+{
+	_vWanderTarget += Vector2D(KSHCore::UTIL::RandomClamped() * _fWanderJitter, KSHCore::UTIL::RandomClamped() * _fWanderJitter);
+	_vWanderTarget.Normalize();
+	_vWanderTarget *= _fWanderRadius;
+
+	Vector2D targetLocal = _vWanderTarget + Vector2D(_fWanderDistance, 0);
+
+	Vector2D targetWorld = PointToWorldSpace(targetLocal,
+		_pVehicle->Heading(),
+		_pVehicle->Side(),
+		_pVehicle->_vPos);
+
+	return targetWorld - _pVehicle->_vPos;
+}
+
+Vector2D SteeringBehaviors::ObstacleAvoidance(const std::vector<BaseObject*>& obstacles)
+{
+
+	return Vector2D();
 }

@@ -153,6 +153,7 @@
     <ClInclude Include="MovingEntity.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SteeringBehaviors.h" />
+    <ClInclude Include="Transformations.h" />
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <ItemGroup>

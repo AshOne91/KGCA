@@ -109,6 +109,12 @@ public:
 	bool operator < (const Vector2D& vector) const;
 	bool operator >= (const Vector2D& vector) const;
 	bool operator <= (const Vector2D& vector) const;
+	friend Vector2D operator*(float scala, const Vector2D& vector)
+	{
+		Vector2D result(vector);
+		result *= scala;
+		return result;
+	}
 
 public:
 	void Zero();
@@ -149,6 +155,12 @@ public:
 	bool operator < (const Vector3D& vector) const;
 	bool operator >= (const Vector3D& vector) const;
 	bool operator <= (const Vector3D& vector) const;
+	friend Vector3D operator*(float scala, const Vector3D& vector)
+	{
+		Vector3D result(vector);
+		result *= scala;
+		return result;
+	}
 
 public:
 	void Zero();
@@ -187,6 +199,12 @@ public:
 	bool operator < (const Vector4D& vector);
 	bool operator >= (const Vector4D& vector);
 	bool operator <= (const Vector4D& vector);
+	friend Vector4D operator*(float scala, const Vector4D& vector)
+	{
+		Vector4D result(vector);
+		result *= scala;
+		return result;
+	}
 
 public:
 	void Zero();
