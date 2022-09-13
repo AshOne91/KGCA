@@ -51,6 +51,18 @@
     <ClInclude Include="DefaultShape.txt">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManager.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object2D.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Device.cpp">
@@ -81,6 +93,18 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BaseObject.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

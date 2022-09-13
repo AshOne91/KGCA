@@ -1,7 +1,4 @@
 #include "GameCore.h"
-#include "Timer.h"
-#include "Input.h"
-#include "TextureManager.h"
 
 bool GameCore::CoreInit()
 {
@@ -11,6 +8,7 @@ bool GameCore::CoreInit()
         return false;
     }
     I_Tex.SetDevice(_pd3dDevice, _pImmediateContext);
+    I_Shader.SetDevice(_pd3dDevice, _pImmediateContext);
     I_Timer.Init();
     I_Input.Init();
     _Writer.Init();
@@ -20,6 +18,18 @@ bool GameCore::CoreInit()
         (void**)&pBackBuffer);
     _Writer.Set(pBackBuffer);
     pBackBuffer->Release();
+
+    D3D11_SAMPLER_DESC sd;
+    ZeroMemory(&sd, sizeof(sd));
+    sd.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+    sd.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    sd.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    sd.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    hr = _pd3dDevice->CreateSamplerState(&sd, &_pDefaultSS);
+    if (FAILED(hr))
+    {
+        return false;
+    }
     return Init();
 }
 
@@ -41,7 +51,7 @@ bool GameCore::CorePreRender()
     //FLOAT ColorRGBA[4] //·»´õÅ¸°Ùºä¸¦ Ã¤¿ï »ö»ó °ª
     _pImmediateContext->ClearRenderTargetView(_pRTV, color);
     _pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-    //_pImmediateContext->PSSetSamplers(0, 1, &DxState::g_pDefaultSS);
+    _pImmediateContext->PSSetSamplers(0, 1, &_pDefaultSS);
     return true;
 }
 

@@ -20,10 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="DefaultShape.txt" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="GameCore.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Object2D.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="Std.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
@@ -34,9 +38,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="GameCore.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Object2D.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Timer.cpp" />

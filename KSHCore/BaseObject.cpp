@@ -12,20 +12,28 @@ bool BaseObject::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediat
     {
         return false;
     }
-    if (FAILED(CreateVertexShader(shaderName)))
+    if (FAILED(CreateShader(shaderName)))
+    {
+        return false;
+    }
+    /*if (FAILED(CreateVertexShader(shaderName)))
     {
         return false;
     }
     if (FAILED(CreatePixelShader(shaderName)))
     {
         return false;
-    }
+    }*/
     if (FAILED(CreateVertexLayout()))
     {
         return false;
     }
 
     _pTexture = I_Tex.Load(textureName);
+    if (_pTexture != nullptr)
+    {
+        _pTextureSRV = _pTexture->_pTextureSRV;
+    }
 	return true;
 }
 
@@ -101,6 +109,20 @@ HRESULT BaseObject::CreateIndexBuffer()
         &sd, // 초기 할당된 버퍼를 체우는 CPU메모리 주소
         &_pIndexBuffer);
     return hr;
+}
+
+HRESULT BaseObject::CreateShader(const std::wstring& filename)
+{
+    _pShader = I_Shader.Load(filename);
+    if (_pShader != nullptr)
+    {
+        _pVS = _pShader->_pVS;
+        _pPS = _pShader->_pPS;
+        _pVSCode = _pShader->_pVSCode;
+        _pPSCode = _pShader->_pPSCode;
+        return S_OK;
+    }
+    return E_FAIL;
 }
 
 HRESULT BaseObject::CreateVertexShader(const std::wstring& filename)
@@ -224,9 +246,10 @@ bool BaseObject::Frame()
     return true;
 }
 
-bool BaseObject::Render()
+bool BaseObject::PreRender()
 {
-    _pTexture->Apply(_pImmediateContext, 0);
+    //_pTexture->Apply(_pImmediateContext, 0);
+    _pImmediateContext->PSSetShaderResources(0, 1, &_pTextureSRV);
     _pImmediateContext->IASetInputLayout(_pVertexLayout);
     _pImmediateContext->VSSetShader(_pVS, NULL, 0);
     _pImmediateContext->PSSetShader(_pPS, NULL, 0);
@@ -236,6 +259,18 @@ bool BaseObject::Render()
         &_pVertexBuffer, &stride, &offset);
     _pImmediateContext->IASetIndexBuffer(_pIndexBuffer,
         DXGI_FORMAT_R32_UINT, 0);
+    return true;
+}
+
+bool BaseObject::Render()
+{
+    PreRender();
+    PostRender();
+    return true;
+}
+
+bool BaseObject::PostRender()
+{
     if (_pIndexBuffer == nullptr)
         _pImmediateContext->Draw(_VertexList.size(), 0);
     else
@@ -248,16 +283,8 @@ bool BaseObject::Release()
     if (_pVertexBuffer) _pVertexBuffer->Release();
     if (_pIndexBuffer) _pIndexBuffer->Release();
     if (_pVertexLayout) _pVertexLayout->Release();
-    if (_pVS) _pVS->Release();
-    if (_pPS) _pPS->Release();
-    if (_pVSCode) _pVSCode->Release();
-    if (_pPSCode) _pPSCode->Release();
     _pVertexBuffer = nullptr;
     _pIndexBuffer = nullptr;
     _pVertexLayout = nullptr;
-    _pVS = nullptr;
-    _pPS = nullptr;
-    _pVSCode = nullptr;
-    _pPSCode = nullptr;
     return true;
 }
