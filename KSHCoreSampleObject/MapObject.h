@@ -1,10 +1,11 @@
 #pragma once
-#include "BaseObject.h"
+#include "Object2D.h"
 
-class MapObject : public BaseObject
+class MapObject : public Object2D
 {
-	Vector2D _vUserPos;
+	bool   FrameScroll();
 public:
-	bool Frame() override;
+	bool   Frame() override;
+	void  UpdateVertexBuffer() override;
 };
 

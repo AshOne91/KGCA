@@ -5,6 +5,7 @@
 #include "Writer.h"
 #include "TextureManager.h"
 #include "ShaderManager.h"
+#include "SoundManager.h"
 class GameCore : public Device
 {
 public:

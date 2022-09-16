@@ -1,12 +1,13 @@
 #pragma once
 #include "GameCore.h"
 #include "SceneTitle.h"
+#include "SceneInGame.h"
 
 class Sample : public GameCore
 {
 public:
 	SceneTitle* _pTitle = nullptr;
-	Scene* _pInGame = nullptr;
+	SceneInGame* _pInGame = nullptr;
 	Scene* _pCurrentScene = nullptr;
 
 public:

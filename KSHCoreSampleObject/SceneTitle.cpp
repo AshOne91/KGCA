@@ -3,8 +3,8 @@
 bool SceneTitle::Init()
 {
 	std::wstring shaderfilename = L"../../data/shader/DefaultShape.txt";
-	_pMap = new MapObject;
-	_pMap->Create(_pd3dDevice,
+	_pMapTitle = new MapObject;
+	_pMapTitle->Create(_pd3dDevice,
 		_pImmediateContext,
 		shaderfilename,
 		L"../../data/kgcabk.bmp");
@@ -16,11 +16,11 @@ bool SceneTitle::Frame()
 }
 bool SceneTitle::Render()
 {
-	_pMap->Render();
+	_pMapTitle->Render();
 	return true;
 }
 bool SceneTitle::Release()
 {
-	_pMap->Release();
+	_pMapTitle->Release();
 	return true;
 }

@@ -21,6 +21,8 @@ private:
 	// 투사되는 원의 투사거리
 	float _fWanderDistance;
 
+	float _fDBoxLength;
+
 public:
 	Vehicle* _pVehicle;
 	Vector2D Seek(Vector2D TargetPos);

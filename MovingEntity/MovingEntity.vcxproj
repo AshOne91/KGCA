@@ -149,19 +149,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="C2DMatrix.h" />
+    <ClInclude Include="CellSpacePartition.h" />
+    <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="InvertedAABBox2D.h" />
     <ClInclude Include="MovingEntity.h" />
+    <ClInclude Include="Param.h" />
+    <ClInclude Include="Path.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SteeringBehaviors.h" />
     <ClInclude Include="Transformations.h" />
     <ClInclude Include="Vehicle.h" />
+    <ClInclude Include="Wall2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="C2DMatrix.cpp" />
+    <ClCompile Include="CellSpacePartition.cpp" />
+    <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="InvertedAABBox2D.cpp" />
     <ClCompile Include="MovingEntity.cpp" />
+    <ClCompile Include="Param.cpp" />
+    <ClCompile Include="Path.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="SteeringBehaviors.cpp" />
     <ClCompile Include="Vehicle.cpp" />
+    <ClCompile Include="Wall2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KSHCore\KSHCore.vcxproj">

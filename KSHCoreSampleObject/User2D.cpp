@@ -21,6 +21,6 @@ bool User2D::Frame()
         vPos.x += 1.0f * g_fSecondPerFrame * _fSpeed;
     }
 
-    SetPosition(vPos);
+    SetPosition(vPos, _vCameraPos);
 	return true;
 }

@@ -2,6 +2,8 @@
 #include "Vehicle.h"
 #include "Utils.h"
 #include "Transformations.h"
+#include "Param.h"
+#include "GameWorld.h"
 
 Vector2D SteeringBehaviors::Seek(Vector2D TargetPos)
 {
@@ -96,6 +98,34 @@ Vector2D SteeringBehaviors::Wander()
 
 Vector2D SteeringBehaviors::ObstacleAvoidance(const std::vector<BaseObject*>& obstacles)
 {
+	_fDBoxLength = Prm.MinDetectionBoxLength + (_pVehicle->Speed() / _pVehicle->MaxSpeed()) * Prm.MinDetectionBoxLength;
+
+	_pVehicle->World()->TagObstaclesWithinViewRange(_pVehicle, _fDBoxLength);
+
+	BaseObject* ClosestInterectingObstacle = nullptr;
+
+	float DistToClosetIP = KSHCore::UTIL::MaxFloat;
+
+	Vector2D LocalPosOfClosestObstacle;
+
+	std::vector<BaseObject*>::const_iterator curOb = obstacles.begin();
+
+	while (curOb != obstacles.end())
+	{
+		if ((*curOb)->IsTagged())
+		{
+			Vector2D LocalPos = PointToLocalSpace((*curOb)->Pos(), _pVehicle->Heading(), _pVehicle->Side(), _pVehicle->_vPos());
+
+			if (LocalPos.x >= 0)
+			{
+				float ExpandedRadius = (*curOb)->BRadius()
+			}
+		}
+	}
+
+
+
+
 
 	return Vector2D();
 }

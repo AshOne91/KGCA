@@ -63,8 +63,14 @@
     <ClInclude Include="Object2D.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
     <ClInclude Include="Utils.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +114,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object2D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #include "MapObject.h"
 
-bool MapObject::Frame()
+bool MapObject::FrameScroll()
 {
     static float fStep = 0.0f;
     /* UINT iMapWidth = m_pTexture->m_Desc.Width;
@@ -33,4 +33,20 @@ bool MapObject::Frame()
         _pVertexBuffer, 0, NULL,
         &_VertexList.at(0), 0, 0);
     return true;
+}
+
+bool MapObject::Frame()
+{
+    SetPosition(_vPos, _vCameraPos);
+    return true;
+}
+
+void  MapObject::UpdateVertexBuffer()
+{
+    _VertexList[0].p = { _vDrawPos.x, _vDrawPos.y, 0.0f };
+    _VertexList[1].p = { _vDrawPos.x + _vDrawSize.x, _vDrawPos.y,  0.0f };
+    _VertexList[2].p = { _vDrawPos.x, _vDrawPos.y - _vDrawSize.y, 0.0f };
+    _VertexList[3].p = { _vDrawPos.x + _vDrawSize.x, _vDrawPos.y - _vDrawSize.y, 0.0f };
+    _pImmediateContext->UpdateSubresource(
+        _pVertexBuffer, NULL, NULL, &_VertexList.at(0), 0, 0);
 }

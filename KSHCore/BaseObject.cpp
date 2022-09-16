@@ -59,12 +59,18 @@ void BaseObject::CreateVertexData()
 void BaseObject::CreateIndexData()
 {
     _IndexList.resize(6);
-    _IndexList[0] = 0;
-    _IndexList[1] = 1;
-    _IndexList[2] = 2;
-    _IndexList[3] = 2;
-    _IndexList[4] = 1;
-    _IndexList[5] = 3;
+	_IndexList[0] = 0;
+	_IndexList[1] = 1;
+	_IndexList[2] = 2;
+	_IndexList[3] = 2;
+	_IndexList[4] = 1;
+	_IndexList[5] = 3;
+    /*_IndexList[0] = 1;
+    _IndexList[1] = 0;
+    _IndexList[2] = 3;
+    _IndexList[3] = 3;
+    _IndexList[4] = 0;
+    _IndexList[5] = 2;*/
 }
 
 HRESULT BaseObject::CreateVertexBuffer()

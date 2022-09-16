@@ -11,5 +11,6 @@ private:
 
 public:
 	void Update(float time_elapsed);
+	GameWorld* const         World()const { return _pWorld; }
 };
 

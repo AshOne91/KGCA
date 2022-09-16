@@ -9,6 +9,7 @@ bool GameCore::CoreInit()
     }
     I_Tex.SetDevice(_pd3dDevice, _pImmediateContext);
     I_Shader.SetDevice(_pd3dDevice, _pImmediateContext);
+    I_Sound.Init();
     I_Timer.Init();
     I_Input.Init();
     _Writer.Init();
@@ -37,6 +38,7 @@ bool GameCore::CoreFrame()
 {
     I_Timer.Frame();
     I_Input.Frame();
+    I_Sound.Frame();
     _Writer.Frame();
     return Frame();
 }

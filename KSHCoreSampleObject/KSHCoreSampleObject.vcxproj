@@ -120,7 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../include;../../include/dxtk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;../../include/dxtk;../../include/fmod;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -137,7 +137,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../include;../../include/dxtk</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;../../include/dxtk;../../include/fmod;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,6 +153,7 @@
     <ClInclude Include="Npc2D.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneInGame.h" />
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="User2D.h" />
   </ItemGroup>
@@ -161,6 +162,7 @@
     <ClCompile Include="Npc2D.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneInGame.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="User2D.cpp" />
   </ItemGroup>

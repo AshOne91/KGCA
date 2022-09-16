@@ -9,10 +9,10 @@ public:
 	ID3D11Device* _pd3dDevice = nullptr;// 디바이스 객체
 	ID3D11DeviceContext* _pImmediateContext = nullptr;
 public:
+	Vector2D _vCamera = { 0, 0 };
 	User2D* _pUser;
-	MapObject* _pMap;
-	std::vector<BaseObject*>	_pNpcList;
-	std::vector<Texture*>		_ObjectTextureList;
+	Rect _rtMap = { -1000.0f, -1000.0f, 2000.0f, 2000.0f };
+
 public:
 	virtual bool		Create(
 		ID3D11Device* pd3dDevice,// 디바이스 객체

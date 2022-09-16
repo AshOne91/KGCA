@@ -7,27 +7,27 @@ bool Npc2D::Frame()
     Vector2D m_vVelocity = _vDir * _fSpeed * g_fSecondPerFrame;
     vPos = vPos + m_vVelocity;
 
-    if (vPos.x > g_rtClient.right)
+    if (vPos.x > 1000.0f)
     {
-        vPos.x = g_rtClient.right;
+        vPos.x = 1000.0f;
         _vDir.x *= -1.0f;
     }
-    if (vPos.x < 0.0f)
+    if (vPos.x < -1000.0f)
     {
-        vPos.x = 0.0f;
+        vPos.x = -1000.0f;
         _vDir.x *= -1.0f;
     }
-    if (vPos.y > g_rtClient.bottom)
+    if (vPos.y > 1000.0f)
     {
-        vPos.y = g_rtClient.bottom;
+        vPos.y = 1000.0f;
         _vDir.y *= -1.0f;
     }
-    if (vPos.y < 0.0f)
+    if (vPos.y < -1000.0f)
     {
-        vPos.y = 0.0f;
+        vPos.y = -1000.0f;
         _vDir.y *= -1.0f;
     }
 
-    SetPosition(vPos);
+    SetPosition(vPos, _vCameraPos);
 	return true;
 }

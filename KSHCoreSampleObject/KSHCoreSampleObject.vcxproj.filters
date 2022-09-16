@@ -33,6 +33,9 @@
     <ClCompile Include="SceneTitle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SceneInGame.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -51,6 +54,9 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneInGame.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
