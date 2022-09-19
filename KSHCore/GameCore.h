@@ -3,14 +3,15 @@
 #include "Timer.h"
 #include "Input.h"
 #include "Writer.h"
+#include "DxState.h"
 #include "TextureManager.h"
 #include "ShaderManager.h"
 #include "SoundManager.h"
+
 class GameCore : public Device
 {
 public:
 	Writer _Writer;
-	ID3D11SamplerState* _pDefaultSS = nullptr;
 	bool _bGameRun = true;
 
 public:

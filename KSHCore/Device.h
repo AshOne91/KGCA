@@ -16,6 +16,8 @@ public:
 	IDXGIFactory* _pGIFactory = nullptr; 
 	IDXGISwapChain* _pSwapChain = nullptr; //Ω∫ø“√º¿Œ ∞¥√º
 	ID3D11RenderTargetView* _pRTV = nullptr; // ∏ﬁ¿Œ ∑£¥ı≈∏∞Ÿ ∫‰
+	D3D11_VIEWPORT _vp;
+
 public:
 	HRESULT CreateDevice();
 	HRESULT CreateDXGIDevice();

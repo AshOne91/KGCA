@@ -12,6 +12,7 @@ public:
 	Vector2D _vCamera = { 0, 0 };
 	User2D* _pUser;
 	Rect _rtMap = { -1000.0f, -1000.0f, 2000.0f, 2000.0f };
+	virtual void DrawMinMap(UINT x, UINT y, UINT w = 100, UINT h = 100) {}
 
 public:
 	virtual bool		Create(

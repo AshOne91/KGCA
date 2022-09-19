@@ -182,14 +182,13 @@ void Device::CreateViewport()
 	// 
 	// 스크린의 어떤 위치에 작업한 내용을 표현할 것인지 구역 설정하는 것
 	//
-	D3D11_VIEWPORT vp;
-	vp.Width = _rtClient.right;
-	vp.Height = _rtClient.bottom;
-	vp.TopLeftX = 0;
-	vp.TopLeftY = 0;
-	vp.MinDepth = 0.0f;
-	vp.MaxDepth = 1.0f;
-	_pImmediateContext->RSSetViewports(1, &vp);
+	_vp.Width = _rtClient.right;
+	_vp.Height = _rtClient.bottom;
+	_vp.TopLeftX = 0;
+	_vp.TopLeftY = 0;
+	_vp.MinDepth = 0.0f;
+	_vp.MaxDepth = 1.0f;
+	_pImmediateContext->RSSetViewports(1, &_vp);
 }
 
 bool Device::Init()

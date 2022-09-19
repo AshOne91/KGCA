@@ -13,5 +13,6 @@ public:
 	virtual bool Frame() override;
 	virtual bool Render() override;
 	virtual bool Release() override;
+	virtual void DrawMinMap(UINT x, UINT y, UINT w = 100, UINT h = 100);
 };
 

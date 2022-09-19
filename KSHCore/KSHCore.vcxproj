@@ -23,6 +23,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DefaultShape.txt" />
     <ClInclude Include="Device.h" />
+    <ClInclude Include="DxState.h" />
     <ClInclude Include="GameCore.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Object2D.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Device.cpp" />
+    <ClCompile Include="DxState.cpp" />
     <ClCompile Include="GameCore.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Object2D.cpp" />

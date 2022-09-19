@@ -115,6 +115,12 @@ public:
 		result *= scala;
 		return result;
 	}
+	friend Vector2D operator/(float scala, const Vector2D& vector)
+	{
+		Vector2D result(vector);
+		result = result / scala;
+		return result;
+	}
 
 public:
 	void Zero();

@@ -18,7 +18,7 @@ bool SceneInGame::Init()
    // -1 ~ +1
 	_pUser = new User2D;
 	_pUser->Create(_pd3dDevice, _pImmediateContext,
-		L"../../data/shader/DefaultShapeMask.txt",
+		L"DefaultShapeMask.txt",
 		L"../../data/bitmap1.bmp");
 	_pUser->SetMask(pMaskTex);
 	_pUser->_fSpeed = 300.0f;
@@ -30,7 +30,7 @@ bool SceneInGame::Init()
 	{
 		Npc2D* npc = new Npc2D;
 		npc->Create(_pd3dDevice, _pImmediateContext,
-			L"../../data/shader/DefaultShapeMask.txt",
+			L"DefaultShapeMask.txt",
 			L"../../data/bitmap1.bmp");
 		if (iNpc % 2 == 0)
 		{
@@ -94,6 +94,8 @@ bool SceneInGame::Render()
 	_pImmediateContext->PSSetShaderResources(1, 1,
 		&_pUser->_pMaskTex->_pTextureSRV);
 	_pUser->PostRender();
+
+	DrawMinMap(0, 0);
 	return true;
 }
 
@@ -111,4 +113,34 @@ bool SceneInGame::Release()
 		delete _pNpcList[iObj];
 	}
     return true;
+}
+
+void SceneInGame::DrawMinMap(UINT x, UINT y, UINT w, UINT h)
+{
+	D3D11_VIEWPORT saveViewPort[15];
+	UINT SaveNumView = 1;
+	_pImmediateContext->RSGetViewports(&SaveNumView, saveViewPort);
+
+	D3D11_VIEWPORT vp;
+	vp.Width = w;
+	vp.Height = h;
+	vp.TopLeftX = x;
+	vp.TopLeftY = y;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	_pImmediateContext->RSSetViewports(1, &vp);
+	Vector2D vSize = { 2000, 2000 };
+	_pMap->SetCameraSize(vSize);
+	_pMap->SetCameraPos(_vCamera);
+	_pMap->Frame();
+	_pMap->Render();
+	for (int iObj = 0; iObj < _pNpcList.size(); ++iObj)
+	{
+		_pNpcList[iObj]->SetCameraSize(vSize);
+		_pNpcList[iObj]->SetCameraPos(_vCamera);
+		_pNpcList[iObj]->Frame();
+		_pNpcList[iObj]->Render();
+	}
+
+	_pImmediateContext->RSSetViewports(SaveNumView, saveViewPort);
 }

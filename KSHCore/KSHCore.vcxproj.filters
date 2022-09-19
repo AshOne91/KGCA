@@ -72,6 +72,9 @@
     <ClInclude Include="SoundManager.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="DxState.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Device.cpp">
@@ -120,6 +123,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DxState.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

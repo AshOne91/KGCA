@@ -2,6 +2,7 @@
 #include "Device.h"
 #include "TextureManager.h"
 #include "ShaderManager.h"
+#include "Collision.h"
 
 struct SimpleVertex
 {
@@ -23,6 +24,7 @@ public:
 	ID3D11ShaderResourceView* _pTextureSRV = nullptr;
 	std::vector<SimpleVertex> _VertexList;
 	std::vector<DWORD> _IndexList;
+	Rect _rtCollision;
 
 public:
 	ID3D11VertexShader* _pVS = nullptr;
