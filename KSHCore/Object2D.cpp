@@ -44,7 +44,7 @@ void Object2D::ScreenToNDC()
         _vPos.y - vDrawSize.y,
         _rtInit.w,
         _rtInit.h);
-
+    //// 0  ~ 800   -> 0~1 ->  -1 ~ +1
     _vDrawPos.x = (_rtCollision.x1 / g_rtClient.right) * 2.0f - 1.0f;
     _vDrawPos.y = -((_rtCollision.y1 / g_rtClient.bottom) * 2.0f - 1.0f);
     _vDrawSize.x = (_rtInit.w / (float)g_rtClient.right) * 2.0f;
@@ -54,16 +54,7 @@ void Object2D::ScreenToNDC()
 // 월드좌표 -> 뷰 좌표 -> NDC 좌표
 void Object2D::ScreenToCamera(const Vector2D& vCameraPos, const Vector2D& vViewPort)
 {
-    //Vector2D vPos = _vPos;
-    //vPos.x = vPos.x - vCameraPos.x;
-    //vPos.y = vPos.y - vCameraPos.y;
-
     //// 0  ~ 800   -> 0~1 ->  -1 ~ +1
-    //_vDrawPos.x = vPos.x * (2.0f / vViewPort.x);
-    //_vDrawPos.y = vPos.y * (2.0f / vViewPort.y) * -1.0f;
-
-    //_vDrawSize.x = (_rtInit.w / vViewPort.x) * 2;
-    //_vDrawSize.y = (_rtInit.h / vViewPort.y) * 2;
     Vector2D vPos = _vPos;
     Vector2D vDrawSize;
     vDrawSize.x = _rtInit.w / 2.0f;
@@ -79,7 +70,6 @@ void Object2D::ScreenToCamera(const Vector2D& vCameraPos, const Vector2D& vViewP
     //// 0  ~ 800   -> 0~1 ->  -1 ~ +1
     _vDrawPos.x = vPos.x * (2.0f / vViewPort.x);
     _vDrawPos.y = vPos.y * (2.0f / vViewPort.y) * -1.0f;
-
     _vDrawSize.x = (_rtInit.w / vViewPort.x) * 2.0f;
     _vDrawSize.y = (_rtInit.h / vViewPort.y) * 2.0f;
 }
@@ -103,10 +93,29 @@ void Object2D::SetRect(const Rect& rt)
     _ptImageSize.x = _pTexture->_Desc.Width;
     _ptImageSize.y = _pTexture->_Desc.Height;
 
-    //전체 텍스쳐 크기에서 0~1사이의 값 셋팅(얻어올 텍스쳐 스프라이트의 좌표)
+    /*//전체 텍스쳐 크기에서 0~1사이의 값 셋팅(얻어올 텍스쳐 스프라이트의 좌표)
     // 90 -> 0 ~ 1
-    _rtUV.x1 = rt.x1 / _ptImageSize.x; // u
-    _rtUV.y1 = rt.y1 / _ptImageSize.y; // v
+    float fPixelX = (1.0f / _pTexture->_Desc.Width) / 2.0f;
+    float fPixelY = (1.0f / _pTexture->_Desc.Height) / 2.0f;
+    // 90  -> 0 ~ 1
+    _rtUV.x1 = rt.x1 / _ptImageSize.x + fPixelX; // u
+    // 1
+    _rtUV.y1 = rt.y1 / _ptImageSize.y + fPixelY; // v
+    // 40
+    _rtUV.w = rt.w / _ptImageSize.x;
+    // 60
+    _rtUV.h = rt.h / _ptImageSize.y;*/
+    /*_rtUV.x1 = rt.x1 / _ptImageSize.x;
+// 1
+    _rtUV.y1 = rt.y1 / _ptImageSize.y;
+    // 40
+    _rtUV.w = rt.w / _ptImageSize.x;
+    // 60
+    _rtUV.h = rt.h / _ptImageSize.y;*/
+    float fPixelX = (1.0f / _pTexture->_Desc.Width) / 2.0f;
+    float fPixelY = (1.0f / _pTexture->_Desc.Height) / 2.0f;
+    _rtUV.x1 = rt.x1 / _ptImageSize.x + fPixelX;
+    _rtUV.y1 = rt.y1 / _ptImageSize.y + fPixelY;
     _rtUV.w = rt.w / _ptImageSize.x;
     _rtUV.h = rt.h / _ptImageSize.y;
 }

@@ -2,43 +2,64 @@
 #include "GameCore.h"
 #include "User2D.h"
 #include "MapObject.h"
+#include "SpriteManager.h"
 
-typedef std::vector<RECT>  RECT_ARRAY;
-class Sprite : public Object2D
+struct Effect
 {
-	std::vector<Sprite*>  _pChild;
-	Rect    _rtCollision;
-public:
-	// È­¸é ÁÂÇ¥ -> NDC ÁÂÇ¥ 
-	void  SetPosition(Vector2D vPos)
+	Vector2D _vPos;
+	Vector2D _vDir = { 0, 1 };
+	float _fLifeTime = 1.33f;
+	float _fSpeed = 300.0f;
+	UINT _iIndex = 0;
+	UINT _iMaxIndex = 1;
+	float _fEffectTimer = 0.0f;
+	Rect _tRect = { 0, 0, 0, 0 };
+	float _fStep = 1.0f;
+	Rect _rtCollision;
+	Sprite* _pSprite = nullptr;
+
+	Rect convert(RECT rt)
 	{
-		_vPos = vPos;
-		Vector2D	vDrawSize;
-		vDrawSize.x = _rtInit.w / 2.0f;
-		vDrawSize.y = _rtInit.h / 2.0f;
-		_rtCollision.Set(
-			vPos.x - vDrawSize.x,
-			vPos.y - vDrawSize.y,
-			_rtInit.w,
-			_rtInit.h);
-		// 0  ~ 800   -> 0~1 ->  -1 ~ +1
-		_vDrawPos.x = (_rtCollision.x1 / g_rtClient.right) * 2.0f - 1.0f;
-		_vDrawPos.y = -((_rtCollision.y1 / g_rtClient.bottom) * 2.0f - 1.0f);
-		_vDrawSize.x = (_rtInit.w / g_rtClient.right) * 2;
-		_vDrawSize.y = (_rtInit.h / g_rtClient.bottom) * 2;
-		UpdateVertexBuffer();
+		Rect tRt;
+		tRt.x1 = rt.left;
+		tRt.y1 = rt.top;
+		tRt.w = rt.right;
+		tRt.h = rt.bottom;
+		return tRt;
+	}
+
+	bool Update()
+	{
+		_fEffectTimer += g_fSecondPerFrame;
+		if (_fStep <= _fEffectTimer)
+		{
+			_fEffectTimer -= _fStep;
+			_iIndex++;
+		}
+		if (_iIndex >= _iMaxIndex)
+		{
+			return false;
+		}
+		RECT rt = _pSprite->_uvArray[_iIndex];
+		_tRect = convert(rt);
+		Vector2D vAdd = _vDir * _fSpeed * g_fSecondPerFrame;
+		_vPos = _vPos + vAdd;
+		_rtCollision.x1 = _vPos.x;
+		_rtCollision.y1 = _vPos.y;
+		return true;
 	}
 };
+
 class Sample : public GameCore
 {
 	Vector2D		_vCamera;
 	MapObject* _pMap;
 	User2D* _pUser;
 	Sprite* _pObject;
-	std::vector<RECT_ARRAY> _rtSpriteList;
-	std::vector<Sprite*> _pSpriteList;
+
+	std::list<Effect*> _pEffectList;
 public:
-	bool GameDataLoad(const TCHAR* pszLoad);
+	void AddEffect();
 	virtual bool		Init() override;
 	virtual bool		Frame() override;
 	virtual bool		Render() override;

@@ -1,5 +1,5 @@
 #include "Collision.h"
-CollisionType Collision::RectToRect(const Rect& a, const Rect& b)
+CollisionType Collision::RectToRect(const Rect& a, const Rect& b, Rect& Intersect)
 {
     // 0 : 완전제외(0)
     // 1 : 완전포함(1) -> 걸쳐져 있는 상태(2)
@@ -19,8 +19,7 @@ CollisionType Collision::RectToRect(const Rect& a, const Rect& b)
         {
             // 교차한다. 교집합
             float x, y, x2, y2;
-            Rect Intersect;
-            x = a.x1 > b.x1 ? a.x1 : b.y1;
+            x = a.x1 > b.x1 ? a.x1 : b.x1;
             y = a.y1 > b.y1 ? a.y1 : b.y1;
             x2 = a.x2 < b.x2 ? a.x2 : b.x2;
             y2 = a.y2 < b.y2 ? a.y2 : b.y2;

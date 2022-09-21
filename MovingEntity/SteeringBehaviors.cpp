@@ -118,7 +118,7 @@ Vector2D SteeringBehaviors::ObstacleAvoidance(const std::vector<BaseObject*>& ob
 
 			if (LocalPos.x >= 0)
 			{
-				float ExpandedRadius = (*curOb)->BRadius()
+				float ExpandedRadius = (*curOb)->BRadius() + 
 			}
 		}
 	}

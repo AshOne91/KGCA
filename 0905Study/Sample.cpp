@@ -19,8 +19,14 @@ void Object2D::SetRect(const Rect& rt)
 
     //전체 텍스쳐 크기에서 0~1사이의 값 셋팅(얻어올 텍스쳐 스프라이트의 좌표)
     // 90 -> 0 ~ 1
-    _rtUV.x1 = rt.x1 / _ptImageSize.x; // u
+    /*_rtUV.x1 = rt.x1 / _ptImageSize.x; // u
     _rtUV.y1 = rt.y1 / _ptImageSize.y; // v
+    _rtUV.w = rt.w / _ptImageSize.x;
+    _rtUV.h = rt.h / _ptImageSize.y;*/
+    float fPixelX = (1.0f / _pTexture->_Desc.Width) / 2.0f;
+    float fPixelY = (1.0f / _pTexture->_Desc.Height) / 2.0f;
+    _rtUV.x1 = rt.x1 / _ptImageSize.x + fPixelX;
+    _rtUV.y1 = rt.y1 / _ptImageSize.y + fPixelY;
     _rtUV.w = rt.w / _ptImageSize.x;
     _rtUV.h = rt.h / _ptImageSize.y;
 }

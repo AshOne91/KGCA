@@ -77,6 +77,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KSHCoreSampleSound", "KSHCo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleSpriteManager", "SampleSpriteManager\SampleSpriteManager.vcxproj", "{3FB07FEA-3FBF-4D11-BD4F-529207F93C64}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CollisionTest", "CollisionTest\CollisionTest.vcxproj", "{B20D14BE-ED33-4EFF-9E0A-359ED808B61C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -357,6 +359,14 @@ Global
 		{3FB07FEA-3FBF-4D11-BD4F-529207F93C64}.Release|x64.Build.0 = Release|x64
 		{3FB07FEA-3FBF-4D11-BD4F-529207F93C64}.Release|x86.ActiveCfg = Release|Win32
 		{3FB07FEA-3FBF-4D11-BD4F-529207F93C64}.Release|x86.Build.0 = Release|Win32
+		{B20D14BE-ED33-4EFF-9E0A-359ED808B61C}.Debug|x64.ActiveCfg = Debug|x64
+		{B20D14BE-ED33-4EFF-9E0A-359ED808B61C}.Debug|x64.Build.0 = Debug|x64
+		{B20D14BE-ED33-4EFF-9E0A-359ED808B61C}.Debug|x86.ActiveCfg = Debug|Win32
+		{B20D14BE-ED33-4EFF-9E0A-359ED808B61C}.Debug|x86.Build.0 = Debug|Win32
+		{B20D14BE-ED33-4EFF-9E0A-359ED808B61C}.Release|x64.ActiveCfg = Release|x64
+		{B20D14BE-ED33-4EFF-9E0A-359ED808B61C}.Release|x64.Build.0 = Release|x64
+		{B20D14BE-ED33-4EFF-9E0A-359ED808B61C}.Release|x86.ActiveCfg = Release|Win32
+		{B20D14BE-ED33-4EFF-9E0A-359ED808B61C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -395,6 +405,7 @@ Global
 		{9E9E72BA-0D44-4AE4-8C85-BB8417E08B35} = {7B31BBDA-42FA-4623-9C90-31509018304A}
 		{5402582C-423E-42F6-96F7-BC9B2F650B15} = {7B31BBDA-42FA-4623-9C90-31509018304A}
 		{3FB07FEA-3FBF-4D11-BD4F-529207F93C64} = {7B31BBDA-42FA-4623-9C90-31509018304A}
+		{B20D14BE-ED33-4EFF-9E0A-359ED808B61C} = {7B31BBDA-42FA-4623-9C90-31509018304A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74FCF4AF-8561-4B5E-9CB0-18F23DD44ACE}

@@ -64,10 +64,10 @@ struct Rect : stRect
         this->y1 = y;
         this->w = z;
         this->h = w;
-        x2 = x + w;
-        y2 = y + h;
-        cx = (x + x2) / 2.0f;
-        cy = (y + y2) / 2.0f;
+        x2 = this->x1 + this->w;
+        y2 = this->y1 + this->h;
+        cx = (this->x1 + x2) / 2.0f;
+        cy = (this->y1 + y2) / 2.0f;
     }
 };
 
@@ -118,7 +118,7 @@ struct Box : stBox
 class Collision
 {
 public:
-    static CollisionType   RectToRect(const Rect& a, const Rect& b);
+    static CollisionType   RectToRect(const Rect& a, const Rect& b, Rect& Intersect);
     static bool             RectToInRect(const Rect& a, const Rect& b);
     static bool             CircleToCircle(const Circle& a, const Circle& b);
 public:
