@@ -13,7 +13,8 @@ bool Sample::Init()
 }
 bool Sample::Frame()
 {
-	if (I_Input.GetKey(VK_F1) == KEY_PUSH)
+	//if (I_Input.GetKey(VK_F1) == KEY_PUSH)
+	if (_pCurrentScene->IsNextScene())
 	{
 		_pCurrentScene = _pInGame;
 	}
@@ -38,4 +39,4 @@ bool Sample::Release()
 	return true;
 }
 
-GAME_RUN(TSampleCollisionTest, 1024, 768)
+GAME_RUN(TSampleCollisionTest, 800, 600)

@@ -52,8 +52,5 @@ public:
 	virtual bool Render();
 	virtual bool PostRender();
 	virtual bool Release();
-
-public:
-	virtual void Rotation();
 };
 

@@ -53,6 +53,18 @@ bool    Collision::RectToInRect(const Rect& a, const Rect& b)
     return false;
 }
 
+bool Collision::RectToPoint(const Rect& a, const POINT& p)
+{
+    if (a.x1 <= p.x && a.x2 >= p.x)
+    {
+        if (a.y1 <= p.y && a.y2 >= p.y)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool   Collision::CircleToCircle(const Circle& a, const Circle& b)
 {
     float fSumRadius = a.fRadius + b.fRadius;

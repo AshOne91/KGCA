@@ -19,10 +19,10 @@ public:
 public:
 	Vector2D _vCameraPos;
 	Vector2D _vViewSize;
-	void SetCameraPos(const Vector2D& vCamera);
-	void SetCameraSize(const Vector2D& vSize);
-	void ScreenToNDC();
-	void ScreenToCamera(const Vector2D& vCameraPos, const Vector2D& vViewPort);
+	virtual void SetCameraPos(const Vector2D& vCamera);
+	virtual void SetCameraSize(const Vector2D& vSize);
+	virtual void ScreenToNDC();
+	virtual void ScreenToCamera(const Vector2D& vCameraPos, const Vector2D& vViewPort);
 
 public:
 	bool Frame() override;
@@ -32,4 +32,5 @@ public:
 	virtual void SetDirection(const Vector2D& vDir);
 	virtual void UpdateVertexBuffer() override;
 	virtual void SetMask(Texture* pMaskTex);
+	virtual void Rotation();
 };

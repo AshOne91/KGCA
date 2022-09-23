@@ -47,6 +47,7 @@ bool GameCore::CorePreRender()
     _pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     _pImmediateContext->RSSetViewports(1, &_vp);
     _pImmediateContext->RSSetState(DxState::g_pDefaultRSSolid);
+    _pImmediateContext->OMSetBlendState(DxState::g_pAlphaBlend, 0, -1);
     return true;
 }
 

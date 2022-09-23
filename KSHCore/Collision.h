@@ -120,6 +120,7 @@ class Collision
 public:
     static CollisionType   RectToRect(const Rect& a, const Rect& b, Rect& Intersect);
     static bool             RectToInRect(const Rect& a, const Rect& b);
+    static bool             RectToPoint(const Rect& a, const POINT& p);
     static bool             CircleToCircle(const Circle& a, const Circle& b);
 public:
     static CollisionType   BoxToBox(const Box& a, const Box& b);

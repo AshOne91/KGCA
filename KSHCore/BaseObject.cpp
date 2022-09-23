@@ -296,15 +296,3 @@ bool BaseObject::Release()
     _pVertexLayout = nullptr;
     return true;
 }
-
-void BaseObject::Rotation()
-{
-    float fDegree = 45.0f;
-    float fRadian = DegreeToRadian(fDegree);
-    for (int iV = 0; iV < 4; ++iV)
-    {
-        _InitVertexList[iV].p.x = _VertexList[iV].p.x * cos(fRadian) - _VertexList[iV].p.y * sin(fRadian);
-        _InitVertexList[iV].p.y = _VertexList[iV].p.x * sin(fRadian) + _VertexList[iV].p.y * cos(fRadian);
-    }
-    _pImmediateContext->UpdateSubresource(_pVertexBuffer, NULL, NULL, &_InitVertexList.at(0), 0, 0);
-}

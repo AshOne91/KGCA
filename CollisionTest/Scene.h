@@ -20,6 +20,7 @@ public:
 	{}
 
 public:
+	virtual bool		IsNextScene() { return false; }
 	virtual bool		Init();
 	virtual bool		Frame();
 	virtual bool		Render();

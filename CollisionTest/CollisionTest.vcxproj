@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Npc2D.h" />
     <ClInclude Include="Sample.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="User2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Npc2D.cpp" />
     <ClCompile Include="Sample.cpp" />
