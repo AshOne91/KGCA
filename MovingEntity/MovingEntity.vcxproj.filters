@@ -95,5 +95,8 @@
     <ClInclude Include="geometry.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="EntityFunctionTemplates.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

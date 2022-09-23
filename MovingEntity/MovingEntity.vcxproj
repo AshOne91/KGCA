@@ -152,6 +152,7 @@
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="C2DMatrix.h" />
     <ClInclude Include="CellSpacePartition.h" />
+    <ClInclude Include="EntityFunctionTemplates.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="geometry.h" />
     <ClInclude Include="InvertedAABBox2D.h" />

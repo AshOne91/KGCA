@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector.h"
 #include "BaseObject.h"
+#include "BaseGameEntity.h"
 
 enum class Deceleration : int
 {
@@ -38,6 +39,15 @@ public:
 	Vector2D ObstacleAvoidance(const std::vector<BaseObject*>& obstacles);
 	Vector2D WallAvoidance(const std::vector<Wall2D>& walls);
 	Vector2D Interpose(const Vehicle* AgentA, const Vehicle* AgentB);
+	Vector2D GetHidingPosition(const Vector2D& posOb, const float radiusOb, const Vector2D& posTarget);
+	Vector2D Hide(const Vehicle* target, std::vector<BaseGameEntity*>& obstacles);
+	Vector2D FollowPath();
+	Vector2D OffsetPursuit(const Vehicle* leader, const Vector2D offset);
+
+	Vector2D Separation(const std::vector<Vehicle*>& neighbors);
+	Vector2D Alignment(const std::vector<Vehicle*>& neighbors);
+	Vector2D Cohesion(const std::vector<Vehicle*>& neighbors);
+
 
 	void CreateFeelers();
 

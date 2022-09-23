@@ -237,3 +237,102 @@ Vector2D SteeringBehaviors::Interpose(const Vehicle* AgentA, const Vehicle* Agen
 
 	return Arrive(MidPoint, Deceleration::fast);
 }
+
+Vector2D SteeringBehaviors::GetHidingPosition(const Vector2D& posOb, const float radiusOb, const Vector2D& posTarget)
+{
+	const float DistanceFromBoundary = 30.0f;
+	
+	float DistAway = radiusOb + DistanceFromBoundary;
+
+	Vector2D ToOb(posOb - posTarget);
+	ToOb.Identity();
+
+	return (ToOb * DistAway) + posOb;
+}
+
+Vector2D SteeringBehaviors::Hide(const Vehicle* target, std::vector<BaseGameEntity*>& obstacles)
+{
+	float DistToClosest = KSHCore::UTIL::MaxFloat;
+	Vector2D BestHidingSpot;
+
+	auto curOb = obstacles.begin();
+	while (curOb != obstacles.end())
+	{
+		Vector2D HidingSpot = GetHidingPosition((*curOb)->Pos(), (*curOb)->BRadius(), target->_vPos);
+
+		float dist = Vector2D::DistanceSq(HidingSpot, _pVehicle->_vPos);
+
+		if (dist < DistToClosest)
+		{
+			DistToClosest = dist;
+
+			BestHidingSpot = HidingSpot;
+		}
+
+		++curOb;
+	}
+
+	if (DistToClosest == KSHCore::UTIL::MaxFloat)
+	{
+		return Evade(target);
+	}
+
+	return Arrive(BestHidingSpot, Deceleration::fast);
+}
+
+Vector2D SteeringBehaviors::FollowPath()
+{
+	if (Vector2D::DistanceSq(_pPath->CurrentWayPoint(), _pVehicle->_vPos) < _WayPointSeekDistSq)
+	{
+		_pPath->SetNextWayPoint();
+	}
+
+	if (!_pPath->Finished())
+	{
+		return Seek(_pPath->CurrentWaypoint());
+	}
+	else
+	{
+		return Arrive(_pPath->CurrentWaypoint(), Deceleration::normal);
+	}
+}
+
+Vector2D SteeringBehaviors::OffsetPursuit(const Vehicle* leader, const Vector2D offset)
+{
+	Vector2D WorldOffsetPos = PointToWorldSpace(offset, leader->Heading(), leader->Side(), leader->_vPos);
+
+	Vector2D ToOffset = WorldOffsetPos - _pVehicle->_vPos;
+
+	float LookAheadTime = ToOffset.Length() / (_pVehicle->MaxSpeed() + leader->Speed());
+
+	return Arrive(WorldOffsetPos + leader->Velocity() * LookAheadTime, Deceleration::fast);
+}
+
+Vector2D SteeringBehaviors::Separation(const std::vector<Vehicle*>& neighbors)
+{
+	Vector2D SteeringForce;
+
+	for (int a = 0; a < neighbors.size(); ++a)
+	{
+		if ((neighbors[a] != _pVehicle) && neighbors[a]->IsTagged())
+		{
+			Vector2D ToAgent = _pVehicle->_vPos - neighbors[a]->_vPos;
+
+			SteeringForce += ((ToAgent.Identity()) / ToAgent.Length());
+		}
+	}
+
+	return SteeringForce;
+}
+
+Vector2D SteeringBehaviors::Alignment(const std::vector<Vehicle*>& neighbors)
+{
+	return Vector2D();
+}
+
+Vector2D SteeringBehaviors::Cohesion(const std::vector<Vehicle*>& neighbors)
+{
+	return Vector2D();
+}
+
+
