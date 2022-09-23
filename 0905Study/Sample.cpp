@@ -36,8 +36,8 @@ void Object2D::SetPosition(const Vector2D& vPos)
 {
     _vPos = vPos;
     // 0 ~ 800 -> 0~1 -> -1 ~ + 1
-    _vDrawPos.x = (vPos.x / g_rtClient.right) * 2.0f - 1.0f;
-    _vDrawPos.y = -((vPos.y / g_rtClient.bottom) * 2.0f - 1.0f);
+    _vNDCPos.x = (vPos.x / g_rtClient.right) * 2.0f - 1.0f;
+    _vNDCPos.y = -((vPos.y / g_rtClient.bottom) * 2.0f - 1.0f);
     _vDrawSize.x = (_rtInit.w / g_rtClient.right) * 2.0f;
     _vDrawSize.y = (_rtInit.h / g_rtClient.bottom) * 2.0f;
 
@@ -51,13 +51,13 @@ void Object2D::SetDirection(const Vector2D& vDir)
 
 void Object2D::UpdateVertexBuffer()
 {
-    _vertexList[0].p = { _vDrawPos.x, _vDrawPos.y, 0.0f };
+    _vertexList[0].p = { _vNDCPos.x, _vNDCPos.y, 0.0f };
     _vertexList[0].t = { _rtUV.x1, _rtUV.y1 };
 
-    _vertexList[1].p = { _vDrawPos.x + _vDrawSize.x, _vDrawPos.y,  0.0f };
+    _vertexList[1].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y,  0.0f };
     _vertexList[1].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 };
 
-    _vertexList[2].p = { _vDrawPos.x, _vDrawPos.y - _vDrawSize.y, 0.0f };
+    _vertexList[2].p = { _vNDCPos.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
     _vertexList[2].t = { _rtUV.x1, _rtUV.y1 + _rtUV.h };
 
     _vertexList[3].p = _vertexList[2].p;
@@ -66,7 +66,7 @@ void Object2D::UpdateVertexBuffer()
     _vertexList[4].p = _vertexList[1].p;
     _vertexList[4].t = _vertexList[1].t;
 
-    _vertexList[5].p = { _vDrawPos.x + _vDrawSize.x, _vDrawPos.y - _vDrawSize.y, 0.0f };
+    _vertexList[5].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
     _vertexList[5].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 + _rtUV.h};
 
     _pImmediateContext->UpdateSubresource(_pVertexBuffer, 0, NULL, &_vertexList.at(0), 0, 0);

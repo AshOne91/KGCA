@@ -3,7 +3,7 @@
 #include <iostream>
 #include <math.h>
 #define PI 3.141592f
-#define DegreeToRadian(x) (x *(T_PI / 180.0f))
+#define DegreeToRadian(x) (x *(PI / 180.0f))
 #define RadianToDegree(x) (x *(180.0f / PI))
 #define Epsilon 0.001f
 enum class Sign { clockwise = 1, anticlockwise = -1 };

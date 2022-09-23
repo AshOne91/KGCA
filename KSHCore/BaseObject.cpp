@@ -54,6 +54,8 @@ void BaseObject::CreateVertexData()
     _VertexList[1].t = { 1.0f, 0.0f };
     _VertexList[2].t = { 0.0f, 1.0f };
     _VertexList[3].t = { 1.0f, 1.0f };
+
+    _InitVertexList = _VertexList;
 }
 
 void BaseObject::CreateIndexData()
@@ -293,4 +295,16 @@ bool BaseObject::Release()
     _pIndexBuffer = nullptr;
     _pVertexLayout = nullptr;
     return true;
+}
+
+void BaseObject::Rotation()
+{
+    float fDegree = 45.0f;
+    float fRadian = DegreeToRadian(fDegree);
+    for (int iV = 0; iV < 4; ++iV)
+    {
+        _InitVertexList[iV].p.x = _VertexList[iV].p.x * cos(fRadian) - _VertexList[iV].p.y * sin(fRadian);
+        _InitVertexList[iV].p.y = _VertexList[iV].p.x * sin(fRadian) + _VertexList[iV].p.y * cos(fRadian);
+    }
+    _pImmediateContext->UpdateSubresource(_pVertexBuffer, NULL, NULL, &_InitVertexList.at(0), 0, 0);
 }

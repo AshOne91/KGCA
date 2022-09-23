@@ -1,8 +1,54 @@
 #include "User2D.h"
 #include "Input.h"
+
+void User2D::Rotation()
+{
+    Vector3D vCenter;
+    vCenter.x = (_VertexList[1].p.x + _VertexList[0].p.x) / 2.0f;
+    vCenter.y = (_VertexList[2].p.y + _VertexList[0].p.y) / 2.0f;
+
+    float fDegree = _fAngleDegree;
+    float fRadian = DegreeToRadian(fDegree);
+    Vector3D vRot;
+    for (int vertex = 0; vertex < 4; ++vertex)
+    {
+        Vector3D vCenterMove = _VertexList[vertex].p - vCenter;
+        vRot.x = vCenterMove.x * cos(fRadian) - vCenterMove.y * sin(fRadian);
+        vRot.y = vCenterMove.x * sin(fRadian) + vCenterMove.y * cos(fRadian);
+        _VertexList[vertex].p = vRot + vCenter;
+    }
+}
+
+void User2D::UpdateVertexBuffer()
+{
+    _VertexList[0].p = { _vNDCPos.x, _vNDCPos.y, 0.0f };
+    _VertexList[0].t = { _rtUV.x1, _rtUV.y1 };
+    _VertexList[1].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y,  0.0f };
+    _VertexList[1].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 };
+    _VertexList[2].p = { _vNDCPos.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
+    _VertexList[2].t = { _rtUV.x1, _rtUV.y1 + _rtUV.h };
+    _VertexList[3].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
+    _VertexList[3].t = { _rtUV.x1 + _rtUV.w , _rtUV.y1 + _rtUV.h };
+
+    Rotation();
+
+    _pImmediateContext->UpdateSubresource(
+        _pVertexBuffer, NULL, NULL, &_VertexList.at(0), 0, 0);
+}
+
 bool User2D::Frame()
 {
     Vector2D vPos = _vPos;
+
+    if (I_Input.GetKey('P'))
+    {
+        _fAngleDegree += 180.0f * g_fSecondPerFrame;
+    }
+
+    if (I_Input.GetKey('O'))
+    {
+        _fAngleDegree -= 180.0f * g_fSecondPerFrame;
+    }
 
     _vDir = { 0,0 };
     if (I_Input.GetKey('W'))

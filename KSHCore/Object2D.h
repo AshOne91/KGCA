@@ -12,8 +12,9 @@ public:
 	Vector2D _vPos;
 	Vector2D _vDir;
 	float _fSpeed = 100.0f;
-	Vector2D _vDrawPos;
+	Vector2D _vNDCPos;
 	Vector2D _vDrawSize;
+	float _fAngleDegree = 0.0f;
 
 public:
 	Vector2D _vCameraPos;

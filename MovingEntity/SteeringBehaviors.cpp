@@ -4,6 +4,8 @@
 #include "Transformations.h"
 #include "Param.h"
 #include "GameWorld.h"
+#include "Wall2D.h"
+#include "geometry.h"
 
 Vector2D SteeringBehaviors::Seek(Vector2D TargetPos)
 {
@@ -118,14 +120,120 @@ Vector2D SteeringBehaviors::ObstacleAvoidance(const std::vector<BaseObject*>& ob
 
 			if (LocalPos.x >= 0)
 			{
-				float ExpandedRadius = (*curOb)->BRadius() + 
+				float ExpandedRadius = (*curOb)->BRadius() + _pVehicle->BRadius();
+
+				if (fabs(LocalPos.y) < ExpandedRadius)
+				{
+					float cX = LocalPos.x;
+					float cY = LocalPos.y;
+
+					float SqrtPart = sqrt(ExpandedRadius * ExpandedRadius - cY * cY);
+
+					float ip = cX - SqrtPart;
+
+					if (ip <= 0)
+					{
+						ip = cX + SqrtPart;
+					}
+
+					if (ip < DistToClosetIP)
+					{
+						DistToClosetIP = ip;
+
+						ClosestInterectingObstacle = *curOb;
+
+						LocalPosOfClosestObstacle = LocalPos;
+					}
+				}
 			}
+		}
+
+		++curOb;
+	}
+
+	Vector2D SteeringForce;
+
+	if (ClosestInterectingObstacle)
+	{
+		// 가까울 수록 힘이 강해져야 함
+		float multiplier = 1.0f + (_fDBoxLength - LocalPosOfClosestObstacle.x) / _fDBoxLength;
+
+		// 옆방향힘을 계산한다.
+		SteeringForce.y = (ClosestInterectingObstacle->BRadius() - LocalPosOfClosestObstacle.y) * multiplier;
+
+		const float BrakingWeight = 0.2f;
+
+		SteeringForce.x = (ClosestInterectingObstacle->BRadius() - LocalPosOfClosestObstacle.x) * BrakingWeight;
+	}
+
+	return VectorToWorldSpace(SteeringForce, _pVehicle->Heading(), _pVehicle->Side());
+}
+
+void SteeringBehaviors::CreateFeelers()
+{
+	_Feelers[0] = _pVehicle->_vPos + _fWallDetectionFeelerLength * _pVehicle->Heading();
+
+	Vector2D temp = _pVehicle->Heading();
+	Vec2DRotateAroundOrigin(temp, KSHCore::UTIL::HalfPi * 3.5f);
+	_Feelers[1] = _pVehicle->_vPos + _fWallDetectionFeelerLength / 2.0f * temp;
+	
+	temp = _pVehicle->Heading();
+	Vec2DRotateAroundOrigin(temp, KSHCore::UTIL::HalfPi * 0.5f);
+	_Feelers[2] = _pVehicle->_vPos + _fWallDetectionFeelerLength / 2.0f * temp;
+
+}
+
+Vector2D SteeringBehaviors::WallAvoidance(const std::vector<Wall2D>& walls)
+{
+	CreateFeelers();
+
+	float DistToThisIP = 0.0f;
+	float DistToClosestIP = KSHCore::UTIL::MaxFloat;
+
+	int ClosestWall = -1;
+
+	Vector2D SteeringForce;
+	Vector2D point;
+	Vector2D ClosestPoint;
+
+	for (unsigned int flr = 0; flr < _Feelers.size(); ++flr)
+	{
+		for (int w = 0; w < walls.size(); ++w)
+		{
+			if (LineIntersection2D(_pVehicle->_vPos, _Feelers[flr], walls[w].From(), walls[w].To(), DistToThisIP, point))
+			{
+				if (DistToThisIP < DistToClosestIP)
+				{
+					DistToClosestIP = DistToThisIP;
+
+					ClosestWall = w;
+
+					ClosestPoint = point;
+				}
+			}
+		}
+
+		if (ClosestWall >= 0)
+		{
+			Vector2D OverShoot = _Feelers[flr] - ClosestPoint;
+
+			SteeringForce = walls[ClosestWall].Normal() * OverShoot.Length();
 		}
 	}
 
+	return SteeringForce;
+}
 
+Vector2D SteeringBehaviors::Interpose(const Vehicle* AgentA, const Vehicle* AgentB)
+{
+	Vector2D MidPoint = (AgentA->_vPos + AgentB->_vPos) / 2.0f;
 
+	float TimeToReachMidPoint = Vector2D::Distance(_pVehicle->_vPos, MidPoint) / _pVehicle->MaxSpeed();
 
+	Vector2D APos = AgentA->_vPos + AgentA->Velocity() * TimeToReachMidPoint;
+	Vector2D BPos = AgentB->_vPos + AgentB->Velocity() * TimeToReachMidPoint;
 
-	return Vector2D();
+	MidPoint = (APos + BPos) / 2.0f;
+
+	return Arrive(MidPoint, Deceleration::fast);
 }

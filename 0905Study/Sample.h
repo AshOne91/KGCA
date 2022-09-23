@@ -15,7 +15,7 @@ public:
 	float _fSpeed = 100.0f;
 
 private:
-	Vector2D _vDrawPos;
+	Vector2D _vNDCPos;
 	Vector2D _vDrawSize;
 
 public:

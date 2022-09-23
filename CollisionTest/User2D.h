@@ -3,6 +3,8 @@
 class User2D : public Object2D
 {
 public:
+	virtual void Rotation() override;
+	virtual void UpdateVertexBuffer() override;
 	bool  Frame() override;
 	User2D()
 	{

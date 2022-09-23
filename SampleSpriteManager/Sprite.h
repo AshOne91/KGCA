@@ -23,8 +23,8 @@ public:
 		vDrawSize.y = _rtInit.h / 2.0f;
 		_rtCollision.Set(vPos.x - vDrawSize.x, vPos.y - vDrawSize.y, _rtInit.w, _rtInit.h);
 
-		_vDrawPos.x = (_rtCollision.x1 / g_rtClient.right) * 2.0f - 1.0f;
-		_vDrawPos.y = -((_rtCollision.y1 / g_rtClient.bottom) * 2.0f - 1.0f);
+		_vNDCPos.x = (_rtCollision.x1 / g_rtClient.right) * 2.0f - 1.0f;
+		_vNDCPos.y = -((_rtCollision.y1 / g_rtClient.bottom) * 2.0f - 1.0f);
 		_vDrawSize.x = (_rtInit.w / g_rtClient.right) * 2.0f;
 		_vDrawSize.y = (_rtInit.h / g_rtClient.bottom) * 2.0f;
 		UpdateVertexBuffer();

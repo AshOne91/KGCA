@@ -1,6 +1,6 @@
 #include "Object2D.h"
 
-Vector2D Func(float radian, Vector2D test, float posX, float posY)
+/*Vector2D Func(float radian, Vector2D test, float posX, float posY)
 {
     test.x -= posX;
     test.y -= posY;
@@ -16,7 +16,7 @@ Vector2D Func(float radian, Vector2D test, float posX, float posY)
     test.y = tempY;
 
     return test;
-}
+}*/
 
 void Object2D::SetCameraPos(const Vector2D& vCamera)
 {
@@ -31,8 +31,8 @@ void Object2D::SetCameraSize(const Vector2D& vSize)
 void Object2D::ScreenToNDC()
 {
     // 0  ~ 800   -> 0~1 ->  -1 ~ +1
-    //_vDrawPos.x = (_vPos.x / g_rtClient.right) * 2.0f - 1.0f;
-    //_vDrawPos.y = -((_vPos.y / g_rtClient.bottom) * 2.0f - 1.0f);
+    //_vNDCPos.x = (_vPos.x / g_rtClient.right) * 2.0f - 1.0f;
+    //_vNDCPos.y = -((_vPos.y / g_rtClient.bottom) * 2.0f - 1.0f);
     //_vDrawSize.x = (_rtInit.w / g_rtClient.right) * 2.0f;
     //_vDrawSize.y = (_rtInit.h / g_rtClient.bottom) * 2.0f;
 
@@ -45,8 +45,8 @@ void Object2D::ScreenToNDC()
         _rtInit.w,
         _rtInit.h);
     //// 0  ~ 800   -> 0~1 ->  -1 ~ +1
-    _vDrawPos.x = (_rtCollision.x1 / g_rtClient.right) * 2.0f - 1.0f;
-    _vDrawPos.y = -((_rtCollision.y1 / g_rtClient.bottom) * 2.0f - 1.0f);
+    _vNDCPos.x = (_rtCollision.x1 / g_rtClient.right) * 2.0f - 1.0f;
+    _vNDCPos.y = -((_rtCollision.y1 / g_rtClient.bottom) * 2.0f - 1.0f);
     _vDrawSize.x = (_rtInit.w / (float)g_rtClient.right) * 2.0f;
     _vDrawSize.y = (_rtInit.h / (float)g_rtClient.bottom) * 2.0f;
 }
@@ -68,8 +68,8 @@ void Object2D::ScreenToCamera(const Vector2D& vCameraPos, const Vector2D& vViewP
     vPos.x = _rtCollision.x1 - vCameraPos.x;
     vPos.y = _rtCollision.y1 - vCameraPos.y;
     //// 0  ~ 800   -> 0~1 ->  -1 ~ +1
-    _vDrawPos.x = vPos.x * (2.0f / vViewPort.x);
-    _vDrawPos.y = vPos.y * (2.0f / vViewPort.y) * -1.0f;
+    _vNDCPos.x = vPos.x * (2.0f / vViewPort.x);
+    _vNDCPos.y = vPos.y * (2.0f / vViewPort.y) * -1.0f;
     _vDrawSize.x = (_rtInit.w / vViewPort.x) * 2.0f;
     _vDrawSize.y = (_rtInit.h / vViewPort.y) * 2.0f;
 }
@@ -136,22 +136,22 @@ void Object2D::SetDirection(const Vector2D& vDir)
 void Object2D::UpdateVertexBuffer()
 {
    //// Vector2D Center;
-   // //Center.x = _vDrawPos.x + _vDrawSize.x;
-   // //Center.y = _vDrawPos.y - _vDrawSize.y;
+   // //Center.x = _vNDCPos.x + _vDrawSize.x;
+   // //Center.y = _vNDCPos.y - _vDrawSize.y;
    // //Center *= 0.5f;
    // //float radian = g_fGameTimer * 0.1f;
-   // //Vector2D test = Func(radian, Vector2D(_vDrawPos.x, _vDrawPos.y), Center.x, Center.y);
+   // //Vector2D test = Func(radian, Vector2D(_vNDCPos.x, _vNDCPos.y), Center.x, Center.y);
    // _VertexList[0].p = { test.x, test.y, 0.0f };
    // _VertexList[0].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 }; // uv반전 구현
    // //_VertexList[0].t = { _rtUV.x1, _rtUV.y1 }; 
 
-   // //test = Func(radian, Vector2D(_vDrawPos.x + _vDrawSize.x, _vDrawPos.y), Center.x, Center.y);
+   // //test = Func(radian, Vector2D(_vNDCPos.x + _vDrawSize.x, _vNDCPos.y), Center.x, Center.y);
    // _VertexList[1].p = { test.x, test.y,  0.0f };
    // _VertexList[1].t = { _rtUV.x1, _rtUV.y1 }; // uv반전 구현
    // //_VertexList[1].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 };
 
 
-   // //test = Func(radian, Vector2D(_vDrawPos.x, _vDrawPos.y - _vDrawSize.y), Center.x, Center.y);
+   // //test = Func(radian, Vector2D(_vNDCPos.x, _vNDCPos.y - _vDrawSize.y), Center.x, Center.y);
    // _VertexList[2].p = { test.x, test.y, 0.0f };
    // _VertexList[2].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 + _rtUV.h }; // uv반전 구현
    // //_VertexList[2].t = { _rtUV.x1, _rtUV.y1 + _rtUV.h };
@@ -162,30 +162,30 @@ void Object2D::UpdateVertexBuffer()
    // _VertexList[4].p = _VertexList[1].p;
    // _VertexList[4].t = _VertexList[1].t;
 
-   // _VertexList[5].p = { _vDrawPos.x + _vDrawSize.x, _vDrawPos.y - _vDrawSize.y, 0.0f };
+   // _VertexList[5].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
    // _VertexList[5].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 + _rtUV.h };*/ //인덱스 버퍼 사용으로 주석처리
 
-   // //test = Func(radian, Vector2D(_vDrawPos.x + _vDrawSize.x, _vDrawPos.y - _vDrawSize.y), Center.x, Center.y);
+   // //test = Func(radian, Vector2D(_vNDCPos.x + _vDrawSize.x, _vNDCPos.y - _vDrawSize.y), Center.x, Center.y);
    // _VertexList[3].p = { test.x, test.y, 0.0f };
    // _VertexList[3].t = { _rtUV.x1, _rtUV.y1 + _rtUV.h }; // uv반전 구현
    // //_VertexList[3].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 + _rtUV.h };
 
-    Vector2D Center;
-    Center.x = _vDrawPos.x + _vDrawSize.x;
-    Center.y = _vDrawPos.y + _vDrawSize.y;
+    /*Vector2D Center;
+    Center.x = _vNDCPos.x + _vDrawSize.x;
+    Center.y = _vNDCPos.y + _vDrawSize.y;
     Center *= 0.5f;
     float radian = g_fGameTimer * 0.1f;
-    Vector2D test = Func(radian, Vector2D(_vDrawPos.x, _vDrawPos.y), Center.x, Center.y);
+    Vector2D test = Func(radian, Vector2D(_vNDCPos.x, _vNDCPos.y), Center.x, Center.y);*/
 
-    _VertexList[0].p = { _vDrawPos.x, _vDrawPos.y, 0.0f };
+    _VertexList[0].p = { _vNDCPos.x, _vNDCPos.y, 0.0f };
     _VertexList[0].t = { _rtUV.x1, _rtUV.y1 };
 
-    test = Func(radian, Vector2D(_vDrawPos.x + _vDrawSize.x, _vDrawPos.y), Center.x, Center.y);
-    _VertexList[1].p = { _vDrawPos.x + _vDrawSize.x, _vDrawPos.y,  0.0f };
+    //test = Func(radian, Vector2D(_vNDCPos.x + _vDrawSize.x, _vNDCPos.y), Center.x, Center.y);
+    _VertexList[1].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y,  0.0f };
     _VertexList[1].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 };
 
-    test = Func(radian, Vector2D(_vDrawPos.x, _vDrawPos.y - _vDrawSize.y), Center.x, Center.y);
-    _VertexList[2].p = { _vDrawPos.x, _vDrawPos.y - _vDrawSize.y, 0.0f };
+    //test = Func(radian, Vector2D(_vNDCPos.x, _vNDCPos.y - _vDrawSize.y), Center.x, Center.y);
+    _VertexList[2].p = { _vNDCPos.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
     _VertexList[2].t = { _rtUV.x1, _rtUV.y1 + _rtUV.h };
 
     /*   m_VertexList[3].p = m_VertexList[2].p;
@@ -194,8 +194,8 @@ void Object2D::UpdateVertexBuffer()
        m_VertexList[4].p = m_VertexList[1].p;
        m_VertexList[4].t = m_VertexList[1].t;*/
 
-    test = Func(radian, Vector2D(_vDrawPos.x + _vDrawSize.x, _vDrawPos.y - _vDrawSize.y), Center.x, Center.y);
-    _VertexList[3].p = { _vDrawPos.x + _vDrawSize.x, _vDrawPos.y - _vDrawSize.y, 0.0f };
+    //test = Func(radian, Vector2D(_vNDCPos.x + _vDrawSize.x, _vNDCPos.y - _vDrawSize.y), Center.x, Center.y);
+    _VertexList[3].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
     _VertexList[3].t = { _rtUV.x1 + _rtUV.w , _rtUV.y1 + _rtUV.h };
 
     _pImmediateContext->UpdateSubresource(

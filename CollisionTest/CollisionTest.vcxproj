@@ -152,6 +152,9 @@
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Npc2D.h" />
     <ClInclude Include="Sample.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneInGame.h" />
+    <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="User2D.h" />
@@ -160,6 +163,9 @@
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Npc2D.cpp" />
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneInGame.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="User2D.cpp" />
