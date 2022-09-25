@@ -85,7 +85,7 @@ float SteeringBehaviors::TurnaroundTIme(const Vehicle* pAgent, const Vector2D& T
 Vector2D SteeringBehaviors::Calculate()
 {
 	//reset the steering force
-	m_vSteeringForce.Zero();
+	_vSteeringForce.Zero();
 
 	//use space partitioning to calculate the neighbours of this vehicle
 	//if switched on. If not, use the standard tagging system

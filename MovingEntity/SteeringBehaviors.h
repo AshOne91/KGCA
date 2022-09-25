@@ -52,5 +52,7 @@ public:
 	void CreateFeelers();
 
 	static float TurnaroundTIme(const Vehicle* pAgent, const Vector2D& TargetPos);
+
+	Vector2D Calculate();
 };
 
