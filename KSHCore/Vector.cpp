@@ -184,10 +184,10 @@ Vector2D& Vector2D::operator-=(const Vector2D& vector)
 	return *this;
 }
 
-Vector2D& Vector2D::operator /= (const Vector2D& vector)
+Vector2D& Vector2D::operator /= (float scala)
 {
-	x /= vector.x;
-	y /= vector.y;
+	x /= scala;
+	y /= scala;
 	return *this;
 }
 

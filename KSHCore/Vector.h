@@ -103,7 +103,7 @@ public:
 	Vector2D& operator *= (float scala);
 	Vector2D& operator += (const Vector2D& vector);
 	Vector2D& operator -= (const Vector2D& vector);
-	Vector2D& operator /= (const Vector2D& vector);
+	Vector2D& operator /= (float scala);
 	bool operator == (const Vector2D& vector) const;
 	bool operator > (const Vector2D& vector) const;
 	bool operator < (const Vector2D& vector) const;

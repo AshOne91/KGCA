@@ -15,4 +15,20 @@ void Vehicle::Update(float time_elapsed)
 		_vHeading = _vVelocity.Identity();
 		_vSide = _vHeading.Perp();
 	}
+
+	//EnforceNonPenetrationConstraint(this, World()->Agents());
+
+//treat the screen as a toroid
+	WrapAround(m_vPos, m_pWorld->cxClient(), m_pWorld->cyClient());
+
+	//update the vehicle's current cell if space partitioning is turned on
+	if (Steering()->isSpacePartitioningOn())
+	{
+		World()->CellSpace()->UpdateEntity(this, OldPos);
+	}
+
+	if (isSmoothingOn())
+	{
+		m_vSmoothedHeading = m_pHeadingSmoother->Update(Heading());
+	}
 }

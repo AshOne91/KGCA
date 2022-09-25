@@ -82,6 +82,52 @@ float SteeringBehaviors::TurnaroundTIme(const Vehicle* pAgent, const Vector2D& T
 	return (dot - 1.0f) * -coefficient;
 }
 
+Vector2D SteeringBehaviors::Calculate()
+{
+	//reset the steering force
+	m_vSteeringForce.Zero();
+
+	//use space partitioning to calculate the neighbours of this vehicle
+	//if switched on. If not, use the standard tagging system
+	if (!isSpacePartitioningOn())
+	{
+		//tag neighbors if any of the following 3 group behaviors are switched on
+		if (On(separation) || On(allignment) || On(cohesion))
+		{
+			m_pVehicle->World()->TagVehiclesWithinViewRange(m_pVehicle, m_dViewDistance);
+		}
+	}
+	else
+	{
+		//calculate neighbours in cell-space if any of the following 3 group
+		//behaviors are switched on
+		if (On(separation) || On(allignment) || On(cohesion))
+		{
+			m_pVehicle->World()->CellSpace()->CalculateNeighbors(m_pVehicle->Pos(), m_dViewDistance);
+		}
+	}
+
+	switch (m_SummingMethod)
+	{
+	case weighted_average:
+
+		m_vSteeringForce = CalculateWeightedSum(); break;
+
+	case prioritized:
+
+		m_vSteeringForce = CalculatePrioritized(); break;
+
+	case dithered:
+
+		m_vSteeringForce = CalculateDithered(); break;
+
+	default:m_vSteeringForce = Vector2D(0, 0);
+
+	}//end switch
+
+	return m_vSteeringForce;
+}
+
 Vector2D SteeringBehaviors::Wander()
 {
 	_vWanderTarget += Vector2D(KSHCore::UTIL::RandomClamped() * _fWanderJitter, KSHCore::UTIL::RandomClamped() * _fWanderJitter);
@@ -327,12 +373,53 @@ Vector2D SteeringBehaviors::Separation(const std::vector<Vehicle*>& neighbors)
 
 Vector2D SteeringBehaviors::Alignment(const std::vector<Vehicle*>& neighbors)
 {
-	return Vector2D();
+	Vector2D AverageHeading;
+
+	int NeighborCount = 0;
+
+	for (int a = 0; a < neighbors.size(); ++a)
+	{
+		if ((neighbors[a] != _pVehicle) && neighbors[a]->IsTagged)
+		{
+			AverageHeading += neighbors[a]->Heading();
+			++NeighborCount;
+		}
+	}
+
+	if (NeighborCount > 0)
+	{
+		AverageHeading /= (float)NeighborCount;
+
+		AverageHeading -= _pVehicle->Heading();
+	}
+
+	return AverageHeading;
 }
 
 Vector2D SteeringBehaviors::Cohesion(const std::vector<Vehicle*>& neighbors)
 {
-	return Vector2D();
+	Vector2D CenterOfMass, SteeringForce;
+
+	int NeighborCount = 0;
+
+	for (int a = 0; a < neighbors.size(); ++a)
+	{
+		if ((neighbors[a] != _pVehicle) && neighbors[a]->IsTagged())
+		{
+			CenterOfMass += neighbors[a]->_vPos;
+
+			++NeighborCount;
+		}
+	}
+
+	if (NeighborCount > 0)
+	{
+		CenterOfMass /= (float)NeighborCount;
+
+		SteeringForce = Seek(CenterOfMass);
+	}
+
+	return SteeringForce;
 }
 
 
