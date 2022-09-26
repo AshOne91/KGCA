@@ -21,6 +21,8 @@ public:
 	ID3D11InputLayout* _pVertexLayout = nullptr;
 	Shader* _pShader = nullptr;
 	Texture* _pTexture = nullptr;
+	std::wstring _szShaderName;
+	std::wstring _szTextureName;
 	ID3D11ShaderResourceView* _pTextureSRV = nullptr;
 	std::vector<SimpleVertex> _VertexList;
 	std::vector<SimpleVertex> _InitVertexList;

@@ -8,7 +8,9 @@ public:
 	User2D* _pUser;
 	BaseObject* _pMapTitle;
 	Interface* _btnStart;
-	ListControl* _listControl;
+	Interface* _listControl;
+	Interface* _Dlg;
+
 public:
 	virtual bool		Init();
 	virtual bool		Frame();

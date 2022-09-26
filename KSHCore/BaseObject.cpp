@@ -4,6 +4,8 @@ bool BaseObject::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediat
 {
     _pd3dDevice = pd3dDevice;
     _pImmediateContext = pImmediateContext;
+    _szShaderName = shaderName;
+    _szTextureName = textureName;
     if (FAILED(CreateVertexBuffer()))
     {
         return false;

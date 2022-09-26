@@ -15,6 +15,8 @@ public:
 	Vector2D _vNDCPos;
 	Vector2D _vDrawSize;
 	float _fAngleDegree = 0.0f;
+	Vector2D _vBeforePos;
+	Vector2D _vOffsetPos;
 
 public:
 	Vector2D _vCameraPos;

@@ -76,9 +76,11 @@ void Object2D::ScreenToCamera(const Vector2D& vCameraPos, const Vector2D& vViewP
 
 void Object2D::SetPosition(const Vector2D& vPos, const Vector2D& vCamera)
 {
+    _vBeforePos = _vPos;
     _vPos = vPos;
     ScreenToCamera(vCamera, _vViewSize);
     UpdateVertexBuffer();
+    _vOffsetPos = _vPos - _vBeforePos;
 }
 
 bool Object2D::Frame()
@@ -123,9 +125,11 @@ void Object2D::SetRect(const Rect& rt)
 // 화면 좌표 -> NDC(Noramlize Device Coordinate)이며, 이 공간은 투영(Projection) 행렬에 정의
 void Object2D::SetPosition(const Vector2D& vPos)
 {
+    _vBeforePos = _vPos;
     _vPos = vPos;
     ScreenToNDC();
     UpdateVertexBuffer();
+    _vOffsetPos = _vPos - _vBeforePos;
 }
 
 void Object2D::SetDirection(const Vector2D& vDir)
