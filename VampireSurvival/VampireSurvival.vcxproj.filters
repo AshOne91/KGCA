@@ -24,6 +24,12 @@
     <ClCompile Include="User2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="TimeCounter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -33,6 +39,12 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="User2D.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeCounter.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>

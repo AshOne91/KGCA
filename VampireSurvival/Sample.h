@@ -1,12 +1,13 @@
 #pragma once
 #include "GameCore.h"
 #include "User2D.h"
+#include "MapObject.h"
+
 #define dfSCREEN_WIDTH 800
 #define dfSCREEN_HEIGHT 600
 #define dfMAP_X_COUNT 3
 #define dfMAP_Y_COUNT 3
 
-class MapObject;
 class Sample : public GameCore
 {
 private:
@@ -19,4 +20,7 @@ public:
 	virtual bool Frame() final;
 	virtual bool Render() final;
 	virtual bool Release() final;
+
+public:
+	void MapRoate(MapRotateType rotate);
 };

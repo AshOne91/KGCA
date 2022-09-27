@@ -4,8 +4,8 @@ bool Sample::Init()
 {
 	_pTitle = new SceneTitle;
 	_pInGame = new SceneInGame;
-	_pTitle->Create(_pd3dDevice, _pImmediateContext, L"");
-	_pInGame->Create(_pd3dDevice, _pImmediateContext, L"");
+	_pTitle->Create(_pd3dDevice.Get(), _pImmediateContext.Get(), L"");
+	_pInGame->Create(_pd3dDevice.Get(), _pImmediateContext.Get(), L"");
 	_pTitle->Init();
 	_pInGame->Init();
 	_pCurrentScene = _pTitle;

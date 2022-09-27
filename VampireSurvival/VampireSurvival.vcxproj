@@ -151,11 +151,15 @@
   <ItemGroup>
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Sample.h" />
+    <ClInclude Include="Spawner.h" />
+    <ClInclude Include="TimeCounter.h" />
     <ClInclude Include="User2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="Spawner.cpp" />
+    <ClCompile Include="TimeCounter.cpp" />
     <ClCompile Include="User2D.cpp" />
   </ItemGroup>
   <ItemGroup>

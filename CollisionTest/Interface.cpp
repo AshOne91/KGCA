@@ -49,15 +49,53 @@ void ListControl::ScreenToNDC()
     _vDrawSize.y = (_rtInit.h / (float)g_rtClient.bottom) * 2.0f;
 }*/
 
+bool Interface::Frame()
+{
+    POINT ptMouse = I_Input._ptPos;
+    if (Collision::RectToPoint(_rtCollision, ptMouse))
+    {
+        _currentState = UIState::UI_HOVER;
+        _pCurrentTex = _eventState._pStateList[(int)UIState::UI_HOVER];
+        if (I_Input.GetKey(VK_LBUTTON) == KEY_PUSH || I_Input.GetKey(VK_LBUTTON) == KEY_HOLD)
+        {
+            _currentState = UIState::UI_PUSH;
+            _pCurrentTex = _eventState._pStateList[(int)UIState::UI_PUSH];
+        }
+        if (I_Input.GetKey(VK_LBUTTON) == KEY_UP)
+        {
+            _currentState = UIState::UI_SELECT;
+        }
+    }
+    else
+    {
+        _pCurrentTex = _eventState._pStateList[(int)UIState::UI_NORMAL];
+    }
+    return true;
+}
+
+void Interface::FadeInOut(float fAlpha)
+{
+    _VertexList[0].c = { 1.0f, 1.0f, 1.0f, fAlpha };
+    _VertexList[1].c = { 1.0f, 1.0f, 1.0f, fAlpha };
+    _VertexList[2].c = { 1.0f, 1.0f, 1.0f, fAlpha };
+    _VertexList[3].c = { 1.0f, 1.0f, 1.0f, fAlpha };
+    _pImmediateContext->UpdateSubresource(_pVertexBuffer, NULL, NULL, &_VertexList.at(0), 0, 0);
+}
+
+void Interface::AddChild(Interface* pUI)
+{
+    _pChildList.push_back(pUI);
+}
+
 bool Interface::SetTextureState(const std::vector<W_STR>& texStateList)
 {
     if (texStateList.size() <= 0)
     {
         _pCurrentTex = _pTexture;
-        _pStateList.push_back(_pTexture);
-        _pStateList.push_back(_pTexture);
-        _pStateList.push_back(_pTexture);
-        _pStateList.push_back(_pTexture);
+        _eventState._pStateList.push_back(_pTexture);
+        _eventState._pStateList.push_back(_pTexture);
+        _eventState._pStateList.push_back(_pTexture);
+        _eventState._pStateList.push_back(_pTexture);
         return true;
     }
 
@@ -66,25 +104,25 @@ bool Interface::SetTextureState(const std::vector<W_STR>& texStateList)
     {
         pTexture = I_Tex.Load(texStateList[0]);
         _pCurrentTex = pTexture;
-        _pStateList[(int)UIState::UI_NORMAL] = pTexture;
+        _eventState._pStateList[(int)UIState::UI_NORMAL] = pTexture;
     }
 
     if (!texStateList[1].empty())
     {
         pTexture = I_Tex.Load(texStateList[1]);
-        _pStateList[(int)UIState::UI_HOVER] = pTexture;
+        _eventState._pStateList[(int)UIState::UI_HOVER] = pTexture;
     }
 
     if (!texStateList[2].empty())
     {
         pTexture = I_Tex.Load(texStateList[2]);
-        _pStateList[(int)UIState::UI_PUSH] = pTexture;
+        _eventState._pStateList[(int)UIState::UI_PUSH] = pTexture;
     }
 
     if (!texStateList[3].empty())
     {
         pTexture = I_Tex.Load(texStateList[3]);
-        _pStateList[(int)UIState::UI_DIS] = pTexture;
+        _eventState._pStateList[(int)UIState::UI_DIS] = pTexture;
     }
 
     return true;
@@ -111,188 +149,7 @@ bool Interface::SetAttribute(const Vector2D vPos, const std::vector<W_STR>& texS
     return true;
 }
 
-bool Button::Init()
-{
-    return true;
-}
-
-bool Button::Frame()
-{
-    POINT ptMouse = I_Input._ptPos;
-    if (Collision::RectToPoint(_rtCollision, ptMouse))
-    {
-        _currentState = UIState::UI_HOVER;
-        _pCurrentTex = _pStateList[(int)UIState::UI_HOVER];
-        if (I_Input.GetKey(VK_LBUTTON) == KEY_PUSH || I_Input.GetKey(VK_LBUTTON) == KEY_HOLD)
-        {
-            _currentState = UIState::UI_PUSH;
-            _pCurrentTex = _pStateList[(int)UIState::UI_PUSH];
-        }
-        if (I_Input.GetKey(VK_LBUTTON) == KEY_UP)
-        {
-            _currentState = UIState::UI_SELECT;
-        }
-    }
-    else
-    {
-        _pCurrentTex = _pStateList[(int)UIState::UI_NORMAL];
-    }
-
-    _VertexList[0].t = { 0.0f, 0.0f };
-    _VertexList[1].t = { 1.0f, 0.0f };
-    _VertexList[2].t = { 0.0f, 1.0f };
-    _VertexList[3].t = { 1.0f, 1.0f };
-    _pImmediateContext->UpdateSubresource(_pVertexBuffer, NULL, NULL, &_VertexList.at(0), 0, 0);
-    return true;
-}
-
-bool Button::Render()
-{
-    BaseObject::PreRender();
-    _pImmediateContext->PSSetShaderResources(0, 1, &_pCurrentTex->_pTextureSRV);
-    BaseObject::PostRender();
-    return true;
-}
-
-bool Button::Release()
-{
-    return true;
-}
-
-bool ListControl::Init()
-{
-    return true;
-}
-
-bool ListControl::Frame()
-{
-    for (auto data : _pChildList)
-    {
-        Vector2D pos = data->_vPos + _vOffsetPos;
-        data->SetPosition(pos);
-        data->Frame();
-    }
-    return true;
-}
-
-bool ListControl::Render()
-{
-    BaseObject::PreRender();
-    _pImmediateContext->PSSetShaderResources(0, 1, &_pCurrentTex->_pTextureSRV);
-    BaseObject::PostRender();
-
-    for (auto data : _pChildList)
-    {
-        data->Render();
-    }
-    return true;
-}
-
-bool ListControl::Release()
-{
-    for (auto data : _pChildList)
-    {
-        data->Release();
-        delete data;
-    }
-    Interface::Release();
-    return true;
-}
-
-void ListControl::SetRect(const Rect& rt)
-{
-    _rtInit = rt;
-    _ptImageSize.x = _pTexture->_Desc.Width;
-    _ptImageSize.y = _pTexture->_Desc.Height;
-    // 90  -> 0 ~ 1
-    _rtUV.x1 = 0.0f; // u
-    // 1
-    _rtUV.y1 = 0.0f; // v
-    // 40
-    _rtUV.w = 1.0f;
-    // 60
-    _rtUV.h = 1.0f;
-}
-
-bool Dialog::Frame()
-{
-    POINT ptMouse = I_Input._ptPos;
-    if (Collision::RectToPoint(_rtCollision, ptMouse))
-    {
-        _currentState = UIState::UI_HOVER;
-        _pCurrentTex = _pStateList[(int)UIState::UI_HOVER];
-        if (I_Input.GetKey(VK_LBUTTON) == KEY_PUSH ||
-            I_Input.GetKey(VK_LBUTTON) == KEY_HOLD)
-        {
-            _currentState = UIState::UI_PUSH;
-            _pCurrentTex = _pStateList[(int)UIState::UI_PUSH];
-        }
-        if (I_Input.GetKey(VK_LBUTTON) == KEY_UP)
-        {
-            _currentState = UIState::UI_SELECT;
-        }
-    }
-    else
-    {
-        _pCurrentTex = _pStateList[(int)UIState::UI_NORMAL];
-    }
-    for (int iSub = 0; iSub < 9; iSub++)
-    {
-        Vector2D pos = _rtDrawList[iSub]->_vPos + _vOffsetPos;
-        _rtDrawList[iSub]->SetPosition(pos);
-    }
-    for (int iChild = 0; iChild < _pChildList.size(); iChild++)
-    {
-        Vector2D pos = _pChildList[iChild]->_vPos + _vOffsetPos;
-        _pChildList[iChild]->SetPosition(pos);
-        _pChildList[iChild]->Frame();
-    }
-    return true;
-}
-
-bool Dialog::Render()
-{
-    for (int iSub = 0; iSub < _rtDrawList.size(); ++iSub)
-    {
-        _rtDrawList[iSub]->Render();
-    }
-
-    for (int iChild = 0; iChild < _pChildList.size(); ++iChild)
-    {
-        _pChildList[iChild]->Render();
-    }
-    return false;
-}
-
-bool Dialog::Release()
-{
-    for (auto data : _rtDrawList)
-    {
-        data->Release();
-        delete data;
-    }
-
-    for (auto data : _pChildList)
-    {
-        data->Release();
-        delete data;
-    }
-    Interface::Release();
-    return true;
-}
-
-void Dialog::SetRect(const Rect& rt)
-{
-    _rtInit = rt;
-    _ptImageSize.x = _pTexture->_Desc.Width;
-    _ptImageSize.y = _pTexture->_Desc.Height;
-    _rtUV.x1 = rt.x1 / _ptImageSize.x;
-    _rtUV.y1 = rt.y1 / _ptImageSize.y;
-    _rtUV.w = rt.w / _ptImageSize.x;
-    _rtUV.h = rt.h / _ptImageSize.y;
-}
-
-bool Dialog::SetDrawList(float fScaleX0, float fScaleX1, float fScaleY0, float fScaleY1, float fScaleU0, float fScaleU1, float fScaleV0, float fScaleV1)
+bool Interface::SetDrawList(float fScaleX0, float fScaleX1, float fScaleY0, float fScaleY1, float fScaleU0, float fScaleU1, float fScaleV0, float fScaleV1)
 {
     _rtDrawList.resize(9);
     for (int iSub = 0; iSub < _rtDrawList.size(); iSub++)
@@ -402,5 +259,153 @@ bool Dialog::SetDrawList(float fScaleX0, float fScaleX1, float fScaleY0, float f
     _rtDrawList[8]->_rtUV.w = fU[3] - fU[2];
     _rtDrawList[8]->_rtUV.h = fV[3] - fV[2];
     _rtDrawList[8]->SetPosition(vCenter);
+    return true;
+}
+
+bool Button::Init()
+{
+    return true;
+}
+
+bool Button::Frame()
+{
+    Interface::Frame();
+    return true;
+}
+
+bool Button::Render()
+{
+    BaseObject::PreRender();
+    _pImmediateContext->PSSetShaderResources(0, 1, &_pCurrentTex->_pTextureSRV);
+    BaseObject::PostRender();
+    return true;
+}
+
+bool Button::Release()
+{
+    return true;
+}
+
+void Button::SetRect(const Rect& rt)
+{
+    _rtInit = rt;
+    _ptImageSize.x = _pTexture->_Desc.Width;
+    _ptImageSize.y = _pTexture->_Desc.Height;
+    // 90  -> 0 ~ 1
+    _rtUV.x1 = 0.0f; // u
+    // 1
+    _rtUV.y1 = 0.0f; // v
+    // 40
+    _rtUV.w = 1.0f;
+    // 60
+    _rtUV.h = 1.0f;
+}
+
+bool ListControl::Init()
+{
+    return true;
+}
+
+bool ListControl::Frame()
+{
+    for (auto data : _pChildList)
+    {
+        Vector2D pos = data->_vPos + _vOffsetPos;
+        data->SetPosition(pos);
+        data->Frame();
+    }
+    return true;
+}
+
+bool ListControl::Render()
+{
+    BaseObject::PreRender();
+    _pImmediateContext->PSSetShaderResources(0, 1, &_pCurrentTex->_pTextureSRV);
+    BaseObject::PostRender();
+
+    for (auto data : _pChildList)
+    {
+        data->Render();
+    }
+    return true;
+}
+
+bool ListControl::Release()
+{
+    for (auto data : _pChildList)
+    {
+        data->Release();
+        delete data;
+    }
+    Interface::Release();
+    return true;
+}
+
+void ListControl::SetRect(const Rect& rt)
+{
+    _rtInit = rt;
+    _ptImageSize.x = _pTexture->_Desc.Width;
+    _ptImageSize.y = _pTexture->_Desc.Height;
+    // 90  -> 0 ~ 1
+    _rtUV.x1 = 0.0f; // u
+    // 1
+    _rtUV.y1 = 0.0f; // v
+    // 40
+    _rtUV.w = 1.0f;
+    // 60
+    _rtUV.h = 1.0f;
+}
+
+bool Dialog::Init()
+{
+    return true;
+}
+
+bool Dialog::Frame()
+{
+    Interface::Frame();
+
+    for (int iSub = 0; iSub < _rtDrawList.size(); iSub++)
+    {
+        Vector2D pos = _rtDrawList[iSub]->_vPos + _vOffsetPos;
+        _rtDrawList[iSub]->SetPosition(pos);
+    }
+    for (int iChild = 0; iChild < _pChildList.size(); iChild++)
+    {
+        Vector2D pos = _pChildList[iChild]->_vPos + _vOffsetPos;
+        _pChildList[iChild]->SetPosition(pos);
+        _pChildList[iChild]->Frame();
+    }
+    return true;
+}
+
+bool Dialog::Render()
+{
+    for (int iSub = 0; iSub < _rtDrawList.size(); ++iSub)
+    {
+        _rtDrawList[iSub]->Render();
+    }
+
+    for (int iChild = 0; iChild < _pChildList.size(); ++iChild)
+    {
+        _pChildList[iChild]->Render();
+    }
+    return false;
+}
+
+bool Dialog::Release()
+{
+    for (auto data : _rtDrawList)
+    {
+        data->Release();
+        delete data;
+    }
+
+    for (auto data : _pChildList)
+    {
+        data->Release();
+        delete data;
+    }
+    Interface::Release();
     return true;
 }

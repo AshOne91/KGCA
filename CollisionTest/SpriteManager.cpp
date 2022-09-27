@@ -2,8 +2,8 @@
 
 bool SpriteManager::GameDataLoad(const TCHAR* pszLoad)
 {
-    TCHAR pBuffer[1000] = { 0 };
-    TCHAR pTemp[1000] = { 0 };
+    TCHAR pBuffer[500] = { 0 };
+    TCHAR pTemp[500] = { 0 };
 
     int iNumSprite = 0;
     FILE* fp_src;

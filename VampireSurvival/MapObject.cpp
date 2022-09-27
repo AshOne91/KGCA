@@ -1,8 +1,27 @@
 #include "MapObject.h"
 
+bool MapObject::Init()
+{
+    Object2D::Init();
+    _pSpawner = new Spawner();
+    return true;
+}
+
 bool MapObject::Frame()
 {
     SetPosition(_vPos, _vCameraPos);
+    _pSpawner->SetPosition(_vPos, _vCameraPos);
+    return true;
+}
+bool MapObject::Render()
+{
+    Object2D::Render();
+    return true;
+}
+bool MapObject::Release()
+{
+    Object2D::Release();
+    if (_pSpawner) _pSpawner->Release();
     return true;
 }
 void MapObject::UpdateVertexBuffer()

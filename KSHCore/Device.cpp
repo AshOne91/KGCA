@@ -76,7 +76,8 @@ HRESULT Device::CreateDXGIDevice()
 	// 유저모드와 커널모드를 연결해 주는 단계
 	// 커널 모드 드라이브 및 시스템 하드웨어와 통신하는 것이 목적
 	//
-	HRESULT hr = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&_pGIFactory);
+	/*HRESULT hr = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&_pGIFactory);*/
+	HRESULT hr = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)_pGIFactory.GetAddressOf());
 	return hr;
 }
 
@@ -141,7 +142,7 @@ HRESULT Device::CreateSwapChain()
 	sd.SampleDesc.Quality = 0;
 
 	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
-	return _pGIFactory->CreateSwapChain(_pd3dDevice, &sd, &_pSwapChain);
+	return _pGIFactory->CreateSwapChain(_pd3dDevice.Get(), &sd, _pSwapChain.GetAddressOf());
 }
 
 HRESULT Device::CreateRenderTargetView()
@@ -169,10 +170,10 @@ HRESULT Device::CreateRenderTargetView()
 		return hr;
 	}
 
-	hr = _pd3dDevice->CreateRenderTargetView(pBackBuffer, NULL, &_pRTV);
+	hr = _pd3dDevice->CreateRenderTargetView(pBackBuffer, NULL, _pRTV.GetAddressOf());
 	pBackBuffer->Release();
 	if (FAILED(hr)) return hr;
-	_pImmediateContext->OMSetRenderTargets(1, &_pRTV, NULL);
+	//_pImmediateContext->OMSetRenderTargets(1, &_pRTV, NULL);
 	return S_OK;
 }
 
@@ -226,10 +227,10 @@ bool Device::Render()
 
 bool Device::Release()
 {
-	if (_pd3dDevice) _pd3dDevice->Release();
+	/*if (_pd3dDevice) _pd3dDevice->Release();
 	if (_pImmediateContext) _pImmediateContext->Release();
 	if (_pGIFactory) _pGIFactory->Release();
 	if (_pSwapChain) _pSwapChain->Release();
-	if (_pRTV) _pRTV->Release();
+	if (_pRTV) _pRTV->Release();*/
 	return true;
 }

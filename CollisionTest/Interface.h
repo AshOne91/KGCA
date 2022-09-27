@@ -1,5 +1,7 @@
 #pragma once
 #include "Object2D.h"
+#include "SpriteManager.h"
+#include "SoundManager.h"
 //https://www.vectorstock.com/
 
 enum class UIState
@@ -11,16 +13,40 @@ enum class UIState
 	UI_SELECT,
 	UI_MAXSTATE
 };
-
+struct UIEvent
+{
+	std::vector<Texture*> _pStateList;
+	std::vector<Sound*> _pSoundStateList;
+	Sprite* _pSprite;
+	Sprite* _pEffect;
+	UIEvent()
+	{
+		_pStateList.resize((int)UIState::UI_MAXSTATE);
+		_pSprite = nullptr;
+		_pEffect = nullptr;
+	}
+};
 class Interface : public Object2D
 {
 public:
 	UIState _currentState;
-	std::vector<Texture*> _pStateList;
+	UIEvent _eventState;
 	Texture* _pCurrentTex = nullptr;
 
 public:
-	virtual void AddChild(Interface* pUI) {};
+	std::vector<Interface*> _rtDrawList;
+	std::vector<Interface*> _pChildList;
+
+public:
+	virtual bool Frame() override;
+
+public:
+	virtual void FadeInOut(float fAlpha);
+	virtual void SetEvent(UIEvent& event)
+	{
+		_eventState = event;
+	}
+	virtual void AddChild(Interface* pUI);
 	virtual bool SetTextureState(const std::vector<W_STR>& texStateList);
 	virtual bool SetAttribute(const Vector2D vPos, const Rect& rt, const std::vector<W_STR>& texStateList = {});
 	virtual bool SetAttribute(const Vector2D vPos, const std::vector<W_STR>& texStateList = std::vector<W_STR>());
@@ -28,15 +54,12 @@ public:
 		float fScaleX0, float fScaleX1,
 		float fScaleY0, float fScaleY1,
 		float fScaleU0, float fScaleU1,
-		float fScaleV0, float fScaleV1) {
-		return true;
-	}
+		float fScaleV0, float fScaleV1);
 
 public:
 	Interface()
 	{
 		_currentState = UIState::UI_NORMAL;
-		_pStateList.resize((int)UIState::UI_MAXSTATE);
 	}
 };
 
@@ -47,6 +70,7 @@ public:
 	virtual bool Frame() override;
 	virtual bool Render() override;
 	virtual bool Release() override;
+	virtual void SetRect(const Rect& rt) override;
 };
 
 class ListControl : public Interface
@@ -60,32 +84,14 @@ public:
 	virtual bool Render() override;
 	virtual bool Release() override;
 	virtual void SetRect(const Rect& rt) override;
-	virtual void AddChild(Interface* pUI)
-	{
-		_pChildList.push_back(pUI);
-	}
 };
 
 class Dialog : public Interface
 {
 public:
-	std::vector<Interface*> _rtDrawList;
-	std::vector<Interface*> _pChildList;
-	virtual void AddChild(Interface* pUI)
-	{
-		_pChildList.push_back(pUI);
-	}
-
-public:
+	virtual bool Init() override;
 	virtual bool Frame() override;
 	virtual bool Render() override;
 	virtual bool Release() override;
-	virtual void SetRect(const Rect& rt) override;
-	virtual bool SetDrawList(
-		float fScaleX0, float fScaleX1,
-		float fScaleY0, float fScaleY1,
-		float fScaleU0, float fScaleU1,
-		float fScaleV0, float fScaleV1);
-
 };
 

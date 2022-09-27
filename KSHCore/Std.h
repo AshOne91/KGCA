@@ -11,10 +11,12 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include "Vector.h"
+#include <wrl.h> // windows runtime c++ template library(wrl)
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "dxgi.lib")
+using namespace Microsoft::WRL;
 
 #define KSHCORE
 extern HWND g_hWnd;

@@ -11,11 +11,11 @@ class Device : public Window
 {
 public:
 	// 인터페이스-> 하드웨어 직접 제어 -> 획득
-	ID3D11Device* _pd3dDevice = nullptr; // 디바이스 객체
-	ID3D11DeviceContext* _pImmediateContext = nullptr; // 디바이스 컨텍스트 객체
-	IDXGIFactory* _pGIFactory = nullptr; 
-	IDXGISwapChain* _pSwapChain = nullptr; //스왑체인 객체
-	ID3D11RenderTargetView* _pRTV = nullptr; // 메인 랜더타겟 뷰
+	ComPtr<ID3D11Device> _pd3dDevice = nullptr; // 디바이스 객체
+	ComPtr<ID3D11DeviceContext> _pImmediateContext = nullptr; // 디바이스 컨텍스트 객체
+	ComPtr<IDXGIFactory> _pGIFactory = nullptr;
+	ComPtr<IDXGISwapChain> _pSwapChain = nullptr; //스왑체인 객체
+	ComPtr<ID3D11RenderTargetView> _pRTV = nullptr; // 메인 랜더타겟 뷰
 	D3D11_VIEWPORT _vp;
 
 public:

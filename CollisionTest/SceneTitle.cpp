@@ -4,7 +4,7 @@ bool SceneTitle::Init()
 {
 	std::wstring shaderfilename = L"../../data/shader/DefaultShape.txt";
 	_pMapTitle = new BaseObject;
-	_pMapTitle->Create(_pd3dDevice, _pImmediateContext, shaderfilename, L"../../data/kgcabk.bmp");
+	_pMapTitle->Create(_pd3dDevice, _pImmediateContext, shaderfilename, L"../../data/gameHeight.png");
 
 	_Dlg = new Dialog;
 	_Dlg->Create(_pd3dDevice, _pImmediateContext, shaderfilename, L"../../data/ui/popup_normal.png");
@@ -48,6 +48,9 @@ bool SceneTitle::Init()
 
 	_Dlg->AddChild(_btnStart);
 	_Dlg->AddChild(_listControl);
+
+	_FadeObject = new Interface;
+	_FadeObject->Create(_pd3dDevice, _pImmediateContext, shaderfilename, L"../../data/black.png");
 	return true;
 }
 bool SceneTitle::Frame()
@@ -58,6 +61,10 @@ bool SceneTitle::Frame()
 	pos.x = pos.x + g_fSecondPerFrame * 10.0f;
 	_Dlg->SetPosition(pos);
 	_Dlg->Frame();
+
+	static float fAlpha = 0.0f;
+	_FadeObject->FadeInOut(cosf(g_fGameTimer) * 0.5f + 0.5f);
+	_FadeObject->Frame();
 	return true;
 }
 bool SceneTitle::Render()
@@ -66,6 +73,8 @@ bool SceneTitle::Render()
 	//_pMapTitle->Render();
 	//_btnStart->Render();
 	_Dlg->Render();
+
+	_FadeObject->Render();
 	return true;
 }
 bool SceneTitle::Release()
@@ -74,6 +83,8 @@ bool SceneTitle::Release()
 	//_btnStart->Release();
 	//_listControl->Release();
 	_Dlg->Release();
+
+	_FadeObject->Release();
 	return true;
 }
 

@@ -14,6 +14,9 @@ struct SimpleVertex
 class BaseObject
 {
 public:
+	bool _IsNullable = true;
+
+public:
 	ID3D11Device* _pd3dDevice = nullptr;
 	ID3D11DeviceContext* _pImmediateContext = nullptr;
 	ID3D11Buffer* _pVertexBuffer = nullptr;
@@ -54,5 +57,11 @@ public:
 	virtual bool Render();
 	virtual bool PostRender();
 	virtual bool Release();
+
+public:
+	BaseObject()
+	{
+		_IsNullable = false;
+	}
 };
 

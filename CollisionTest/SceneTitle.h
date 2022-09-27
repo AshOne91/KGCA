@@ -7,6 +7,7 @@ class SceneTitle : public Scene
 public:
 	User2D* _pUser;
 	BaseObject* _pMapTitle;
+	Interface* _FadeObject;
 	Interface* _btnStart;
 	Interface* _listControl;
 	Interface* _Dlg;
