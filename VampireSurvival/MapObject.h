@@ -1,6 +1,5 @@
 #pragma once
 #include "Object2D.h"
-#include "Spawner.h"
 
 enum class MapRotateType
 {
@@ -10,11 +9,15 @@ enum class MapRotateType
 	Left
 };
 
+class Spawner;
+class Monster;
 class MapObject : public Object2D
 {
 private:
 	Spawner* _pSpawner = nullptr;
 
+public:
+	void SetMonsterPrototype(Monster* pMonster);
 public:
 	virtual bool Init() override;
 	virtual bool Frame() override;

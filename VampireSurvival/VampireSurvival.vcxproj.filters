@@ -30,6 +30,21 @@
     <ClCompile Include="Spawner.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWorld.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MapManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingEntity.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="C2DMatrix.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -45,6 +60,21 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Spawner.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWorld.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingEntity.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="C2DMatrix.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>

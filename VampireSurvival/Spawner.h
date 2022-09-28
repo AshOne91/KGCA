@@ -1,8 +1,8 @@
 #pragma once
 #include "Object2D.h"
-#include "Monster.h"
 #include "TimeCounter.h"
 
+class Monster;
 class Spawner : public Object2D
 {
 private:

@@ -1,4 +1,6 @@
 #include "Spawner.h"
+#include "Monster.h"
+#include "GameWorld.h"
 
 bool Spawner::Init()
 {
@@ -10,8 +12,11 @@ bool Spawner::Frame()
 {
     if (_timerCounter.IsFinished())
     {
-
+        _timerCounter.Start(2000);
+        auto pMonster = new Monster(100, 100);
+        I_GameWorld.AddMonster(SpawnMonster());
     }
+    SetPosition(_vPos, I_GameWorld.GetCameraPos());
     return false;
 }
 
@@ -39,5 +44,5 @@ void Spawner::SetMonsterPrototype(Monster* pMonster)
 
 Monster* Spawner::SpawnMonster()
 {
-    return ;
+    return _pMonsterPrototype->Clone(this);
 }
