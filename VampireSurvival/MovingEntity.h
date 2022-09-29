@@ -15,87 +15,24 @@ private:
 	float _fMaxTurnRate;
 
 public:
-	Vector2D Velocity() const
-	{
-		return _vVelocity;
-	}
-	void SetVelocity(const Vector2D vel)
-	{
-		_vVelocity = vel;
-	}
+	Vector2D Velocity() const;
+	void SetVelocity(const Vector2D vel);
 
-	float Mass() const
-	{
-		return _fMass;
-	}
-	Vector2D Side() const
-	{
-		return _vSide;
-	}
+	float Mass() const;
+	Vector2D Side() const;
 
-	float MaxSpeed() const
-	{
-		return _fMaxSpeed;
-	}
-	void SetMaxSpeed(float maxSpeed)
-	{
-		_fMaxSpeed = maxSpeed;
-	}
+	float MaxSpeed() const;
+	void SetMaxSpeed(float maxSpeed);
 
-	bool IsSpeedMaxedOut() const
-	{
-		return (_fMaxSpeed * _fMaxSpeed) >= _vVelocity.LengthSq();
-	}
-	float Speed() const
-	{
-		return _vVelocity.Length();
-	}
-	float SpeedSq() const
-	{
-		return _vVelocity.LengthSq();
-	}
+	bool IsSpeedMaxedOut() const;
+	float Speed() const;
+	float SpeedSq() const;
 
-	Vector2D Heading() const
-	{
-		return _vHeading;
-	}
-	void SetHeading(Vector2D newHeading)
-	{
-		_vHeading = newHeading;
-		_vSide = _vHeading.Perp();
-	}
-	bool RotateHeadingToFacePosition(Vector2D target)
-	{
-		Vector2D toTarget = target - _vPos;
-		toTarget.Normalize();
+	Vector2D Heading() const;
+	void SetHeading(Vector2D newHeading);
+	bool RotateHeadingToFacePosition(Vector2D target);
 
-		float angle = _vHeading.GetRadianBetweenVectorDot(toTarget);
-
-		if (angle < Epsilon) return true;
-
-		if (angle > _fMaxTurnRate)
-		{
-			angle = _fMaxTurnRate;
-		}
-
-		C2DMatrix RotationMatrix;
-
-		RotationMatrix.Rotate(angle * (int)_vHeading.Sign(toTarget));
-		RotationMatrix.TransformVector2Ds(_vHeading);
-		RotationMatrix.TransformVector2Ds(_vVelocity);
-
-		_vSide = _vHeading.Perp();
-
-		return true;
-	}
-
-	float MaxTurnRate() const
-	{
-		return _fMaxTurnRate;
-	}
-	void SetMaxTurnRate(double val)
-	{
-		_fMaxTurnRate = val;
-	}
+	float MaxTurnRate() const;
+	void SetMaxTurnRate(double val);
 };
 

@@ -256,8 +256,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "..\\..\\output\\debug\\dxtk\\DirectXTK.lib" "..\\..\\lib\\DirectXTK_d.lib
-copy "$(ProjectDir)\\Inc\\*.h" "..\\..\\include\\dxtk"</Command>
+      <Command>copy "..\\..\\output\\debug\\dxtk\\DirectXTK.lib" "..\\..\\dxtk\\lib\\DirectXTK_d.lib
+copy "$(ProjectDir)\\Inc\\*.h" "..\\..\\dxtk\\inc"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -306,8 +306,8 @@ copy "$(ProjectDir)\\Inc\\*.h" "..\\..\\include\\dxtk"</Command>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "..\\..\\output\\release\\dxtk\\DirectXTK.lib" "..\\..\\lib\\DirectXTK_r.lib
-copy "$(ProjectDir)\\Inc\\*.h" "..\\..\\include\\dxtk"</Command>
+      <Command>copy "..\\..\\output\\release\\dxtk\\DirectXTK.lib" "..\\..\\dxtk\\lib\\DirectXTK_r.lib
+copy "$(ProjectDir)\\Inc\\*.h" "..\\..\\dxtk\\inc"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
