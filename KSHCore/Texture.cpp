@@ -23,7 +23,10 @@ HRESULT Texture::Load(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediateC
 		}
 	}
 
-	_pTexture->GetDesc(&_Desc);
+	if (_pTexture != nullptr)
+	{
+		_pTexture->GetDesc(&_Desc);
+	}
 	return hr;
 }
 

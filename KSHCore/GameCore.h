@@ -7,6 +7,7 @@
 #include "TextureManager.h"
 #include "ShaderManager.h"
 #include "SoundManager.h"
+#include "SpriteManager.h"
 
 class GameCore : public Device
 {

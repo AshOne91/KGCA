@@ -1,11 +1,20 @@
 #pragma once
-#include <GameCore.h>
+#include "GameCore.h"
+#include "Scene.h"
+#include "SceneInGame.h"
+#include "SceneTitle.h"
 
 class Sample : public GameCore
 {
 public:
-	virtual bool Init() final;
-	virtual bool Frame() final;
-	virtual bool Render() final;
-	virtual bool Release() final;
+	std::shared_ptr<SceneTitle> _pTitle = nullptr;
+	std::shared_ptr<SceneInGame> _pInGame = nullptr;
+	std::shared_ptr<Scene> _pCurrentScene = nullptr;
+
+public:
+	virtual bool		Init() override;
+	virtual bool		Frame() override;
+	virtual bool		Render() override;
+	virtual bool		Release() override;
 };
+

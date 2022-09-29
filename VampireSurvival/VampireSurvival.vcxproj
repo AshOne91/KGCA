@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="C2DMatrix.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MapObject.h" />
@@ -158,10 +159,12 @@
     <ClInclude Include="Sample.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="TimeCounter.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="User2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C2DMatrix.cpp" />
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MapObject.cpp" />
@@ -170,6 +173,7 @@
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="TimeCounter.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="User2D.cpp" />
   </ItemGroup>
   <ItemGroup>

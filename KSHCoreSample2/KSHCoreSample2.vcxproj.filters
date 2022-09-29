@@ -18,10 +18,42 @@
     <ClCompile Include="Sample.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SceneInGame.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect2D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile2D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SceneInGame.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTitle.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect2D.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile2D.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SpriteInfo.txt">
+      <Filter>소스 파일</Filter>
+    </Text>
+    <Text Include="ui.txt">
+      <Filter>소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>

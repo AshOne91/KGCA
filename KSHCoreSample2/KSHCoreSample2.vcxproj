@@ -149,15 +149,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Sample.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Sample.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\KSHCore\KSHCore.vcxproj">
       <Project>{ec3e7544-3d35-4ea4-90fb-cffa0f753448}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Effect2D.cpp" />
+    <ClCompile Include="Projectile2D.cpp" />
+    <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="SceneInGame.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Effect2D.h" />
+    <ClInclude Include="Projectile2D.h" />
+    <ClInclude Include="Sample.h" />
+    <ClInclude Include="SceneInGame.h" />
+    <ClInclude Include="SceneTitle.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SpriteInfo.txt" />
+    <Text Include="ui.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

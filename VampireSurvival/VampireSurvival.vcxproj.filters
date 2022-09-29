@@ -45,6 +45,12 @@
     <ClCompile Include="C2DMatrix.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -75,6 +81,12 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="C2DMatrix.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>

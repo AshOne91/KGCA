@@ -5,6 +5,13 @@
 class Object2D : public BaseObject
 {
 public:
+	W_STR _szName;
+	UINT _iIndex;
+	W_STR _szTexturePath;
+	W_STR _szMaskTexturePath;
+	W_STR _szShaderPath;
+
+public:
 	Texture* _pMaskTex = nullptr;
 	POINT _ptImageSize;
 	Rect _rtInit;

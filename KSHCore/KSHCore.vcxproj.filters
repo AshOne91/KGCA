@@ -75,6 +75,27 @@
     <ClInclude Include="DxState.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="User2D.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Npc2D.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Device.cpp">
@@ -126,6 +147,27 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="DxState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="User2D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc2D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,6 +9,7 @@ bool GameCore::CoreInit()
     }
     DxState::SetState(_pd3dDevice.Get());
 
+    I_Sprite.SetDevice(_pd3dDevice.Get(), _pImmediateContext.Get());
     I_Tex.SetDevice(_pd3dDevice.Get(), _pImmediateContext.Get());
     I_Shader.SetDevice(_pd3dDevice.Get(), _pImmediateContext.Get());
     I_Sound.Init();
