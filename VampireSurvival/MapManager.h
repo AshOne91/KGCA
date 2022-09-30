@@ -1,12 +1,14 @@
 #pragma once
 #include "GameCore.h"
+#include "Component.h"
+
 #define dfMAP_X_COUNT 3
 #define dfMAP_Y_COUNT 3
 
 class MapObject;
 class Monster;
 enum class MapRotateType;
-class MapManager : public Singleton<MapManager>
+class MapManager : public Singleton<MapManager>, public ComponentObject
 {
 private:
 	ID3D11Device* _pd3dDevice = nullptr;
@@ -23,10 +25,11 @@ private:
 	void mapRotate(MapRotateType rotate);
 
 public:
-	bool Init();
-	bool Frame();
-	bool Render();
-	bool Release();
+	virtual bool CInit() override;
+	virtual bool CFrame() override;
+	virtual bool CRender() override;
+	virtual bool CRelease() override;
+	virtual bool OnEvent(EventType eventType, ComponentObject* pSender, Message* msg) override;
 
 private:
 	MapManager();

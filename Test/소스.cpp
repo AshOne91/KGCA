@@ -4,6 +4,13 @@
 #include <string>
 #include <map>
 
+template<typename component>
+int test(component* test)
+{
+	std::cout << typeid(component*).hash_code() << std::endl;
+}
+
+
 class Array
 {
 public:
@@ -15,7 +22,12 @@ public:
 	}
 	Array(int size)
 	{
+		/*int* intPtr = new int[10];
+		int ptrSize = _msize(intPtr) / sizeof(int);
+		std::cout <<"arraySize:" << ptrSize << std::endl;*/
+		
 		this->size = size;
+		std::cout << typeid(*this).hash_code() << std::endl;
 	}
 	~Array() 
 	{
@@ -29,6 +41,10 @@ public:
 	Array test = ( 30 );
 
 public:
+	Container()
+	{
+		std::cout << typeid(*this).hash_code() << std::endl;
+	}
 	~Container()
 	{
 		std::cout << "Container";
@@ -37,11 +53,11 @@ public:
 
 int main()
 {
-	/*Container* pContainer = new Container();
+	Container* pContainer = new Container();
 	delete pContainer;
-	return 0;*/
+	return 0;
 
-	std::string test = { "테스트" };
+	/*std::string test = {"테스트"};
 	std::cout << test.size() << std::endl;
 	std::cout << test.length() << std::endl;
 
@@ -51,7 +67,7 @@ int main()
 	te["홍길동"] = 3;
 
 	te.emplace( "홍길동", 4 );
-	return 0;
+	return 0;*/
 
 	/*Array* pTest = dynamic_cast<Array*>(pContainer);
 	Container* pTestContainer = dynamic_cast<Container*>(pArray);

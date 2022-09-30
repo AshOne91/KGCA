@@ -1,8 +1,9 @@
 #pragma once
 #include "Object2D.h"
+#include "Component.h"
 
 class Spawner;
-class Monster : public Object2D
+class Monster : public Object2D, public ComponentObject
 {
 public:
 	int _iHearth;
@@ -16,7 +17,10 @@ public:
 	bool Frame() override;
 
 public:
-	Monster(int iHearth, int iAttack);
-	virtual ~Monster();
+	virtual bool CInit() override;
+	virtual bool CFrame() override;
+	virtual bool CRender() override;
+	virtual bool CRelease() override;
+	virtual bool OnEvent(EventType eventType, ComponentObject* pSender, Message* msg) override;
 };
 

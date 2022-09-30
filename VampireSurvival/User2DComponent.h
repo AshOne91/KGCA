@@ -1,22 +1,13 @@
 #pragma once
-#include "Object2D.h"
 #include "Component.h"
+#include "User2D.h"
 
-class Spawner;
-class Monster;
-class MapObject : public Object2D, public ComponentObject
+class User2DComponent : public User2D, public ComponentObject
 {
-private:
-	Spawner* _pSpawner = nullptr;
-
 public:
-	void SetMonsterPrototype(Monster* pMonster);
-public:
-	virtual bool Init() override;
+	virtual void UpdateVertexBuffer() override;
 	virtual bool Frame() override;
 	virtual bool Render() override;
-	virtual bool Release() override;
-	virtual void UpdateVertexBuffer() override;
 
 public:
 	virtual bool CInit() override;

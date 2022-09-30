@@ -1,19 +1,20 @@
 #pragma once
 #include "GameCore.h"
+#include "Component.h"
 
 #define dfSCREEN_WIDTH 800
 #define dfSCREEN_HEIGHT 600
 
-class User2D;
+class User2DComponent;
 class Monster;
-class GameWorld : public Singleton<GameWorld>
+class GameWorld : public Singleton<GameWorld> , public ComponentObject
 {
 private:
 	ID3D11Device* _pd3dDevice = nullptr;
 	ID3D11DeviceContext* _pImmediateContext = nullptr;
 	Vector2D _vSize = { dfSCREEN_WIDTH, dfSCREEN_HEIGHT };
 	Vector2D _vCamera = { 0, 0 };
-	User2D* _pUser = nullptr;
+	User2DComponent* _pUser = nullptr;
 	std::vector<Monster*> _monsterList;
 
 private:
@@ -25,15 +26,17 @@ public:
 	ID3D11DeviceContext* GetDeviceImmediateContext();
 	Vector2D GetViewSize();
 	Vector2D GetCameraPos();
-	User2D* GetUserPtr();
+	User2DComponent* GetUserPtr();
 	void SetCameraPos(const Vector2D& vCameraPos);
 	void AddMonster(Monster* pMonster);
 
 public:
-	bool Init();
-	bool Frame();
-	bool Render();
-	bool Release();
+	virtual bool CInit() override;
+	virtual bool CFrame() override;
+	virtual bool CRender() override;
+	virtual bool CRelease() override;
+	virtual bool OnEvent(EventType eventType, ComponentObject* pSender, Message* msg) override;
+
 
 private:
 	GameWorld();

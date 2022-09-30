@@ -1,8 +1,9 @@
 #include "MapManager.h"
 #include "GameWorld.h"
-#include "User2D.h"
+#include "User2DComponent.h"
 #include "MapObject.h"
 #include "Monster.h"
+#include "ObjectManager.h"
 
 void MapManager::Set(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediateContext)
 {
@@ -12,7 +13,7 @@ void MapManager::Set(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediateCo
 
 void MapManager::mapRotate(MapRotateType rotate)
 {
-	std::vector<std::vector<MapObject*>> _tempMapList{ dfMAP_Y_COUNT, {dfMAP_X_COUNT, nullptr} };
+	std::vector<std::vector<MapObject*>> _tempMapList{dfMAP_Y_COUNT, {dfMAP_X_COUNT, nullptr}};
 	switch (rotate)
 	{
 	case MapRotateType::Up:
@@ -94,7 +95,7 @@ void MapManager::mapRotate(MapRotateType rotate)
 	}
 }
 
-bool MapManager::Init()
+bool MapManager::CInit()
 {
     auto pTexture = I_Tex.Load(L"../../resource/bg_forest.png");
     std::wstring mapshader = L"../../data/shader/DefaultShape.txt";
@@ -108,16 +109,18 @@ bool MapManager::Init()
 	{
 		for (int x = 1; x <= dfMAP_X_COUNT; ++x)
 		{
-			auto pMapObject = new MapObject;
-			pMapObject->Create(_pd3dDevice, _pImmediateContext, mapshader, L"../../resource/bg_forest.png");
-			pMapObject->Init();
+			auto pMapObject = I_ObjectManager.CreateObject<MapObject>();
+			pMapObject->Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(), mapshader, L"../../resource/bg_forest.png");
 			pMapObject->SetRect({ 0, 0, (float)mapWidth, (float)mapHeight });
 			pMapObject->SetPosition(
 				{
 					(float)(mapWidth * (x - 1) - mapMidWidth * (x - 1)) + (float)(mapWidth * x - mapMidWidth * x) ,
 					(float)(mapHeight * (y - 1) - mapMidHeight * (y - 1)) + (float)(mapHeight * y - mapMidHeight * y) });
 			_mapObjectList[y - 1][x - 1] = pMapObject;
-			pMapObject->SetMonsterPrototype(new Monster(100, 100));
+			auto pMonster = new Monster();
+			pMonster->_iHearth = 100;
+			pMonster->_iAttack = 100;
+			pMapObject->SetMonsterPrototype(pMonster);
 		}
 	}
 
@@ -134,7 +137,7 @@ bool MapManager::Init()
     return true;
 }
 
-bool MapManager::Frame()
+bool MapManager::CFrame()
 {
 	std::vector<std::pair<int, int>> collisonMap;
 	int centerX = dfMAP_X_COUNT * 0.5f;
@@ -146,7 +149,7 @@ bool MapManager::Frame()
 			auto pMapObj = _mapObjectList[y][x];
 			pMapObj->SetCameraSize(I_GameWorld.GetViewSize());
 			pMapObj->SetCameraPos(I_GameWorld.GetCameraPos());
-			pMapObj->Frame();
+			//pMapObj->Frame();
 			if ((centerX != x || centerY != y) && Collision::RectToPoint(pMapObj->_rtCollision, { (long)I_GameWorld.GetUserPtr()->_vPos.x, (long)I_GameWorld.GetUserPtr()->_vPos.y }))
 			{
 				collisonMap.push_back({ x, y });
@@ -207,21 +210,21 @@ bool MapManager::Frame()
     return true;
 }
 
-bool MapManager::Render()
+bool MapManager::CRender()
 {
-	for (auto& vec : _mapObjectList)
+	/*for (auto& vec : _mapObjectList)
 	{
 		for (auto pMapObj : vec)
 		{
 			pMapObj->Render();
 		}
-	}
+	}*/
     return true;
 }
 
-bool MapManager::Release()
+bool MapManager::CRelease()
 {
-	for (auto& vec : _mapObjectList)
+	/*for (auto& vec : _mapObjectList)
 	{
 		for (auto pMapObj : vec)
 		{
@@ -229,9 +232,16 @@ bool MapManager::Release()
 			delete pMapObj;
 		}
 	}
-	_mapObjectList.clear();
+	_mapObjectList.clear();*/
     return true;
 }
+
+bool MapManager::OnEvent(EventType eventType, ComponentObject* pSender, Message* msg)
+{
+	return true;
+}
+
+
 
 MapManager::MapManager()
 {
@@ -240,5 +250,5 @@ MapManager::MapManager()
 
 MapManager::~MapManager()
 {
-	Release();
+	CRelease();
 }

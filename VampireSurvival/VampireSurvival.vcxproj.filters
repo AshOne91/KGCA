@@ -21,7 +21,7 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="User2D.cpp">
+    <ClCompile Include="User2DComponent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TimeCounter.cpp">
@@ -51,6 +51,21 @@
     <ClCompile Include="EventManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachine.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -59,7 +74,7 @@
     <ClInclude Include="MapObject.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="User2D.h">
+    <ClInclude Include="User2DComponent.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="TimeCounter.h">
@@ -87,6 +102,27 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="enum.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>

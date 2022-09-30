@@ -1,11 +1,14 @@
 #include "Monster.h"
 #include "Spawner.h"
 #include "GameWorld.h"
+#include "ObjectManager.h"
 
 Monster* Monster::Clone(Spawner* pSpawner)
 {
 	Texture* pMaskTex = I_Tex.Load(L"../../data/bitmap2.bmp");
-	auto pMonster = new Monster(_iHearth, _iAttack);
+	auto pMonster = I_ObjectManager.CreateObject<Monster>();
+	pMonster->_iHearth = 100;
+	pMonster->_iAttack = 100;
 	pMonster->Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(),
 		L"../../data/shader/DefaultShapeMask.txt",
 		L"../../data/bitmap1.bmp");
@@ -45,16 +48,37 @@ void Monster::UpdateVertexBuffer()
 
 bool Monster::Frame()
 {
+	SetCameraSize(I_GameWorld.GetViewSize());
+	SetCameraPos(I_GameWorld.GetCameraPos());
 	SetPosition(_vPos, _vCameraPos);
 	return true;
 }
 
-Monster::Monster(int iHearth, int iAttack) : _iHearth(iHearth), _iAttack(_iAttack)
+bool Monster::CInit()
 {
-
+	Monster::Init();
+	return true;
 }
 
-Monster::~Monster()
+bool Monster::CFrame()
 {
+	Monster::Frame();
+	return true;
+}
 
+bool Monster::CRender()
+{
+	Monster::Render();
+	return true;
+}
+
+bool Monster::CRelease()
+{
+	Monster::Release();
+	return true;
+}
+
+bool Monster::OnEvent(EventType eventType, ComponentObject* pSender, Message* msg)
+{
+	return true;
 }

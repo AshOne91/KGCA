@@ -5,30 +5,25 @@
 bool Sample::Init()
 {
 	I_GameWorld.Set(_pd3dDevice.Get(), _pImmediateContext.Get());
-	I_MapManager.Set(_pd3dDevice.Get(), _pImmediateContext.Get());
-	I_GameWorld.Init();
-	I_MapManager.Init();
+	I_GameWorld.CInit();
 	return true;
 }
 
 bool Sample::Frame()
 {
-	I_MapManager.Frame();
-	I_GameWorld.Frame();
+	I_GameWorld.CFrame();
 	return true;
 }
 
 bool Sample::Render()
 {
-	I_MapManager.Render();
-	I_GameWorld.Render();
+	I_GameWorld.CRender();
 	return true;
 }
 
 bool Sample::Release()
 {
-	I_MapManager.Release();
-	I_GameWorld.Release();
+	I_GameWorld.CRelease();
 	return true;
 }
 
