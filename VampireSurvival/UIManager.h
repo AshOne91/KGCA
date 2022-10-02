@@ -21,10 +21,8 @@ public:
 	virtual bool CRelease() override;
 	virtual bool OnEvent(EventType eventType, ComponentObject* pSender, Message* msg) override;
 
-private:
-	UIManager();
-
 public:
+	UIManager();
 	~UIManager();
 };
 

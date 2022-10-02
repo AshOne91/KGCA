@@ -36,13 +36,17 @@ public:
 		msg.eventType = EventType::CreateObject;
 		msg._uiSender = GetIndex();
 		msg._uiReceiver = 0;
-		msg._pExtraInfo = nullptr;
+		msg._pExtraInfo = pData;
 		I_EventManager.PostNotifycation(EventType::CreateObject, NotifyType::BroadCast, this, &msg);
+
+
 		return pData;
 	}
+
 	void DestroyObject(unsigned __int64 iIndex);
+
 	template<typename T>
-	T* GetObject(unsigned __int64 iIndex)
+	T* GetObjectPtr(unsigned __int64 iIndex)
 	{
 		auto iter = _objectList.find(iIndex);
 		if (iter == _objectList.end())
@@ -52,9 +56,8 @@ public:
 		return dynamic_cast<T*>(iter->second);
 	}
 
-private:
-	ObjectManager();
 public:
+	ObjectManager();
 	~ObjectManager();
 };
 

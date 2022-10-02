@@ -2,6 +2,8 @@
 #include "Spawner.h"
 #include "GameWorld.h"
 #include "ObjectManager.h"
+#include "Circle.h"
+#include "ObjectManager.h"
 
 Monster* Monster::Clone(Spawner* pSpawner)
 {
@@ -24,7 +26,15 @@ Monster* Monster::Clone(Spawner* pSpawner)
 	pMonster->SetCameraPos(I_GameWorld.GetCameraPos());
 	pMonster->SetPosition(pSpawner->_vPos, I_GameWorld.GetCameraPos());
 	pMonster->SetMask(pMaskTex);
+	pMonster->CreateComponent<CircleComponent>();
+	pMonster->GetComponent<CircleComponent>()->fRadius = 5.0f;
 	return pMonster;
+}
+
+void Monster::SetPosition(const Vector2D& vPos, const Vector2D& vCamera)
+{
+	Object2D::SetPosition(vPos, vCamera);
+	_transform.SetPostion(_vPos);
 }
 
 void Monster::UpdateVertexBuffer()
@@ -75,10 +85,12 @@ bool Monster::CRender()
 bool Monster::CRelease()
 {
 	Monster::Release();
+	ComponentObject::CRelease();
 	return true;
 }
 
 bool Monster::OnEvent(EventType eventType, ComponentObject* pSender, Message* msg)
 {
+
 	return true;
 }

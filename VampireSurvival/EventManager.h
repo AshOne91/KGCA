@@ -1,7 +1,7 @@
 #pragma once
 #include "GameCore.h"
-#include "Component.h"
 #include "enum.h"
+#include "Component.h"
 #include <unordered_map>
 
 class EventManager : public Singleton<EventManager>, public ComponentObject
@@ -32,9 +32,8 @@ public:
 	void RemoveEvent(EventType eventType);
 	void RemoveComponentObject(ComponentObject* pComponent);
 
-private:
-	EventManager();
 public:
+	EventManager();
 	~EventManager();
 };
 

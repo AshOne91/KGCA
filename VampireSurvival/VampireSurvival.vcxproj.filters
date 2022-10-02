@@ -21,7 +21,7 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="User2DComponent.cpp">
+    <ClCompile Include="User2D.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TimeCounter.cpp">
@@ -66,6 +66,12 @@
     <ClCompile Include="Component.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -74,7 +80,7 @@
     <ClInclude Include="MapObject.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="User2DComponent.h">
+    <ClInclude Include="User2D.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="TimeCounter.h">
@@ -124,6 +130,18 @@
     </ClInclude>
     <ClInclude Include="Message.h">
       <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

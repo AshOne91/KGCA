@@ -31,9 +31,8 @@ public:
 	virtual bool CRelease() override;
 	virtual bool OnEvent(EventType eventType, ComponentObject* pSender, Message* msg) override;
 
-private:
-	MapManager();
 public:
+	MapManager();
 	~MapManager();
 };
 

@@ -13,8 +13,9 @@ public:
 	Monster* Clone(Spawner* pSpawner);
 
 public:
-	void UpdateVertexBuffer() override;
-	bool Frame() override;
+	virtual void SetPosition(const Vector2D& vPos, const Vector2D& vCamera) override;
+	virtual void UpdateVertexBuffer() override;
+	virtual bool Frame() override;
 
 public:
 	virtual bool CInit() override;

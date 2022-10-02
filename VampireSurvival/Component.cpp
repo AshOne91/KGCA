@@ -1,4 +1,6 @@
 #include "Component.h"
+#include "EventManager.h"
+#include "Message.h"
 
 unsigned __int64 ComponentObject::s_uiAllocIndex = 0;
 
@@ -47,7 +49,14 @@ bool ComponentObject::CRelease()
 {
 	for (auto& component : _componentList)
 	{
+		Message msg;
+		msg.eventType = EventType::ReleaseComponent;
+		msg._uiSender = GetIndex();
+		msg._uiReceiver = 0;
+		msg._pExtraInfo = component.second;
+		I_EventManager.PostNotifycation(EventType::ReleaseComponent, NotifyType::BroadCast, this, &msg);
 		component.second->CRelease();
+		delete component.second;
 	}
 	_componentList.clear();
 	return true;
@@ -60,4 +69,14 @@ bool ComponentObject::OnEvent(EventType eventType, ComponentObject* pSender, Mes
 		component.second->OnEvent(eventType, pSender, msg);
 	}
 	return true;
+}
+
+void ComponentObject::PostNotify(EventType eventType, NotifyType notiType, ComponentObject* pSender, void* pExtraInfo)
+{
+	Message message;
+	message.eventType = eventType;
+	message._uiSender = GetIndex();
+	message._uiReceiver = 0;
+	message._pExtraInfo = pExtraInfo;
+	I_EventManager.PostNotifycation(eventType, notiType, pSender, &message);
 }

@@ -1,6 +1,6 @@
 #include "MapManager.h"
 #include "GameWorld.h"
-#include "User2DComponent.h"
+#include "User2D.h"
 #include "MapObject.h"
 #include "Monster.h"
 #include "ObjectManager.h"
@@ -212,27 +212,12 @@ bool MapManager::CFrame()
 
 bool MapManager::CRender()
 {
-	/*for (auto& vec : _mapObjectList)
-	{
-		for (auto pMapObj : vec)
-		{
-			pMapObj->Render();
-		}
-	}*/
     return true;
 }
 
 bool MapManager::CRelease()
 {
-	/*for (auto& vec : _mapObjectList)
-	{
-		for (auto pMapObj : vec)
-		{
-			pMapObj->Release();
-			delete pMapObj;
-		}
-	}
-	_mapObjectList.clear();*/
+	_mapObjectList.clear();
     return true;
 }
 

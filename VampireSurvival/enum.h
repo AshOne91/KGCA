@@ -3,7 +3,12 @@ enum class EventType
 {
 	None = 0,
 	CreateObject = 1,
-	DestroyObject = 2
+	DestroyObject = 2,
+	CreateComponent = 3,
+	AddComponent = 4,
+	ReleaseComponent = 5,
+	CollisionIn = 6,
+	CollisionOut = 7
 };
 
 enum class NotifyType

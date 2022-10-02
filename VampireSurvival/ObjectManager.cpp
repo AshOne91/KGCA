@@ -40,6 +40,7 @@ bool ObjectManager::CRelease()
 	{
 		pair.second->CRelease();
 	}
+	_objectList.clear();
 	return true;
 }
 
@@ -50,7 +51,21 @@ bool ObjectManager::OnEvent(EventType eventType, ComponentObject* pSender, Messa
 
 void ObjectManager::DestroyObject(unsigned __int64 iIndex)
 {
-	
+	auto iter = _objectList.find(iIndex);
+	if (iter == _objectList.end())
+	{
+		int* p = 0;
+		*p = 1;
+	}
+	iter->second->CRelease();
+	Message msg;
+	msg.eventType = EventType::DestroyObject;
+	msg._uiSender = GetIndex();
+	msg._uiReceiver = 0;
+	msg._pExtraInfo = iter->second;
+	I_EventManager.PostNotifycation(EventType::DestroyObject, NotifyType::BroadCast, this, &msg);
+	delete iter->second;
+	_objectList.erase(iIndex);
 }
 
 ObjectManager::ObjectManager()

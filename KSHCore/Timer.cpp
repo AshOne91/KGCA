@@ -22,7 +22,7 @@ bool Timer::Frame()
         _fFPSTimer += _fElapseTimer;
         if (_fFPSTimer >= 1.0f)
         {
-            _iFPSCounter = _iFPSCounter;
+            _iFPS = _iFPSCounter;
             _iFPSCounter = 0;
             _fFPSTimer = _fFPSTimer - 1.0f;
         }
