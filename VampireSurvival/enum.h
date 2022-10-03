@@ -8,7 +8,8 @@ enum class EventType
 	AddComponent = 4,
 	ReleaseComponent = 5,
 	CollisionIn = 6,
-	CollisionOut = 7
+	CollisionOut = 7,
+	ChangeScene = 8
 };
 
 enum class NotifyType

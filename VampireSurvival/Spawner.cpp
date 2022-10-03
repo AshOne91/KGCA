@@ -35,7 +35,7 @@ bool Spawner::CFrame()
     if (_timerCounter.IsFinished())
     {
         //_timerCounter.Start(2000);
-        I_GameWorld.AddMonster(SpawnMonster());
+        //I_GameWorld.AddMonster(SpawnMonster());
     }
     SetPosition(_vPos, I_GameWorld.GetCameraPos());
     return true;

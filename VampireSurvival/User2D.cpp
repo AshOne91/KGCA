@@ -5,7 +5,7 @@
 #include "ObjectManager.h"
 #include "Monster.h"
 
-void User2D::UpdateVertexBuffer()
+void User2DComponent::UpdateVertexBuffer()
 {
     _VertexList[0].p = { _vNDCPos.x, _vNDCPos.y, 0.0f };
     _VertexList[0].t = { _rtUV.x1, _rtUV.y1 };
@@ -24,7 +24,7 @@ void User2D::UpdateVertexBuffer()
     _pImmediateContext->UpdateSubresource(_pVertexBuffer, NULL, NULL, &_VertexList.at(0), 0, 0);
 }
 
-bool User2D::Frame()
+bool User2DComponent::Frame()
 {
     Vector2D vPos = _vPos;
     _vDir = { 0,0 };
@@ -56,13 +56,13 @@ bool User2D::Frame()
     return true;
 }
 
-void User2D::SetPosition(const Vector2D& vPos, const Vector2D& vCamera)
+void User2DComponent::SetPosition(const Vector2D& vPos, const Vector2D& vCamera)
 {
-    Object2D::SetPosition(vPos, vCamera);
+    Object2DComponent::SetPosition(vPos, vCamera);
     _transform.SetPostion(_vPos);
 }
 
-bool User2D::Render()
+bool User2DComponent::Render()
 {
     this->PreRender();
     _pImmediateContext->PSSetShaderResources(1, 1,
@@ -71,9 +71,9 @@ bool User2D::Render()
     return true;
 }
 
-bool User2D::CInit()
+bool User2DComponent::CInit()
 {
-    User2D::Init();
+    User2DComponent::Init();
     Texture* pMaskTex = I_Tex.Load(L"../../data/bitmap2.bmp");
     this->Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(),
     L"../../data/shader/DefaultShapeMask.txt",
@@ -87,26 +87,26 @@ bool User2D::CInit()
     return true;
 }
 
-bool User2D::CFrame()
+bool User2DComponent::CFrame()
 {
-    User2D::Frame();
+    User2DComponent::Frame();
     return true;
 }
 
-bool User2D::CRender()
+bool User2DComponent::CRender()
 {
-    User2D::Render();
+    User2DComponent::Render();
     return true;
 }
 
-bool User2D::CRelease()
+bool User2DComponent::CRelease()
 {
-    User2D::Release();
+    User2DComponent::Release();
     ComponentObject::CRelease();
     return true;
 }
 
-bool User2D::OnEvent(EventType eventType, ComponentObject* pSender, Message* msg)
+bool User2DComponent::OnEvent(EventType eventType, ComponentObject* pSender, Message* msg)
 {
     if (eventType == EventType::CollisionIn)
     {

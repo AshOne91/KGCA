@@ -1,8 +1,8 @@
 #pragma once
 #include "Component.h"
-#include "Object2D.h"
+#include "Object2DComponent.h"
 
-class User2D : public Object2D, public ComponentObject
+class User2DComponent : public Object2DComponent
 {
 public:
 	virtual void UpdateVertexBuffer() override;

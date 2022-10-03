@@ -4,7 +4,7 @@
 
 bool Sample::Init()
 {
-	I_GameWorld.Set(_pd3dDevice.Get(), _pImmediateContext.Get());
+	I_GameWorld.Set(_pd3dDevice.Get(), _pImmediateContext.Get(), _pSwapChain.Get());
 	I_GameWorld.CInit();
 	return true;
 }

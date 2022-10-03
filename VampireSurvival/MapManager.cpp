@@ -150,7 +150,7 @@ bool MapManager::CFrame()
 			pMapObj->SetCameraSize(I_GameWorld.GetViewSize());
 			pMapObj->SetCameraPos(I_GameWorld.GetCameraPos());
 			//pMapObj->Frame();
-			if ((centerX != x || centerY != y) && Collision::RectToPoint(pMapObj->_rtCollision, { (long)I_GameWorld.GetUserPtr()->_vPos.x, (long)I_GameWorld.GetUserPtr()->_vPos.y }))
+			if ((centerX != x || centerY != y) && Collision::RectToPoint(pMapObj->_rtCollision, { (long)I_GameWorld.GetCameraPos().x, (long)I_GameWorld.GetCameraPos().y }))
 			{
 				collisonMap.push_back({ x, y });
 			}

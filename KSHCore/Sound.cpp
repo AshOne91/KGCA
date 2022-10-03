@@ -58,11 +58,11 @@ void Sound::SetLoop(bool bLoop)
 {
     if (bLoop)
     {
-        _pSound->setMode(FMOD_LOOP_NORMAL);
+        _pChannel->setMode(FMOD_LOOP_NORMAL);
     }
     else
     {
-        _pSound->setMode(FMOD_LOOP_OFF);
+        _pChannel->setMode(FMOD_LOOP_OFF);
     }
 }
 

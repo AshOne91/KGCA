@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ListControlComponent.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="C2DMatrix.h" />
     <ClInclude Include="Circle.h" />
@@ -162,9 +163,13 @@
     <ClInclude Include="Message.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MovingEntity.h" />
+    <ClInclude Include="Object2DComponent.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Sample.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneMain.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
@@ -180,13 +185,18 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="ListControlComponent.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MovingEntity.cpp" />
+    <ClCompile Include="Object2DComponent.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateMachine.cpp" />
