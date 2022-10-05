@@ -30,6 +30,7 @@ public:
 	std::vector<SimpleVertex> _VertexList;
 	std::vector<SimpleVertex> _InitVertexList;
 	std::vector<DWORD> _IndexList;
+	float _fAngleDegree = 0.0f;
 	Rect _rtCollision;
 
 public:
@@ -49,6 +50,7 @@ public:
 	virtual HRESULT CreatePixelShader(const std::wstring& filename);
 	virtual HRESULT CreateVertexLayout();
 	virtual void UpdateVertexBuffer();
+	virtual void Rotation();
 
 public:
 	virtual bool Init();

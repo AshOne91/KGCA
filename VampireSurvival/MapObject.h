@@ -10,8 +10,6 @@ private:
 	Spawner* _pSpawner = nullptr;
 
 public:
-	void SetMonsterPrototype(Monster* pMonster);
-public:
 	virtual bool Init() override;
 	virtual bool Frame() override;
 	virtual bool Render() override;
@@ -24,5 +22,9 @@ public:
 	virtual bool CRender() override;
 	virtual bool CRelease() override;
 	virtual bool OnEvent(EventType eventType, ComponentObject* pSender, Message* msg) override;
+
+public:
+	void EnableSpawner();
+	void DisableSpanwer();
 };
 

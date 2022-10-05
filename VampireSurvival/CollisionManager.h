@@ -1,6 +1,7 @@
 #pragma once
 #include "GameCore.h"
 #include "Component.h"
+#include "FrameSkip.h"
 #include <unordered_map>
 #include <set>
 
@@ -8,6 +9,8 @@ class CircleComponent;
 class CollisionManager : public Singleton<CollisionManager>, public ComponentObject
 {
 private:
+	FrameSkip _frameSkip;
+	float _fCollisionCheckRadious = 0.0f;
 	ID3D11Device* _pd3dDevice = nullptr;
 	ID3D11DeviceContext* _pImmediateContext = nullptr;
 	std::unordered_map<unsigned __int64, std::unordered_map<ComponentObject*, CircleComponent*>> _circleComponentList;

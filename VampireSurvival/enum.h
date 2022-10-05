@@ -9,7 +9,13 @@ enum class EventType
 	ReleaseComponent = 5,
 	CollisionIn = 6,
 	CollisionOut = 7,
-	ChangeScene = 8
+	ChangeScene = 8,
+	CreateObjectInComponent = 9,
+	DestroyObjectInComponent = 10,
+
+	CreateTextDraw = 11,
+	CreatedTextDraw = 12,
+	TextDraw = 14
 };
 
 enum class NotifyType

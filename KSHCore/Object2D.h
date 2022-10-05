@@ -21,9 +21,9 @@ public:
 	float _fSpeed = 100.0f;
 	Vector2D _vNDCPos;
 	Vector2D _vDrawSize;
-	float _fAngleDegree = 0.0f;
 	Vector2D _vBeforePos;
 	Vector2D _vOffsetPos;
+	bool _bAlpha = true;
 
 public:
 	Vector2D _vCameraPos;
@@ -40,6 +40,6 @@ public:
 	virtual void SetPosition(const Vector2D& vPos, const Vector2D& vCamera);
 	virtual void SetDirection(const Vector2D& vDir);
 	virtual void UpdateVertexBuffer() override;
+	virtual void UpdateVertexBufferFlip();
 	virtual void SetMask(Texture* pMaskTex);
-	virtual void Rotation();
 };

@@ -105,11 +105,13 @@ bool MapManager::CInit()
     int MapCenterY = (mapHeight * dfMAP_Y_COUNT) * 0.5f;
     UINT mapMidWidth = mapWidth * 0.5f;
     UINT mapMidHeight = mapHeight * 0.5f;
+	int centerX = dfMAP_X_COUNT * 0.5f;
+	int centerY = dfMAP_Y_COUNT * 0.5f;
 	for (int y = 1; y <= dfMAP_Y_COUNT; ++y)
 	{
 		for (int x = 1; x <= dfMAP_X_COUNT; ++x)
 		{
-			auto pMapObject = I_ObjectManager.CreateObject<MapObject>();
+			auto pMapObject = CreateObject<MapObject>();
 			pMapObject->Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(), mapshader, L"../../resource/bg_forest.png");
 			pMapObject->SetRect({ 0, 0, (float)mapWidth, (float)mapHeight });
 			pMapObject->SetPosition(
@@ -117,10 +119,14 @@ bool MapManager::CInit()
 					(float)(mapWidth * (x - 1) - mapMidWidth * (x - 1)) + (float)(mapWidth * x - mapMidWidth * x) ,
 					(float)(mapHeight * (y - 1) - mapMidHeight * (y - 1)) + (float)(mapHeight * y - mapMidHeight * y) });
 			_mapObjectList[y - 1][x - 1] = pMapObject;
-			auto pMonster = new Monster();
-			pMonster->_iHearth = 100;
-			pMonster->_iAttack = 100;
-			pMapObject->SetMonsterPrototype(pMonster);
+			if (centerX == x - 1 && centerY == y - 1)
+			{
+				pMapObject->DisableSpanwer();
+			}
+			else
+			{
+				pMapObject->EnableSpawner();
+			}
 		}
 	}
 
@@ -149,10 +155,11 @@ bool MapManager::CFrame()
 			auto pMapObj = _mapObjectList[y][x];
 			pMapObj->SetCameraSize(I_GameWorld.GetViewSize());
 			pMapObj->SetCameraPos(I_GameWorld.GetCameraPos());
-			//pMapObj->Frame();
 			if ((centerX != x || centerY != y) && Collision::RectToPoint(pMapObj->_rtCollision, { (long)I_GameWorld.GetCameraPos().x, (long)I_GameWorld.GetCameraPos().y }))
 			{
 				collisonMap.push_back({ x, y });
+				pMapObj->DisableSpanwer();
+				_mapObjectList[centerY][centerX]->EnableSpawner();
 			}
 		}
 	}

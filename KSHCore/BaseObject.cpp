@@ -245,11 +245,12 @@ HRESULT BaseObject::CreateVertexLayout()
 
 void BaseObject::UpdateVertexBuffer()
 {
+    Rotation();
+
     _pImmediateContext->UpdateSubresource(
         _pVertexBuffer, 0, nullptr,
         &_VertexList.at(0), 0, 0);
 }
-
 bool BaseObject::Init()
 {
     return true;
@@ -290,6 +291,24 @@ bool BaseObject::PostRender()
     else
         _pImmediateContext->DrawIndexed(_IndexList.size(), 0, 0);
     return true;
+}
+
+void BaseObject::Rotation()
+{
+    Vector3D vCenter;
+    vCenter.x = (_VertexList[1].p.x + _VertexList[0].p.x) / 2.0f;
+    vCenter.y = (_VertexList[2].p.y + _VertexList[0].p.y) / 2.0f;
+
+    float fDegree = _fAngleDegree;
+    float fRadian = DegreeToRadian(fDegree);
+    Vector3D vRot;
+    for (int vertex = 0; vertex < 4; ++vertex)
+    {
+        Vector3D vCenterMove = _VertexList[vertex].p - vCenter;
+        vRot.x = vCenterMove.x * cos(fRadian) - vCenterMove.y * sin(fRadian);
+        vRot.y = vCenterMove.x * sin(fRadian) + vCenterMove.y * cos(fRadian);
+        _VertexList[vertex].p = vRot + vCenter;
+    }
 }
 
 bool BaseObject::Release()

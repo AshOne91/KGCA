@@ -56,11 +56,11 @@ bool    Collision::RectToInRect(const Rect& a, const Rect& b)
 
 bool   Collision::CircleToCircle(const Circle& a, const Circle& b)
 {
-    float fSumRadius = a.fRadius + b.fRadius;
+    float fSumRadius = a.fRadius * a.fRadius + b.fRadius * b.fRadius;
     float x = a.cx - b.cx;
     float y = a.cy - b.cy;
-    float fDistance = sqrt(x * x + y * y);
-    if (fDistance <= fSumRadius)
+    float fDistanceSq = x * x + y * y;
+    if (fDistanceSq <= fSumRadius)
     {
         return true;
     }

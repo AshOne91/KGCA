@@ -5,6 +5,7 @@
 #include <list>
 #include <unordered_map>
 
+
 class Message;
 class ComponentObject abstract : public Object
 {
@@ -65,6 +66,16 @@ public:
 		}
 		return dynamic_cast<T*>(iter->second);
 	}
+
+	template<typename T>
+	T* CreateObject()
+	{
+		T* pComponent = new T();
+		PostNotify(EventType::CreateObjectInComponent, NotifyType::BroadCast, this, pComponent);
+		return pComponent;
+	}
+
+	void DestroyObject(unsigned __int64 uiIndex);
 
 	virtual bool CInit();
 	virtual bool CFrame();

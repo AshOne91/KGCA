@@ -52,7 +52,7 @@ void MovingEntity::SetHeading(Vector2D newHeading)
 }
 bool MovingEntity::RotateHeadingToFacePosition(Vector2D target)
 {
-	Vector2D toTarget = target - _vPos;
+	Vector2D toTarget = target - _vMovingPos;
 	toTarget.Normalize();
 
 	float angle = _vHeading.GetRadianBetweenVectorDot(toTarget);

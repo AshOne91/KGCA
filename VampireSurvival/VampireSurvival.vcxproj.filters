@@ -21,7 +21,7 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="User2D.cpp">
+    <ClCompile Include="User2DComponent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TimeCounter.cpp">
@@ -87,6 +87,30 @@
     <ClCompile Include="Object2DComponent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Vehicle.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SteeringBehaviors.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameSkip.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Hit.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadMonster.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TextManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -95,7 +119,7 @@
     <ClInclude Include="MapObject.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="User2D.h">
+    <ClInclude Include="User2DComponent.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="TimeCounter.h">
@@ -173,5 +197,34 @@
     <ClInclude Include="Object2DComponent.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Vehicle.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SteeringBehaviors.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameSkip.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Hit.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadMonster.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TextManager.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SpriteInfo.txt">
+      <Filter>소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>

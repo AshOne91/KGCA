@@ -2,13 +2,14 @@
 #include "Object2D.h"
 #include "Component.h"
 #include "TimeCounter.h"
+#include "Monster.h"
+#include <Vector.h>
 
 class Monster;
 class Spawner : public Object2D, public ComponentObject
 {
 private:
 	TimeCounter _timerCounter;
-	Monster* _pMonsterPrototype = nullptr;
 
 public:
 	virtual bool Init() final;
@@ -24,7 +25,7 @@ public:
 	virtual bool OnEvent(EventType eventType, ComponentObject* pSender, Message* msg) override;
 
 public:
-	void SetMonsterPrototype(Monster* pMonster);
-	Monster* SpawnMonster();
+	void EnableSpawner();
+	void DisableSpawner();
 };
 

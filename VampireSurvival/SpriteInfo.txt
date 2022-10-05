@@ -1,0 +1,18 @@
+#SPRITE 
+rtUser 2 0 ../../resource/characters.png nullptr ../../data/shader/DefaultShape.txt
+0 165 75 25 32
+1 194 74 25 32
+rtAurora 1 0 ../../resource/vfx.png nullptr ../../data/shader/DefaultShape.txt
+0 266 8 240 240
+rtMonsterA 2 0 ../../resource/enemies.png nullptr ../../data/shader/DefaultShape.txt
+0 1542 732 35 35
+0 1581 734 32 32
+rtMonsterDead 3 0 ../../resource/enemies.png nullptr ../../data/shader/DefaultShape.txt
+0 1441 646 32 36
+0 1340 492 32 39
+0 1304 493 35 40
+rtHit 1 0 ../../resource/hit2.png nullptr ../../data/shader/DefaultShape.txt
+0 0 0 37 41
+rtExplosion 1 0 ../../resource/vfx.png nullptr ../../data/shader/DefaultShape.txt
+0 1186 134 120 113
+#END

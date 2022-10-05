@@ -40,6 +40,7 @@ bool Sound::Play(bool bLoop)
 bool Sound::PlayEffect(bool bLoop)
 {
     FMOD_RESULT hr = _pSystem->playSound(_pSound, nullptr, false, &_pChannel);
+    //FMOD_RESULT hr = _pSystem->playSound(_pSound, nullptr, false, &_pChannel);
     if (hr == FMOD_OK)
     {
         _fVolume = 0.5f;

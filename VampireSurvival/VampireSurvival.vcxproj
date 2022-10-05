@@ -149,6 +149,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DeadMonster.h" />
+    <ClInclude Include="Explosion.h" />
+    <ClInclude Include="FrameSkip.h" />
+    <ClInclude Include="Hit.h" />
     <ClInclude Include="ListControlComponent.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="C2DMatrix.h" />
@@ -170,21 +174,29 @@
     <ClInclude Include="SceneMain.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneTitle.h" />
+    <ClInclude Include="Skill.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="SteeringBehaviors.h" />
+    <ClInclude Include="TextManager.h" />
     <ClInclude Include="TimeCounter.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIManager.h" />
-    <ClInclude Include="User2D.h" />
+    <ClInclude Include="User2DComponent.h" />
+    <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C2DMatrix.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DeadMonster.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="FrameSkip.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="Hit.cpp" />
     <ClCompile Include="ListControlComponent.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MapObject.cpp" />
@@ -197,17 +209,24 @@
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
+    <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="SteeringBehaviors.cpp" />
+    <ClCompile Include="TextManager.cpp" />
     <ClCompile Include="TimeCounter.cpp" />
     <ClCompile Include="UIManager.cpp" />
-    <ClCompile Include="User2D.cpp" />
+    <ClCompile Include="User2DComponent.cpp" />
+    <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KSHCore\KSHCore.vcxproj">
       <Project>{ec3e7544-3d35-4ea4-90fb-cffa0f753448}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SpriteInfo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

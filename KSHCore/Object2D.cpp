@@ -183,14 +183,18 @@ void Object2D::UpdateVertexBuffer()
 
     _VertexList[0].p = { _vNDCPos.x, _vNDCPos.y, 0.0f };
     _VertexList[0].t = { _rtUV.x1, _rtUV.y1 };
+    //_VertexList[0].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 };
+
 
     //test = Func(radian, Vector2D(_vNDCPos.x + _vDrawSize.x, _vNDCPos.y), Center.x, Center.y);
     _VertexList[1].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y,  0.0f };
     _VertexList[1].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 };
+    //_VertexList[1].t = { _rtUV.x1, _rtUV.y1 };
 
     //test = Func(radian, Vector2D(_vNDCPos.x, _vNDCPos.y - _vDrawSize.y), Center.x, Center.y);
     _VertexList[2].p = { _vNDCPos.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
     _VertexList[2].t = { _rtUV.x1, _rtUV.y1 + _rtUV.h };
+    //_VertexList[2].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 + _rtUV.h };
 
     /*   m_VertexList[3].p = m_VertexList[2].p;
        m_VertexList[3].t = m_VertexList[2].t;
@@ -201,6 +205,29 @@ void Object2D::UpdateVertexBuffer()
     //test = Func(radian, Vector2D(_vNDCPos.x + _vDrawSize.x, _vNDCPos.y - _vDrawSize.y), Center.x, Center.y);
     _VertexList[3].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
     _VertexList[3].t = { _rtUV.x1 + _rtUV.w , _rtUV.y1 + _rtUV.h };
+    //_VertexList[3].t = { _rtUV.x1 , _rtUV.y1 + _rtUV.h };
+
+    Rotation();
+
+    _pImmediateContext->UpdateSubresource(
+        _pVertexBuffer, NULL, NULL, &_VertexList.at(0), 0, 0);
+}
+
+void Object2D::UpdateVertexBufferFlip()
+{
+    _VertexList[0].p = { _vNDCPos.x, _vNDCPos.y, 0.0f };
+    _VertexList[0].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 };
+
+    _VertexList[1].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y,  0.0f };
+    _VertexList[1].t = { _rtUV.x1, _rtUV.y1 };
+
+    _VertexList[2].p = { _vNDCPos.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
+    _VertexList[2].t = { _rtUV.x1 + _rtUV.w, _rtUV.y1 + _rtUV.h };
+
+    _VertexList[3].p = { _vNDCPos.x + _vDrawSize.x, _vNDCPos.y - _vDrawSize.y, 0.0f };
+    _VertexList[3].t = { _rtUV.x1 , _rtUV.y1 + _rtUV.h };
+
+    Rotation();
 
     _pImmediateContext->UpdateSubresource(
         _pVertexBuffer, NULL, NULL, &_VertexList.at(0), 0, 0);
@@ -209,22 +236,4 @@ void Object2D::UpdateVertexBuffer()
 void Object2D::SetMask(Texture* pMaskTex)
 {
     _pMaskTex = pMaskTex;
-}
-
-void Object2D::Rotation()
-{
-    Vector3D vCenter;
-    vCenter.x = (_VertexList[1].p.x + _VertexList[0].p.x) / 2.0f;
-    vCenter.y = (_VertexList[2].p.y + _VertexList[0].p.y) / 2.0f;
-
-    float fDegree = _fAngleDegree;
-    float fRadian = DegreeToRadian(fDegree);
-    Vector3D vRot;
-    for (int vertex = 0; vertex < 4; ++vertex)
-    {
-        Vector3D vCenterMove = _VertexList[vertex].p - vCenter;
-        vRot.x = vCenterMove.x * cos(fRadian) - vCenterMove.y * sin(fRadian);
-        vRot.y = vCenterMove.x * sin(fRadian) + vCenterMove.y * cos(fRadian);
-        _VertexList[vertex].p = vRot + vCenter;
-    }
 }

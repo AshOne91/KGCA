@@ -71,6 +71,11 @@ bool ComponentObject::OnEvent(EventType eventType, ComponentObject* pSender, Mes
 	return true;
 }
 
+void ComponentObject::DestroyObject(unsigned __int64 uiIndex)
+{
+	PostNotify(EventType::DestroyObjectInComponent, NotifyType::BroadCast, this, &uiIndex);
+}
+
 void ComponentObject::PostNotify(EventType eventType, NotifyType notiType, ComponentObject* pSender, void* pExtraInfo)
 {
 	Message message;

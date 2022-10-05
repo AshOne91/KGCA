@@ -17,6 +17,7 @@ void Scene::Exit()
 	{
 		I_ObjectManager.DestroyObject(pair.first);
 	}
+	_objectList.clear();
 	OnExit();
 }
 

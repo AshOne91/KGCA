@@ -46,6 +46,16 @@ public:
 		return I_ObjectManager.CreateObject<T>();
 	}
 
+	void AddObject(ComponentObject* pObj)
+	{
+		_objectList.insert({ pObj->GetIndex(), pObj });
+	}
+
+	void RemoveObject(unsigned __int64 iIndex)
+	{
+		_objectList.erase(iIndex);
+	}
+
 	Scene() = default;
 	virtual ~Scene() = default;
 };

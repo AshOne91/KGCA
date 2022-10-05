@@ -5,6 +5,7 @@
 #include "Component.h"
 #include "Collision.h"
 #include "EventManager.h"
+#include "GameWorld.h"
 
 void CollisionManager::Set(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediateContext)
 {
@@ -14,11 +15,18 @@ void CollisionManager::Set(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmed
 
 bool CollisionManager::CInit()
 {
+	_fCollisionCheckRadious = float(dfSCREEN_WIDTH * dfSCREEN_WIDTH) + float(dfSCREEN_HEIGHT * dfSCREEN_HEIGHT);
+	_fCollisionCheckRadious = sqrtf(_fCollisionCheckRadious) * 0.5f;
+	_frameSkip.SetFramePerSec(5);
 	return true;
 }
 
 bool CollisionManager::CFrame()
 {
+	if (_frameSkip.Update(g_fGameTimer) == false)
+	{
+		return true;
+	}
 	std::vector<std::pair<ComponentObject*, CircleComponent*>> tempList;
 	for (auto& data : _circleComponentList)
 	{
@@ -30,7 +38,14 @@ bool CollisionManager::CFrame()
 			Vector2D position = pCircle->_transform.GetPosition();
 			pCircle->cx = position.x;
 			pCircle->cy = position.y;
-			tempList.push_back({ pParent, pCircle });
+			Circle checkCircle;
+			checkCircle.cx = I_GameWorld.GetCameraPos().x;
+			checkCircle.cy = I_GameWorld.GetCameraPos().y;
+			checkCircle.fRadius = _fCollisionCheckRadious;
+			if (Collision::CircleToCircle(*pCircle, checkCircle))
+			{
+				tempList.push_back({ pParent, pCircle });
+			}
 		}
 	}
 
@@ -44,15 +59,15 @@ bool CollisionManager::CFrame()
 				continue;
 			}
 
-			auto pCheck = _collisionCheckList.find(tempList[i].second);
-			if (pCheck != _collisionCheckList.end())
-			{
-				auto isCollOnce = pCheck->second.find(tempList[j].second);
-				if (isCollOnce != pCheck->second.end())
-				{
-					continue;
-				}
-			}
+			//auto pCheck = _collisionCheckList.find(tempList[i].second);
+			//if (pCheck != _collisionCheckList.end())
+			//{
+			//	auto isCollOnce = pCheck->second.find(tempList[j].second);
+			//	if (isCollOnce != pCheck->second.end())
+			//	{
+			//		continue;
+			//	}
+			//}
 
 			if (Collision::CircleToCircle(*tempList[i].second, *tempList[j].second))
 			{
@@ -63,7 +78,7 @@ bool CollisionManager::CFrame()
 				message._pExtraInfo = tempList[j].first;
 				I_EventManager.PostNotifycation(message.eventType, NotifyType::Mono, this, &message);
 
-				auto iter = _collisionCheckList.find(tempList[i].second);
+				/*auto iter = _collisionCheckList.find(tempList[i].second);
 				if (iter == _collisionCheckList.end())
 				{
 					_collisionCheckList.insert({ tempList[i].second, std::set<CircleComponent*>() });
@@ -72,14 +87,14 @@ bool CollisionManager::CFrame()
 				else
 				{
 					_collisionCheckList[tempList[i].second].insert(tempList[j].second);
-				}
+				}*/
 			}
 		}
 	}
 
-	std::vector<std::pair<CircleComponent*, CircleComponent*>> _outList;
+	//std::vector<std::pair<CircleComponent*, CircleComponent*>> _outList;
 	// 밖으로 나간 것들 체크해줌
-	for (auto& data1 : _collisionCheckList)
+	/*for (auto& data1 : _collisionCheckList)
 	{
 		for (auto& data2 : data1.second)
 		{
@@ -94,10 +109,10 @@ bool CollisionManager::CFrame()
 				I_EventManager.PostNotifycation(message.eventType, NotifyType::Mono, this, &message);
 			}
 		}
-	}
+	}*/
 
 	//인 체크 리스트에서 빼줌
-	for (auto& pair : _outList)
+	/*for (auto& pair : _outList)
 	{
 		auto& iter = _collisionCheckList[pair.first];
 		iter.erase(pair.second);
@@ -105,7 +120,7 @@ bool CollisionManager::CFrame()
 		{
 			_collisionCheckList.erase(pair.first);
 		}
-	}
+	}*/
 	return true;
 }
 

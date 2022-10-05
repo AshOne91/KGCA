@@ -11,8 +11,12 @@ private:
 	ID3D11DeviceContext* _pImmediateContext = nullptr;
 
 private:
+	float _fRenderCheckRadious = 0.0f;
 	friend class Singleton<ObjectManager>;
 	std::map<unsigned __int64, ComponentObject*> _objectList;
+	std::vector<ComponentObject*> _renderCheck;
+	int _destoryIndex = 0;
+	std::vector<unsigned __int64> _destoryObjectList[2];
 
 public:
 	void Set(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediateContext);

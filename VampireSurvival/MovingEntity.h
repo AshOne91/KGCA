@@ -2,9 +2,10 @@
 #include "Object2D.h"
 #include "Vector.h"
 
-class MovingEntity : public Object2D
+class MovingEntity
 {
-private:
+public:
+	Vector2D _vMovingPos;
 	Vector2D _vVelocity;
 	Vector2D _vHeading;
 	Vector2D _vSide;

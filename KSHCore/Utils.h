@@ -260,7 +260,7 @@ namespace KSHCore
 		}
 
 
-		template <class container>
+		/*template <class container>
 		inline void DeleteSTLContainer(container& c)
 		{
 			for (container::iterator it = c.begin(); it != c.end(); ++it)
@@ -278,6 +278,6 @@ namespace KSHCore
 				delete it->second;
 				it->second = NULL;
 			}
-		}
+		}*/
 	}
 }

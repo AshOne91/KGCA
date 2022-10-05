@@ -2,6 +2,7 @@
 #include "Monster.h"
 #include "GameWorld.h"
 #include "ObjectManager.h"
+#include "Utils.h"
 
 bool Spawner::Init()
 {
@@ -26,18 +27,27 @@ bool Spawner::Release()
 bool Spawner::CInit()
 {
     this->Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(), L"../../data/shader/DefaultShape.txt", L"");
-    _timerCounter.Start(2000);
     return true;
 }
 
 bool Spawner::CFrame()
 {
+    SetPosition(_vPos, I_GameWorld.GetCameraPos());
+   // static int count = 0;
     if (_timerCounter.IsFinished())
     {
-        //_timerCounter.Start(2000);
-        //I_GameWorld.AddMonster(SpawnMonster());
+       // count++;
+       // if (count > 1)
+       // {
+            //return true;
+       // }
+        _timerCounter.Start(200);
+        auto pMonster = CreateObject<Monster>();
+        float RangeX = KSHCore::UTIL::RandInRange(-250, 250);
+        float RangeY = KSHCore::UTIL::RandInRange(-250, 250);
+        Vector2D SpanwPos = Vector2D(_vPos.x + RangeX, _vPos.y + RangeY);
+        pMonster->SetPosition(SpanwPos, I_GameWorld.GetCameraPos());
     }
-    SetPosition(_vPos, I_GameWorld.GetCameraPos());
     return true;
 }
 
@@ -58,17 +68,12 @@ bool Spawner::OnEvent(EventType eventType, ComponentObject* pSender, Message* ms
     return true;
 }
 
-void Spawner::SetMonsterPrototype(Monster* pMonster)
+void Spawner::EnableSpawner()
 {
-    if (_pMonsterPrototype != nullptr)
-    {
-        delete _pMonsterPrototype;
-        _pMonsterPrototype = nullptr;
-    }
-    _pMonsterPrototype = pMonster;
+    _timerCounter.SetActive(true);
 }
 
-Monster* Spawner::SpawnMonster()
+void Spawner::DisableSpawner()
 {
-    return _pMonsterPrototype->Clone(this);
+    _timerCounter.SetActive(false);
 }

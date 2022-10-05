@@ -34,6 +34,19 @@ bool SceneManager::OnEvent(EventType eventType, ComponentObject* pSender, Messag
     {
         ChangeState(static_cast<State*>(msg->_pExtraInfo));
     }
+    if (eventType == EventType::CreateObjectInComponent)
+    {
+        Scene* pScene = dynamic_cast<Scene*>(CurrentState());
+        BaseObject* pObj = static_cast<BaseObject*>(msg->_pExtraInfo);
+        ComponentObject* pComponent = dynamic_cast<ComponentObject*>(pObj);
+        pScene->AddObject(pComponent);
+    }
+    if (eventType == EventType::DestroyObjectInComponent)
+    {
+        Scene* pScene = dynamic_cast<Scene*>(CurrentState());
+        unsigned __int64 index = *(static_cast<unsigned __int64*>(msg->_pExtraInfo));
+        pScene->RemoveObject(index);
+    }
     return true;
 }
 

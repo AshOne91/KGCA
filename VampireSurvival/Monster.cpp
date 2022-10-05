@@ -4,37 +4,29 @@
 #include "ObjectManager.h"
 #include "Circle.h"
 #include "ObjectManager.h"
-
-Monster* Monster::Clone(Spawner* pSpawner)
-{
-	Texture* pMaskTex = I_Tex.Load(L"../../data/bitmap2.bmp");
-	auto pMonster = I_ObjectManager.CreateObject<Monster>();
-	pMonster->_iHearth = 100;
-	pMonster->_iAttack = 100;
-	pMonster->Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(),
-		L"../../data/shader/DefaultShapeMask.txt",
-		L"../../data/bitmap1.bmp");
-	if (rand() % 2 == 0)
-	{
-		pMonster->SetRect({ 46, 62, 68, 79 });
-	}
-	else
-	{
-		pMonster->SetRect({ 115, 62, 37, 35 });
-	}
-	pMonster->SetCameraSize(I_GameWorld.GetViewSize());
-	pMonster->SetCameraPos(I_GameWorld.GetCameraPos());
-	pMonster->SetPosition(pSpawner->_vPos, I_GameWorld.GetCameraPos());
-	pMonster->SetMask(pMaskTex);
-	pMonster->CreateComponent<CircleComponent>();
-	pMonster->GetComponent<CircleComponent>()->fRadius = 5.0f;
-	return pMonster;
-}
+#include "SteeringBehaviors.h"
+#include "SceneManager.h"
+#include "DeadMonster.h"
 
 void Monster::SetPosition(const Vector2D& vPos, const Vector2D& vCamera)
 {
-	Object2D::SetPosition(vPos, vCamera);
-	_transform.SetPostion(_vPos);
+	Object2DComponent::SetPosition(vPos, vCamera);
+	_transform.SetPostion(vPos);
+	_vMovingPos = _vPos;
+}
+
+bool Monster::Render()
+{
+	_pSprite->SetCameraSize(I_GameWorld.GetViewSize());
+	_pSprite->SetCameraPos(I_GameWorld.GetCameraPos());
+	_pSprite->SetRect(_tRect);
+	_pSprite->SetPosition(_vMovingPos, _vCameraPos);
+	if (_bFlip == true)
+	{
+		_pSprite->UpdateVertexBufferFlip();
+	}
+	_pSprite->Render();
+	return true;
 }
 
 void Monster::UpdateVertexBuffer()
@@ -58,15 +50,57 @@ void Monster::UpdateVertexBuffer()
 
 bool Monster::Frame()
 {
+	_fSpeed = 100.0f;
+	_fMaxSpeed = 100.0f;
+	Vector2D force = GetSteeringBehaviours()->Seek(I_GameWorld.GetCameraPos());
+
+	for(auto& data : _forceList)
+	{
+		force += data;
+	}
+	Vector2D acceleration = force / 1.0f;
+	_vVelocity += acceleration * g_fSecondPerFrame;// *_fSpeed;
+	_vVelocity.Truncate(_fMaxSpeed);
+	if (_immuneCounter.IsFinished())
+	{
+		_bImmue = false;
+	}
+	if (_bImmue == true)
+	{
+		_vVelocity *= 0.98f;
+	}
+
+	_vMovingPos += _vVelocity * g_fSecondPerFrame;
+	if (_vVelocity.LengthSq() > 0.00000001)
+	{
+		_vHeading = _vVelocity.Identity();
+		_vSide = _vHeading.Perp();
+	}
+	if (I_GameWorld.GetCameraPos().x - _vMovingPos.x > 0.0f)
+	{
+		_bFlip = true;
+	}
+	else
+	{
+		_bFlip = false;
+	}
 	SetCameraSize(I_GameWorld.GetViewSize());
 	SetCameraPos(I_GameWorld.GetCameraPos());
-	SetPosition(_vPos, _vCameraPos);
+	SetPosition(_vMovingPos, _vCameraPos);
+	EffectUpdate();
 	return true;
 }
 
 bool Monster::CInit()
 {
 	Monster::Init();
+	_bAnimation = true;
+	_pSprite = I_Sprite.GetPtr(L"rtMonsterA");
+	Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(), L"../../data/shader/DefaultShapeMask.txt", L"../../data/bitmap1.bmp");
+	Object2D::SetPosition(Vector2D(0.0f, 0.0f));
+	CreateComponent<CircleComponent>();
+	GetComponent<CircleComponent>()->fRadius = 10.0f;
+	InitSprite();
 	return true;
 }
 
@@ -91,6 +125,54 @@ bool Monster::CRelease()
 
 bool Monster::OnEvent(EventType eventType, ComponentObject* pSender, Message* msg)
 {
+	if (eventType == EventType::CollisionIn)
+	{
+		ComponentObject* pComponent = static_cast<ComponentObject*>(msg->_pExtraInfo);
+		Monster* pMonster = dynamic_cast<Monster*>(pComponent);
+		if (pMonster != nullptr)
+		{
+			Vector2D ToMonster = pMonster->_vMovingPos - _vMovingPos;
+			float DistFrom = ToMonster.Length();
+			float overlap = pMonster->GetComponent<CircleComponent>()->fRadius + GetComponent<CircleComponent>()->fRadius - DistFrom;
+			if (overlap >= 0)
+			{
+				pMonster->SetPosition(pMonster->_vMovingPos + (ToMonster / DistFrom) * overlap, I_GameWorld.GetCameraPos());
+			}
+		}
+	}
+	return true;
+}
 
+void Monster::Damanged(int damanged)
+{
+	SetImmuneCounter(200);
+	_blinkTimer.Start(300);
+	_iHearth -= damanged;
+	//auto pHitSound = I_Sound.Load(L"../../resource/sfx/VS_EnemyHit_v06-02.ogg");
+	//pHitSound->PlayEffect();
+	if (_iHearth <= 0)
+	{
+		auto pSound = I_Sound.Load(L"../../resource/sfx/sfx_exp_short_soft6.ogg");
+		pSound->PlayEffect();
+		DestroyObject(GetIndex());
+		auto pDead = CreateObject<DeadMonster>();
+		pDead->SetPosition({ _vMovingPos }, I_GameWorld.GetCameraPos());
+
+	}
+}
+
+void Monster::SetImmuneCounter(int counter)
+{
+	_immuneCounter.Start(counter);
+	_bImmue = true;
+}
+
+bool Monster::IsImmune()
+{
+	return _bImmue;
+}
+
+bool Monster::UpdateBlink()
+{
 	return true;
 }
