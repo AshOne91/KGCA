@@ -19,6 +19,7 @@ public:
 
 public:
 	virtual bool Init();
+	virtual bool Init(std::wstring& font, int size);
 	virtual bool Frame();
 	virtual bool Render();
 	virtual bool Release();

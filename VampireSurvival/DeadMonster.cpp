@@ -1,7 +1,11 @@
 #include "DeadMonster.h"
 #include "Sprite.h"
 #include "GameWorld.h"
+#include "Sound.h"
 
+bool DeadMonster::_bSoundInit = false;
+std::vector<int> DeadMonster::_blankIndexList;
+Sound* DeadMonster::pSound[5];
 void DeadMonster::SetPosition(const Vector2D& vPos, const Vector2D& vCamera)
 {
 	Object2DComponent::SetPosition(vPos, vCamera);
@@ -92,6 +96,15 @@ bool DeadMonster::Frame()
 
 bool DeadMonster::CInit()
 {
+	if (_bSoundInit == false)
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			pSound[i] = I_Sound.Load(L"../../resource/sfx/sfx_exp_short_soft6.ogg");
+			_blankIndexList.push_back(i);
+		}
+		_bSoundInit = true;
+	}
 	DeadMonster::Init();
 	_fLifeTime = 1.0f;
 	_bAnimation = true;
@@ -99,6 +112,14 @@ bool DeadMonster::CInit()
 	Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(), L"../../data/shader/DefaultShapeMask.txt", L"../../data/bitmap1.bmp");
 	Object2D::SetPosition(Vector2D(0.0f, 0.0f));
 	InitSprite();
+
+	if (_blankIndexList.size() > 0)
+	{
+		_allockSoundIndex = _blankIndexList.back();
+		_blankIndexList.pop_back();
+		pSound[_allockSoundIndex]->Stop();
+		pSound[_allockSoundIndex]->PlayEffect();
+	}
 	return true;
 }
 
@@ -116,6 +137,11 @@ bool DeadMonster::CRender()
 
 bool DeadMonster::CRelease()
 {
+	if (_allockSoundIndex != -1)
+	{
+		pSound[_allockSoundIndex]->Stop();
+		_blankIndexList.push_back(_allockSoundIndex);
+	}
 	DeadMonster::Release();
 	ComponentObject::CRelease();
 	return true;

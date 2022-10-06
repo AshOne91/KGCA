@@ -19,11 +19,6 @@ bool Spawner::Render()
     return true;
 }
 
-bool Spawner::Release()
-{
-    return true;
-}
-
 bool Spawner::CInit()
 {
     this->Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(), L"../../data/shader/DefaultShape.txt", L"");
@@ -33,15 +28,9 @@ bool Spawner::CInit()
 bool Spawner::CFrame()
 {
     SetPosition(_vPos, I_GameWorld.GetCameraPos());
-   // static int count = 0;
     if (_timerCounter.IsFinished())
     {
-       // count++;
-       // if (count > 1)
-       // {
-            //return true;
-       // }
-        _timerCounter.Start(200);
+        _timerCounter.Start(150);
         auto pMonster = CreateObject<Monster>();
         float RangeX = KSHCore::UTIL::RandInRange(-250, 250);
         float RangeY = KSHCore::UTIL::RandInRange(-250, 250);
@@ -58,8 +47,8 @@ bool Spawner::CRender()
 
 bool Spawner::CRelease()
 {
-    //if (_pMonsterPrototype) _pMonsterPrototype->Release();
-    //_pMonsterPrototype = nullptr;
+    Spawner::Release();
+    ComponentObject::CRelease();
     return true;
 }
 

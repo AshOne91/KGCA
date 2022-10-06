@@ -41,6 +41,47 @@ bool Writer::Init()
 	return true;
 }
 
+bool Writer::Init(std::wstring& font, int size)
+{
+	HRESULT hr;
+	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &_pd2dFactory);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &_pd2dFactory);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,
+		__uuidof(IDWriteFactory),
+		(IUnknown**)&_pdWriteFactory);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	hr = _pdWriteFactory->CreateTextFormat(
+		font.c_str(),
+		NULL,
+		DWRITE_FONT_WEIGHT_NORMAL,
+		DWRITE_FONT_STYLE_NORMAL,
+		DWRITE_FONT_STRETCH_NORMAL,
+		size,
+		L"en-us",
+		&_pTextFormat);
+	if (FAILED(hr))
+	{
+		return false;
+	}
+
+	_szDefaultText = L"KGCA Game Academy";
+	return true;
+}
+
 bool Writer::Frame()
 {
 	return true;

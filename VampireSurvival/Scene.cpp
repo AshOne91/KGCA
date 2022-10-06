@@ -17,7 +17,17 @@ void Scene::Exit()
 	{
 		I_ObjectManager.DestroyObject(pair.first);
 	}
+	for (auto textIndex : _textList)
+	{
+		I_TextManager.DestroyText(textIndex);
+	}
+	for (auto uiIndex : _uiList)
+	{
+		I_UIManager.DestroyUI(uiIndex);
+	}
 	_objectList.clear();
+	_textList.clear();
+	_uiList.clear();
 	OnExit();
 }
 

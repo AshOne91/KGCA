@@ -15,7 +15,6 @@ public:
 	virtual bool Init() final;
 	virtual bool Frame() final;
 	virtual bool Render() final;
-	virtual bool Release() final;
 
 public:
 	virtual bool CInit() override;

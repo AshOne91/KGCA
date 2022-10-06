@@ -8,27 +8,45 @@ void UIManager::Set(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediateCon
 
 bool UIManager::CInit()
 {
-	return false;
+	for (auto& pair : _uiList)
+	{
+		pair.second->CInit();
+	}
+	return true;
 }
 
 bool UIManager::CFrame()
 {
-	return false;
+	for (auto& pair : _uiList)
+	{
+		pair.second->CFrame();
+	}
+	return true;
 }
 
 bool UIManager::CRender()
 {
-	return false;
+	for (auto& pair : _uiList)
+	{
+		pair.second->CRender();
+	}
+	return true;
 }
 
 bool UIManager::CRelease()
 {
-	return false;
+	for (auto& pair : _uiList)
+	{
+		pair.second->CRelease();
+		delete pair.second;
+	}
+	_uiList.clear();
+	return true;
 }
 
 bool UIManager::OnEvent(EventType eventType, ComponentObject* pSender, Message* msg)
 {
-	return false;
+	return true;
 }
 
 UIManager::UIManager()

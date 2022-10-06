@@ -13,9 +13,8 @@ enum class EventType
 	CreateObjectInComponent = 9,
 	DestroyObjectInComponent = 10,
 
-	CreateTextDraw = 11,
-	CreatedTextDraw = 12,
-	TextDraw = 14
+	//유저영역(나중에는 분리)
+	HpChange = 11
 };
 
 enum class NotifyType

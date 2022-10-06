@@ -2,8 +2,15 @@
 #include "Object2DComponent.h"
 #include <unordered_map>
 
+class Sound;
 class Explosion : public Object2DComponent
 {
+private:
+	static bool _bSoundInit;
+	static std::vector<int> _blankIndexList;
+	static Sound* pSound[2];
+	int _allockSoundIndex = -1;
+
 public:
 	virtual void UpdateVertexBuffer() override;
 	virtual bool Frame() override;

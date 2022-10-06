@@ -7,7 +7,16 @@
 #include "SteeringBehaviors.h"
 #include "SceneManager.h"
 #include "DeadMonster.h"
+#include "SoundManager.h"
 
+
+extern unsigned __int64 g_CreateMonster;
+extern unsigned __int64 g_currentMonster;
+extern unsigned __int64 g_DeadMonster;
+
+bool Monster::_bSoundInit = false;
+std::vector<int> Monster::_blankIndexList = std::vector<int>();
+Sound* Monster::pSound[5];
 void Monster::SetPosition(const Vector2D& vPos, const Vector2D& vCamera)
 {
 	Object2DComponent::SetPosition(vPos, vCamera);
@@ -93,6 +102,15 @@ bool Monster::Frame()
 
 bool Monster::CInit()
 {
+	if (_bSoundInit == false)
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			pSound[i] = I_Sound.Load(L"../../resource/sfx/VS_EnemyHit_v06-02.ogg");
+			_blankIndexList.push_back(i);
+		}
+		_bSoundInit = true;
+	}
 	Monster::Init();
 	_bAnimation = true;
 	_pSprite = I_Sprite.GetPtr(L"rtMonsterA");
@@ -101,6 +119,7 @@ bool Monster::CInit()
 	CreateComponent<CircleComponent>();
 	GetComponent<CircleComponent>()->fRadius = 10.0f;
 	InitSprite();
+	g_CreateMonster++;
 	return true;
 }
 
@@ -118,6 +137,11 @@ bool Monster::CRender()
 
 bool Monster::CRelease()
 {
+	if (_allockSoundIndex != -1)
+	{
+		pSound[_allockSoundIndex]->Stop();
+		_blankIndexList.push_back(_allockSoundIndex);
+	}
 	Monster::Release();
 	ComponentObject::CRelease();
 	return true;
@@ -148,12 +172,20 @@ void Monster::Damanged(int damanged)
 	SetImmuneCounter(200);
 	_blinkTimer.Start(300);
 	_iHearth -= damanged;
-	//auto pHitSound = I_Sound.Load(L"../../resource/sfx/VS_EnemyHit_v06-02.ogg");
-	//pHitSound->PlayEffect();
-	if (_iHearth <= 0)
+	if (_allockSoundIndex == -1)
 	{
-		auto pSound = I_Sound.Load(L"../../resource/sfx/sfx_exp_short_soft6.ogg");
-		pSound->PlayEffect();
+		if (_blankIndexList.size() > 0)
+		{
+			_allockSoundIndex = _blankIndexList.back();
+			_blankIndexList.pop_back();
+			pSound[_allockSoundIndex]->Stop();
+			pSound[_allockSoundIndex]->PlayEffect();
+		}
+	}
+	if (_iHearth <= 0 && _bDeath == false)
+	{
+		_bDeath = true;
+		g_DeadMonster++;
 		DestroyObject(GetIndex());
 		auto pDead = CreateObject<DeadMonster>();
 		pDead->SetPosition({ _vMovingPos }, I_GameWorld.GetCameraPos());

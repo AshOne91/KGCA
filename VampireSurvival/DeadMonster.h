@@ -1,8 +1,16 @@
 #pragma once
 #include "Object2DComponent.h"
+#include <vector>
 
+class Sound;
 class DeadMonster : public Object2DComponent
 {
+private:
+	static bool _bSoundInit;
+	static std::vector<int> _blankIndexList;
+	static Sound* pSound[5];
+	int _allockSoundIndex = -1;
+
 public:
 	virtual void UpdateVertexBuffer() override;
 	virtual bool Frame() override;

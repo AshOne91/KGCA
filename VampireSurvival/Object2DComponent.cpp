@@ -18,6 +18,7 @@ bool Object2DComponent::CRender()
 
 bool Object2DComponent::CRelease()
 {
+	ComponentObject::CRelease();
 	return Object2D::Release();
 }
 

@@ -111,6 +111,12 @@
     <ClCompile Include="TextManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="UIHpBar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneEnd.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -219,6 +225,12 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="TextManager.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UIHpBar.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneEnd.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>

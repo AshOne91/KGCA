@@ -171,6 +171,7 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneEnd.h" />
     <ClInclude Include="SceneMain.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneTitle.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="TextManager.h" />
     <ClInclude Include="TimeCounter.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UIHpBar.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="User2DComponent.h" />
     <ClInclude Include="Vehicle.h" />
@@ -206,6 +208,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneEnd.cpp" />
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
@@ -216,6 +219,7 @@
     <ClCompile Include="SteeringBehaviors.cpp" />
     <ClCompile Include="TextManager.cpp" />
     <ClCompile Include="TimeCounter.cpp" />
+    <ClCompile Include="UIHpBar.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="User2DComponent.cpp" />
     <ClCompile Include="Vehicle.cpp" />

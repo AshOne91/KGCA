@@ -61,6 +61,7 @@ bool MapObject::CRender()
 bool MapObject::CRelease()
 {
     MapObject::Release();
+    ComponentObject::CRelease();
     return true;
 }
 

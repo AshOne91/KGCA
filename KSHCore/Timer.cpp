@@ -36,11 +36,13 @@ bool Timer::Frame()
 
 bool Timer::Render()
 {
-    _szTimer = std::to_wstring(_fGameTimer);
+    /*_szTimer = std::to_wstring(_fGameTimer);
     _szTimer += L"  ";
     _szTimer += std::to_wstring(_iFPS);
     _szTimer += L"\n";
-    OutputDebugString(_szTimer.c_str());
+    OutputDebugString(_szTimer.c_str());*/
+    _szTimer = L"FPS:";
+    _szTimer += std::to_wstring(_iFPS);
     return false;
 }
 

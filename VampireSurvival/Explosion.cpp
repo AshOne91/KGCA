@@ -9,6 +9,9 @@
 #include "DeadMonster.h"
 #include "Utils.h"
 
+bool Explosion::_bSoundInit = false;
+std::vector<int> Explosion::_blankIndexList = std::vector<int>();
+Sound* Explosion::pSound[2];
 void Explosion::SetPosition(const Vector2D& vPos, const Vector2D& vCamera)
 {
 	Object2DComponent::SetPosition(vPos, vCamera);
@@ -61,7 +64,7 @@ bool Explosion::Frame()
 	SetPosition(_vMovingPos, _vCameraPos);
 	EffectUpdate();
 	Vector2D length = I_GameWorld.GetCameraPos() - _vMovingPos;
-	if (length.Length() > 4344.5f)
+	if (length.Length() > 4344.5f * 0.5f)
 	{
 		DestroyObject(GetIndex());
 	}
@@ -70,6 +73,15 @@ bool Explosion::Frame()
 
 bool Explosion::CInit()
 {
+	if (_bSoundInit == false)
+	{
+		for (int i = 0; i < 2; ++i)
+		{
+			pSound[i] = I_Sound.Load(L"../../resource/sfx/VS_ProjectileMagic_v04-03.ogg");
+			_blankIndexList.push_back(i);
+		}
+		_bSoundInit = true;
+	}
 	Explosion::Init();
 	_pSprite = I_Sprite.GetPtr(L"rtExplosion");
 	Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(), L"../../data/shader/DefaultShapeMask.txt", L"../../data/bitmap1.bmp");
@@ -79,8 +91,16 @@ bool Explosion::CInit()
 	GetComponent<CircleComponent>()->fRadius = _tRect.w * 0.5f;
 	_vDir = Vector2D(KSHCore::UTIL::RandomClamped(), KSHCore::UTIL::RandomClamped());
 	_vDir.Normalize();
-	auto _pSound = I_Sound.Load(L"../../resource/sfx/VS_ProjectileMagic_v04-03.ogg");
-	_pSound->PlayEffect(false);
+	if (_allockSoundIndex == -1)
+	{
+		if (_blankIndexList.size() > 0)
+		{
+			_allockSoundIndex = _blankIndexList.back();
+			_blankIndexList.pop_back();
+			pSound[_allockSoundIndex]->Stop();
+			pSound[_allockSoundIndex]->PlayEffect();
+		}
+	}
 	return true;
 }
 
@@ -98,6 +118,11 @@ bool Explosion::CRender()
 
 bool Explosion::CRelease()
 {
+	if (_allockSoundIndex != -1)
+	{
+		pSound[_allockSoundIndex]->Stop();
+		_blankIndexList.push_back(_allockSoundIndex);
+	}
 	Explosion::Release();
 	ComponentObject::CRelease();
 	return true;

@@ -66,6 +66,7 @@ bool ObjectManager::CRelease()
 	for (auto& pair : _objectList)
 	{
 		pair.second->CRelease();
+		delete pair.second;
 	}
 	_objectList.clear();
 	return true;

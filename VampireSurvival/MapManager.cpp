@@ -224,7 +224,7 @@ bool MapManager::CRender()
 
 bool MapManager::CRelease()
 {
-	_mapObjectList.clear();
+	//_mapObjectList.clear();
     return true;
 }
 

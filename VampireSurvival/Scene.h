@@ -1,6 +1,8 @@
 #pragma once
 #include "State.h"
 #include "ObjectManager.h"
+#include "TextManager.h"
+#include "UIManager.h"
 #include <unordered_map>
 
 class ComponentObject;
@@ -9,6 +11,8 @@ class Scene : public State
 	
 private:
 	std::unordered_map<unsigned __int64, ComponentObject*> _objectList;
+	std::set<unsigned __int64> _textList;
+	std::set<unsigned __int64> _uiList;
 
 protected:
 	ID3D11Device* _pd3dDevice = nullptr;
@@ -54,6 +58,38 @@ public:
 	void RemoveObject(unsigned __int64 iIndex)
 	{
 		_objectList.erase(iIndex);
+	}
+
+	unsigned __int64 CreateText(std::wstring font, int x, int y, int size, D2D1_COLOR_F color = { 0.0f, 0.0f, 0.0f, 1.0f })
+	{
+		unsigned __int64 index = I_TextManager.CreateText(font, x, y, size, color);
+		_textList.insert(index);
+		return index;
+	}
+
+	void SetText(unsigned __int64 index, std::wstring text, D2D1_COLOR_F color = { 0.0f, 0.0f, 0.0f, 1.0f })
+	{
+		I_TextManager.SetText(index, text, color);
+	}
+
+	void DestroyText(unsigned __int64 index)
+	{
+		_textList.erase(index);
+		I_TextManager.DestroyText(index);
+	}
+
+	template<typename T>
+	T* CreateUI()
+	{
+		T* pNewUI = I_UIManager.CreateUI<T>();
+		_uiList.insert(pNewUI->GetIndex());
+		return pNewUI;
+	}
+
+	void DestroyUI(unsigned __int64 iIndex)
+	{
+		_uiList.erase(iIndex);
+		I_UIManager.DestroyObject(iIndex);
 	}
 
 	Scene() = default;

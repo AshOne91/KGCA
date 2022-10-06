@@ -87,11 +87,7 @@ bool GameWorld::CInit()
     I_EventManager.GetInstance().AddListener(EventType::CreateObjectInComponent, &(I_SceneManager));
     I_EventManager.GetInstance().AddListener(EventType::DestroyObjectInComponent, &(I_ObjectManager));
     I_EventManager.GetInstance().AddListener(EventType::DestroyObjectInComponent, &(I_SceneManager));
-
-    I_EventManager.GetInstance().AddListener(EventType::CreateTextDraw, &(I_TextManager));
-    I_EventManager.GetInstance().AddListener(EventType::TextDraw, &(I_TextManager));
-
-    
+    I_TextManager.CInit();
     I_SceneManager.SetCurrentState(&SceneTitle::GetInstance());
     I_ObjectManager.CInit();
     I_CollisionManager.CInit();
@@ -127,8 +123,8 @@ bool GameWorld::CRelease()
     I_SceneManager.CRelease();
     I_CollisionManager.CRelease();
     I_EventManager.CRelease();
-    I_UIManager.CRelease();
     I_ObjectManager.CRelease();
+    I_UIManager.CRelease();
     I_TextManager.CRelease();
     return true;
 }

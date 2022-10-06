@@ -6,7 +6,11 @@
 #include "Monster.h"
 #include "Skill.h"
 #include "Explosion.h"
+#include "Utils.h"
+#include "EventManager.h"
 
+int g_iMaxHP = 100;
+int g_iCurrentHP = 100;
 void User2DComponent::UpdateVertexBuffer()
 {
     _VertexList[0].p = { _vNDCPos.x, _vNDCPos.y, 0.0f };
@@ -98,6 +102,8 @@ bool User2DComponent::Render()
 
 bool User2DComponent::CInit()
 {
+    g_iMaxHP = 100;
+    g_iCurrentHP = 100;
     User2DComponent::Init();
     _pSprite = I_Sprite.GetPtr(L"rtUser");
     Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(), L"../../data/shader/DefaultShapeMask.txt", L"../../data/bitmap1.bmp");
@@ -138,13 +144,10 @@ bool User2DComponent::OnEvent(EventType eventType, ComponentObject* pSender, Mes
         Monster* pMonster = dynamic_cast<Monster*>(pComponent);
         if (pMonster != nullptr)
         {
-
+            g_iCurrentHP -= 1;
+            g_iCurrentHP = KSHCore::UTIL::Maximum(0, g_iCurrentHP);
+            I_EventManager.PostNotifycation(EventType::HpChange, NotifyType::BroadCast, this, nullptr);
         }
-    }
-
-    if (eventType == EventType::CollisionOut)
-    {
-        int j = 0;
     }
     return true;
 }

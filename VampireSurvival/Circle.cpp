@@ -20,6 +20,7 @@ bool CircleComponent::CRender()
 
 bool CircleComponent::CRelease()
 {
+	ComponentObject::CRelease();
 	return true;
 }
 

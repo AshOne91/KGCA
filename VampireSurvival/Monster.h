@@ -4,9 +4,17 @@
 #include <unordered_map>
 
 class Spawner;
+class Sound;
 class Monster : public Object2DComponent
 {
+private:
+	static bool _bSoundInit;
+	static std::vector<int> _blankIndexList;
+	static Sound* pSound[5];
+	int _allockSoundIndex = -1;
+
 public:
+	bool _bDeath = false;
 	int _iHearth = 100.0f;
 	int _iAttack = 1.0f;
 	int _blinkTick = 100;
