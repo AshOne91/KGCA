@@ -8,6 +8,7 @@
 
 void SceneTitle::OnEnter()
 {
+	I_GameWorld.SetCameraPos({ 0.0f, 0.0f });
 	std::wstring mapshader = L"../../data/shader/DefaultShape.txt";
 	_pBackGround = CreateObject<MapObject>();
 	_pBackGround->Create(_pd3dDevice, _pImmediateContext, mapshader, L"../../resource/introBG.png");

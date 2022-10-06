@@ -30,7 +30,7 @@ bool Spawner::CFrame()
     SetPosition(_vPos, I_GameWorld.GetCameraPos());
     if (_timerCounter.IsFinished())
     {
-        _timerCounter.Start(150);
+        _timerCounter.Start(100);
         auto pMonster = CreateObject<Monster>();
         float RangeX = KSHCore::UTIL::RandInRange(-250, 250);
         float RangeY = KSHCore::UTIL::RandInRange(-250, 250);

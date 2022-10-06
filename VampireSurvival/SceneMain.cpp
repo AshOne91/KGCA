@@ -6,6 +6,7 @@
 #include "EventManager.h"
 #include "SceneManager.h"
 #include "SceneEnd.h"
+#include "GameWorld.h"
 
 unsigned __int64 g_CreateMonster = 0;
 unsigned __int64 g_currentMonster = 0;
@@ -22,6 +23,7 @@ void SceneMain::OnEnter()
 	g_DeadMonster = 0;
 	g_iRemainTime = 180;
 	g_bClear = false;
+	I_GameWorld.SetCameraPos({ 0.0f, 0.0f });
 	I_Sprite.Load(L"SpriteInfo.txt");
 	I_MapManager.CInit();
 	_pUser = CreateObject<User2DComponent>();

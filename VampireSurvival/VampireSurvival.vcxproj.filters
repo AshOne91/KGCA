@@ -239,4 +239,7 @@
       <Filter>소스 파일</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
 </Project>
