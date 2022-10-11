@@ -192,6 +192,34 @@ void Device::CreateViewport()
 	_pImmediateContext->RSSetViewports(1, &_vp);
 }
 
+HRESULT Device::ResizeDevice(UINT width, UINT height)
+{
+	HRESULT hr;
+	// 윈도우 크기 변경 메시지 검출(WM_SIZE)
+	if (_pd3dDevice == nullptr) 
+		return S_OK;
+	// 현재 설정된 랜더타켓 해제 및 소멸
+	DeleteDXResource();
+	_pImmediateContext->OMSetRenderTargets(0, nullptr, NULL);
+	_pRTV.ReleaseAndGetAddressOf();
+	// 변경된 윈도우의 크기를 얻고 백 버퍼의 크기를 재 조정.
+	// 백버퍼의 크기를 조정한다.
+	DXGI_SWAP_CHAIN_DESC CurrentSD, AferSD;
+	_pSwapChain->GetDesc(&CurrentSD);
+	hr = _pSwapChain->ResizeBuffers(CurrentSD.BufferCount, width, height, CurrentSD.BufferDesc.Format, 0);
+
+	// 변경된 백 버퍼의 크기를 얻고 렌더타켓 뷰를 다시 생성 및 적용.
+	// 뷰포트 재 지정.
+	if (FAILED(hr = CreateRenderTargetView()))
+	{
+		return E_FAIL;
+	}
+	CreateViewport();
+
+	CreateDXResource();
+	return S_OK;
+}
+
 bool Device::Init()
 {
 	HRESULT hr;
@@ -233,4 +261,14 @@ bool Device::Release()
 	if (_pSwapChain) _pSwapChain->Release();
 	if (_pRTV) _pRTV->Release();*/
 	return true;
+}
+
+HRESULT Device::CreateDXResource()
+{
+	return S_OK;
+}
+
+HRESULT Device::DeleteDXResource()
+{
+	return S_OK;
 }

@@ -8,14 +8,18 @@ bool Timer::Init()
     _fGameTimer = 0.0f;
     _fElapseTimer = 0.0f;
     _dwBeforeTime = timeGetTime(); //(1000: 1√ )
+    QueryPerformanceFrequency(&_Frequency);
+    QueryPerformanceCounter(&_Frame);
     return true;
 }
 
 bool Timer::Frame()
 {
-    DWORD dwCurrentTime = timeGetTime();
+    QueryPerformanceCounter(&_Current);
+    _fElapseTimer = (float)(_Current.QuadPart - _Frame.QuadPart) / (float)_Frequency.QuadPart;
+    /*DWORD dwCurrentTime = timeGetTime();
     DWORD dwElapseTime = dwCurrentTime - _dwBeforeTime;
-    _fElapseTimer = dwElapseTime / 1000.0f;
+    _fElapseTimer = dwElapseTime / 1000.0f;*/
     _fGameTimer += _fElapseTimer;
     {
         _iFPSCounter++;
@@ -30,7 +34,9 @@ bool Timer::Frame()
 
     g_fGameTimer = _fGameTimer;
     g_fSecondPerFrame = _fElapseTimer;
-    _dwBeforeTime = dwCurrentTime;
+    //_dwBeforeTime = dwCurrentTime;
+
+    _Frame = _Current;
     return true;
 }
 

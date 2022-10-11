@@ -63,8 +63,8 @@ bool SceneTitle::Frame()
 {
 	_btnStart2->Frame();
 
-	_btnStart->Frame();
-	_listControl->Frame();
+	//_btnStart->Frame();
+	//_listControl->Frame();
 	Vector2D pos = _Dlg->_vPos;
 	pos.x = pos.x + g_fSecondPerFrame * 10.0f;
 	_Dlg->SetPosition(pos);
@@ -79,7 +79,7 @@ bool SceneTitle::Render()
 {
 	_pMapTitle->Render();
 	_btnStart2->Render();
-	_btnStart->Render();
+	//_btnStart->Render();
 	_Dlg->Render();
 
 	//_FadeObject->Render();
@@ -88,9 +88,9 @@ bool SceneTitle::Render()
 bool SceneTitle::Release()
 {
 	_pMapTitle->Release();
-	_btnStart->Release();
+	//_btnStart->Release();
 	_btnStart2->Release();
-	_listControl->Release();
+	//_listControl->Release();
 	_Dlg->Release();
 
 	_FadeObject->Release();

@@ -161,6 +161,8 @@ public:
 	bool operator < (const Vector3D& vector) const;
 	bool operator >= (const Vector3D& vector) const;
 	bool operator <= (const Vector3D& vector) const;
+	float operator | (Vector3D const& v0);
+	Vector3D operator ^ (Vector3D const& v0);
 	friend Vector3D operator*(float scala, const Vector3D& vector)
 	{
 		Vector3D result(vector);

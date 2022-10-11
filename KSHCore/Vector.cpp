@@ -526,6 +526,16 @@ bool Vector3D::operator<=(const Vector3D& vector) const
 	return false;
 }
 
+float Vector3D::operator|(Vector3D const& v0)
+{
+	return x * v0.x + y * v0.y + z * v0.z;
+}
+
+Vector3D Vector3D::operator^(Vector3D const& v0)
+{
+	return Vector3D((y * v0.z - z * v0.y), (z * v0.x - x * v0.z), (x * v0.y - y * v0.x));
+}
+
 Vector4D::Vector4D()
 {
 	x = y = z = w = 0.0f;

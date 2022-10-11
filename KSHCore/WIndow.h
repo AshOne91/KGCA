@@ -18,6 +18,7 @@ public:
 	BOOL InitInstance(const TCHAR* szTitle, UINT iWidth, UINT iHeight);
 	virtual bool Run();
 	void CenterWIndow();
+	virtual HRESULT ResizeDevice(UINT width, UINT height);
 	virtual LRESULT MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 public:

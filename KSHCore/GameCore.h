@@ -31,5 +31,7 @@ private:
 
 public:
 	virtual bool Run() final;
+	virtual HRESULT CreateDXResource();
+	virtual HRESULT DeleteDXResource();
 };
 

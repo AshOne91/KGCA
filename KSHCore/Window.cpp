@@ -12,6 +12,25 @@ LRESULT Window::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
+	case WM_SIZE:
+	{
+		if (SIZE_MINIMIZED != wParam) //√÷º“»≠
+		{
+			UINT width = LOWORD(lParam);
+			UINT height = HIWORD(lParam);
+			GetWindowRect(hWnd, &_rtWIndow);
+			GetClientRect(hWnd, &_rtClient);
+			g_rtClient = _rtClient;
+
+			_iClientWidth = _rtClient.right - _rtClient.left;
+			_iClientHeight = _rtClient.bottom - _rtClient.top;
+			if (FAILED(ResizeDevice(width, height)))
+			{
+
+			}
+		}
+		break;
+	}
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -102,6 +121,11 @@ void Window::CenterWIndow()
 	cy = (iScreenHieght - (_rtWIndow.bottom - _rtWIndow.top)) * 0.5f;
 	MoveWindow(_hWnd, cx, cy, _rtWIndow.right - _rtWIndow.left, _rtWIndow.bottom - _rtWIndow.top, true);
 
+}
+
+HRESULT Window::ResizeDevice(UINT width, UINT height)
+{
+	return S_OK;
 }
 
 Window::Window()

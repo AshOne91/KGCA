@@ -1,5 +1,22 @@
 #include "Writer.h"
 
+// 辆加利 按眉 积己
+HRESULT Writer::CreateDXResource()
+{
+	HRESULT hr = _pd2dRT->CreateSolidColorBrush({ 0, 0, 0, 1 }, &_pTextColor);
+	return true;
+}
+
+// 辆加利 按眉 家戈
+HRESULT Writer::DeleteDXResource()
+{
+	if (_pTextColor) _pTextColor->Release();
+	if (_pd2dRT) _pd2dRT->Release();
+	_pTextColor = nullptr;
+	_pd2dRT = nullptr;
+	return true;
+}
+
 bool Writer::Init()
 {
 	HRESULT hr;

@@ -107,3 +107,19 @@ bool GameCore::Run()
     CoreRelease();
     return true;
 }
+
+HRESULT GameCore::CreateDXResource()
+{
+    _Writer.Init();
+    IDXGISurface1* pBackBuffer;
+    _pSwapChain->GetBuffer(0, __uuidof(IDXGISurface1), (void**)&pBackBuffer);
+    _Writer.Set(pBackBuffer);
+    pBackBuffer->Release();
+    return S_OK;
+}
+
+HRESULT GameCore::DeleteDXResource()
+{
+    _Writer.DeleteDXResource();
+    return S_OK;
+}

@@ -70,6 +70,8 @@ bool Interface::Frame()
     {
         _pCurrentTex = _eventState._pStateList[(int)UIState::UI_NORMAL];
     }
+    ScreenToNDC();
+    UpdateVertexBuffer();
     return true;
 }
 

@@ -4,6 +4,11 @@
 class Timer : public Singleton<Timer>
 {
 public:
+	LARGE_INTEGER _Frequency;
+	LARGE_INTEGER _Current;
+	LARGE_INTEGER _Frame;
+
+public:
 	float _fGameTimer = 0.0f;
 	float _fElapseTimer = 0.0f;
 	UINT _iFPS = 0;
