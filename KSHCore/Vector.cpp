@@ -1,5 +1,6 @@
 #include <math.h>
 #include "Vector.h"
+#include "Matrix.h"
 
 Vector2D::Vector2D()
 {
@@ -326,7 +327,7 @@ float Vector3D::DistanceSq(const Vector3D& vector)
 	return (dx * dx + dy * dy);
 }*/
 
-void Vector3D::Normalize()
+void Vector3D::Normalized()
 {
 	auto invertLength = Length();
 	if (invertLength != 0.0f)
@@ -338,7 +339,7 @@ void Vector3D::Normalize()
 	}
 }
 
-Vector3D Vector3D::Identity()
+Vector3D Vector3D::Normal()
 {
 	auto result = *this;
 	auto invertLength = Length();
@@ -381,7 +382,7 @@ void Vector3D::Truncate(float max)
 {
 	if (this->Length() > max)
 	{
-		this->Normalize();
+		this->Normalized();
 		*this *= max;
 	}
 }
@@ -534,6 +535,15 @@ float Vector3D::operator|(Vector3D const& v0)
 Vector3D Vector3D::operator^(Vector3D const& v0)
 {
 	return Vector3D((y * v0.z - z * v0.y), (z * v0.x - x * v0.z), (x * v0.y - y * v0.x));
+}
+
+Vector3D Vector3D::operator*(Matrix& m)
+{
+	Vector3D v;
+	v.x = x * m._11 + y * m._21 + z * m._31 + 1.0f * m._41;
+	v.y = x * m._12 + y * m._22 + z * m._32 + 1.0f * m._42;
+	v.z = x * m._13 + y * m._23 + z * m._33 + 1.0f * m._43;
+	return v;
 }
 
 Vector4D::Vector4D()
@@ -835,5 +845,15 @@ bool Vector4D::operator<=(const Vector4D& vector)
 		}
 	}
 	return false;
+}
+
+Vector4D Vector4D::operator*(Matrix& m)
+{
+	Vector4D v;
+	v.x = x * m._11 + y * m._21 + z * m._31 + 1.0f * m._41;
+	v.y = x * m._12 + y * m._22 + z * m._32 + 1.0f * m._42;
+	v.z = x * m._13 + y * m._23 + z * m._33 + 1.0f * m._43;
+	v.w = x * m._14 + y * m._24 + z * m._34 + 1.0f * m._44;
+	return v;
 }
 

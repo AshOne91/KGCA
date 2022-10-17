@@ -6,6 +6,10 @@ bool BaseObject::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediat
     _pImmediateContext = pImmediateContext;
     _szShaderName = shaderName;
     _szTextureName = textureName;
+    if (FAILED(CreateConstantBuffer()))
+    {
+        return false;
+    }
     if (FAILED(CreateVertexBuffer()))
     {
         return false;
@@ -77,6 +81,17 @@ void BaseObject::CreateIndexData()
     _IndexList[5] = 2;*/
 }
 
+void BaseObject::CreateConstantData()
+{
+    _cbData.matWorld.Identity();
+    _cbData.matView.Identity();
+    _cbData.matProj.Identity();
+    _cbData.fTimer = 0.0f;
+    _cbData.matWorld.Transpose();
+    _cbData.matView.Transpose();
+    _cbData.matProj.Transpose();
+}
+
 HRESULT BaseObject::CreateVertexBuffer()
 {
     HRESULT hr;
@@ -118,6 +133,27 @@ HRESULT BaseObject::CreateIndexBuffer()
         &bd, // 버퍼 할당
         &sd, // 초기 할당된 버퍼를 체우는 CPU메모리 주소
         &_pIndexBuffer);
+    return hr;
+}
+
+HRESULT BaseObject::CreateConstantBuffer()
+{
+    HRESULT hr;
+    CreateConstantData();
+    D3D11_BUFFER_DESC       bd;
+    ZeroMemory(&bd, sizeof(bd));
+    bd.ByteWidth = sizeof(VS_CONSTANT_BUFFER) * 1; // 바이트 용량
+    // GPU 메모리에 할당
+    bd.Usage = D3D11_USAGE_DEFAULT; // 버퍼의 할당 장소 내지는 버퍼용도
+    bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+    D3D11_SUBRESOURCE_DATA  sd;
+    ZeroMemory(&sd, sizeof(sd));
+    sd.pSysMem = &_cbData;
+    hr = _pd3dDevice->CreateBuffer(
+        &bd, // 버퍼 할당
+        &sd, // 초기 할당된 버퍼를 체우는 CPU메모리 주소
+        &_pConstantBuffer);
     return hr;
 }
 
@@ -251,6 +287,15 @@ void BaseObject::UpdateVertexBuffer()
         _pVertexBuffer, 0, nullptr,
         &_VertexList.at(0), 0, 0);
 }
+void BaseObject::UpdateConstantBuffer()
+{
+    _cbData.matWorld = _matWorld.Transpose();
+    _cbData.matView = _matView.Transpose();
+    _cbData.matProj = _matProj.Transpose();
+    _pImmediateContext->UpdateSubresource(
+        _pConstantBuffer, 0, nullptr,
+        &_cbData, 0, 0);
+}
 bool BaseObject::Init()
 {
     return true;
@@ -274,6 +319,7 @@ bool BaseObject::PreRender()
         &_pVertexBuffer, &stride, &offset);
     _pImmediateContext->IASetIndexBuffer(_pIndexBuffer,
         DXGI_FORMAT_R32_UINT, 0);
+    _pImmediateContext->VSSetConstantBuffers(0, 1, &_pConstantBuffer);
     return true;
 }
 
@@ -315,9 +361,28 @@ bool BaseObject::Release()
 {
     if (_pVertexBuffer) _pVertexBuffer->Release();
     if (_pIndexBuffer) _pIndexBuffer->Release();
+    if (_pConstantBuffer) _pConstantBuffer->Release();
     if (_pVertexLayout) _pVertexLayout->Release();
     _pVertexBuffer = nullptr;
     _pIndexBuffer = nullptr;
+    _pConstantBuffer = nullptr;
     _pVertexLayout = nullptr;
     return true;
+}
+
+void BaseObject::SetMatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj)
+{
+    if (matWorld != nullptr)
+    {
+        _matWorld = *matWorld;
+    }
+    if (matView != nullptr)
+    {
+        _matView = *matView;
+    }
+    if (matProj != nullptr)
+    {
+        _matProj = *matProj;
+    }
+    UpdateConstantBuffer();
 }

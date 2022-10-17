@@ -7,6 +7,8 @@
 #define RadianToDegree(x) (x *(180.0f / PI))
 #define Epsilon 0.001f
 enum class Sign { clockwise = 1, anticlockwise = -1 };
+
+class Matrix;
 struct Float2
 {
 	union
@@ -163,6 +165,7 @@ public:
 	bool operator <= (const Vector3D& vector) const;
 	float operator | (Vector3D const& v0);
 	Vector3D operator ^ (Vector3D const& v0);
+	Vector3D operator * (Matrix& m);
 	friend Vector3D operator*(float scala, const Vector3D& vector)
 	{
 		Vector3D result(vector);
@@ -177,8 +180,8 @@ public:
 	float LengthSq() const;
 	static float Distance(const Vector3D& vector1, const Vector3D& vector2);
 	static float DistanceSq(const Vector3D& vector1, const Vector3D& vector2);
-	void Normalize();
-	Vector3D Identity();
+	void Normalized();
+	Vector3D Normal();
 	float Dot(const Vector3D& vector) const;
 	float GetRadianBetweenVectorDot(const Vector3D& vector);
 	float GetDegreeBetweenVectorDot(const Vector3D& vector);
@@ -207,6 +210,7 @@ public:
 	bool operator < (const Vector4D& vector);
 	bool operator >= (const Vector4D& vector);
 	bool operator <= (const Vector4D& vector);
+	Vector4D operator* (Matrix& m);
 	friend Vector4D operator*(float scala, const Vector4D& vector)
 	{
 		Vector4D result(vector);

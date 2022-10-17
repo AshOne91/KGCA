@@ -28,6 +28,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="Npc2D.h" />
     <ClInclude Include="Object2D.h" />
     <ClInclude Include="Scene.h" />
@@ -56,6 +57,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Npc2D.cpp" />
     <ClCompile Include="Object2D.cpp" />
     <ClCompile Include="Scene.cpp" />
