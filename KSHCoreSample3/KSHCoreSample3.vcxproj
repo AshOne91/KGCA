@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Effect2D.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Projectile2D.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="SceneInGame.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Effect2D.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Projectile2D.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SceneInGame.h" />

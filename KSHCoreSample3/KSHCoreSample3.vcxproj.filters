@@ -36,6 +36,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -57,6 +60,9 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>

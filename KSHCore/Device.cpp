@@ -177,6 +177,43 @@ HRESULT Device::CreateRenderTargetView()
 	return S_OK;
 }
 
+HRESULT Device::CreateDepthStencilView()
+{
+	HRESULT hr;
+	D3D11_RENDER_TARGET_VIEW_DESC rtvd;
+	_pRTV->GetDesc(&rtvd);
+	DXGI_SWAP_CHAIN_DESC scd;
+	_pSwapChain->GetDesc(&scd);
+
+	// 1번 텍스쳐를 생성한다.
+	ComPtr<ID3D11Texture2D> pDSTexture;
+	D3D11_TEXTURE2D_DESC td;
+	ZeroMemory(&td, sizeof(td));
+	td.Width = scd.BufferDesc.Width;
+	td.Height = scd.BufferDesc.Height;
+	td.MipLevels = 1;
+	td.ArraySize = 1;
+	td.Format = DXGI_FORMAT_R24G8_TYPELESS;
+	td.SampleDesc.Count = 1;
+	td.Usage = D3D11_USAGE_DEFAULT;
+	td.CPUAccessFlags = 0;
+	td.MiscFlags = 0;
+	td.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+
+	hr = _pd3dDevice->CreateTexture2D(&td, NULL, pDSTexture.GetAddressOf());
+	// 2번 깊이스텐실 뷰로 생성한다.
+	D3D11_DEPTH_STENCIL_VIEW_DESC dtvd;
+	ZeroMemory(&dtvd, sizeof(dtvd));
+	dtvd.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	dtvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	hr = _pd3dDevice->CreateDepthStencilView(pDSTexture.Get(), &dtvd, _pDepthStencilView.GetAddressOf());
+	// 3번 뷰 적용
+	//m_pImmediateContext->OMSetRenderTargets(1, m_pRTV.GetAddressOf(),
+       //m_pDepthStencilView.Get());
+	// 4번 깊이스텐실 뷰 상태 객체 생성해서 적용
+	return hr;
+}
+
 void Device::CreateViewport()
 {
 	// 5)뷰포트 설정
@@ -202,6 +239,7 @@ HRESULT Device::ResizeDevice(UINT width, UINT height)
 	DeleteDXResource();
 	_pImmediateContext->OMSetRenderTargets(0, nullptr, NULL);
 	_pRTV.ReleaseAndGetAddressOf();
+	_pDepthStencilView.ReleaseAndGetAddressOf();
 	// 변경된 윈도우의 크기를 얻고 백 버퍼의 크기를 재 조정.
 	// 백버퍼의 크기를 조정한다.
 	DXGI_SWAP_CHAIN_DESC CurrentSD, AferSD;
@@ -211,6 +249,10 @@ HRESULT Device::ResizeDevice(UINT width, UINT height)
 	// 변경된 백 버퍼의 크기를 얻고 렌더타켓 뷰를 다시 생성 및 적용.
 	// 뷰포트 재 지정.
 	if (FAILED(hr = CreateRenderTargetView()))
+	{
+		return E_FAIL;
+	}
+	if (FAILED(hr = CreateDepthStencilView()))
 	{
 		return E_FAIL;
 	}
@@ -236,6 +278,10 @@ bool Device::Init()
 		return false;
 	}
 	if (FAILED(hr = CreateRenderTargetView()))
+	{
+		return false;
+	}
+	if (FAILED(hr = CreateDepthStencilView()))
 	{
 		return false;
 	}

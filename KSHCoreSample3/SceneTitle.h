@@ -4,6 +4,7 @@
 #include "Projectile2D.h"
 #include "Shape.h"
 #include "Camera.h"
+#include "Map.h"
 
 class SceneTitle : public Scene
 {
@@ -15,7 +16,9 @@ public:
 	Interface* _btnStart2;
 	Interface* _listControl;
 	Interface* _Dlg;
-	ShapeBox* _pBoxObj = nullptr;
+	Map* _pMap = nullptr;
+	ShapeBox* _pBoxObjA = nullptr;
+	ShapeBox* _pBoxObjB = nullptr;
 	Camera* _pMainCamera = nullptr;
 
 public:

@@ -45,6 +45,12 @@ bool BaseObject::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediat
 
 void BaseObject::CreateVertexData()
 {
+    if (_VertexList.size() > 0)
+    {
+        _InitVertexList = _VertexList;
+        return;
+    }
+
     _VertexList.resize(4);
     _VertexList[0].p = { -1.0f, 1.0f, 0.0f };
     _VertexList[1].p = { +1.0f, 1.0f,  0.0f };
@@ -66,6 +72,7 @@ void BaseObject::CreateVertexData()
 
 void BaseObject::CreateIndexData()
 {
+    if (_IndexList.size() > 0) return;
     _IndexList.resize(6);
 	_IndexList[0] = 0;
 	_IndexList[1] = 1;

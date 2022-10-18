@@ -17,13 +17,21 @@ public:
 
 	ComPtr<IDXGISwapChain> _pSwapChain = nullptr; //스왑체인 객체
 	ComPtr<ID3D11RenderTargetView> _pRTV = nullptr; // 메인 랜더타겟 뷰
+	ComPtr<ID3D11DepthStencilView> _pDepthStencilView = nullptr; // 깊이 스탠실 뷰
 	D3D11_VIEWPORT _vp;
 
 public:
+	//디바이스 생성
 	HRESULT CreateDevice();
+	//팩토리 생성
 	HRESULT CreateDXGIDevice();
+	//스왑체인 생성
 	HRESULT CreateSwapChain();
+	// 랜더타켓뷰 생성
 	HRESULT CreateRenderTargetView();
+	// 깊이 스탠실 뷰 생성
+	HRESULT CreateDepthStencilView();
+	// 뷰포트 설정
 	void CreateViewport();
 	virtual HRESULT ResizeDevice(UINT width, UINT height);
 

@@ -15,7 +15,7 @@ void Camera::CreateProjMatrix(float fNear, float fFar, float fFovY, float fAspec
 	_fFar = fFar;
 	_fFovY = fFovY;
 	_fAspectRatio = fAspectRatio;
-	PerspectiveFovLH(_matProj, 1.0f, 100.0f, 3.141592f * 0.5f, 800.0f / 600.0f);
+	PerspectiveFovLH(_matProj, _fNear, _fFar, _fFovY, _fAspectRatio);
 }
 
 bool Camera::Frame()

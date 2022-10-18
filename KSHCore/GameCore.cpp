@@ -37,18 +37,21 @@ bool GameCore::CoreFrame()
 
 bool GameCore::CorePreRender()
 {
-    _pImmediateContext->OMSetRenderTargets(1, _pRTV.GetAddressOf(), NULL);
+    _pImmediateContext->OMSetRenderTargets(1, _pRTV.GetAddressOf(), _pDepthStencilView.Get());
     float color[4] = { 1.0f,1.0f,1.0f,1.0f };
 
     //ClearRenderTargetView
     //ID3D11RenderTargetView* pRenderTargetView // ·»´õÅ¸°Ùºä¿¡ ´ëÇÑ Æ÷ÀÎÅÍ
     //FLOAT ColorRGBA[4] //·»´õÅ¸°Ùºä¸¦ Ã¤¿ï »ö»ó °ª
     _pImmediateContext->ClearRenderTargetView(_pRTV.Get(), color);
-    _pImmediateContext->PSSetSamplers(0, 1, &DxState::g_pDefaultSSWrap);
+    //_pImmediateContext->PSSetSamplers(0, 1, &DxState::g_pDefaultSSWrap);
+    _pImmediateContext->ClearDepthStencilView(_pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+    _pImmediateContext->PSSetSamplers(0, 1, &DxState::g_pDefaultSSMirror);
     _pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     _pImmediateContext->RSSetViewports(1, &_vp);
     _pImmediateContext->RSSetState(DxState::g_pDefaultRSSolid);
     _pImmediateContext->OMSetBlendState(DxState::g_pAlphaBlend, 0, -1);
+    _pImmediateContext->OMSetDepthStencilState(DxState::g_pDefaultDepthStencil, 0xff);
     return true;
 }
 

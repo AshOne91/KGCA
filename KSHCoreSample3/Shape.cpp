@@ -63,12 +63,12 @@ void ShapeBox::CreateIndexData()
 
 bool ShapeBox::Frame()
 {
-	Matrix m, s, t, c;
-	float fScale = cos(g_fGameTimer) * 0.5f + 0.5f;
+	//Matrix m, s, t, c;
+	//float fScale = cos(g_fGameTimer) * 0.5f + 0.5f;
 	//s = TMath::Scale(400, 300, 10);
 	//m = TMath::RotationZ(g_fGameTimer);
 	//t = TMath::Translation(0.0f, 0, 0);
-	_matWorld = s * m * t;
+	//_matWorld = s * m * t;
 	_cbData.fTimer = g_fGameTimer;
 	return true;
 }
