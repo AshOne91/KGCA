@@ -326,6 +326,7 @@ bool BaseObject::PreRender()
         &_pVertexBuffer, &stride, &offset);
     _pImmediateContext->IASetIndexBuffer(_pIndexBuffer,
         DXGI_FORMAT_R32_UINT, 0);
+    //상수버퍼 업데이트
     _pImmediateContext->VSSetConstantBuffers(0, 1, &_pConstantBuffer);
     return true;
 }

@@ -18,6 +18,9 @@ struct SimpleVertex
 	}
 };
 
+//GPU의 bandwidth와 CPU의 사용량을 최소화 할 수 있음
+//4개의 실수 단위로 넘겨야 됨
+//쉐이더에서 cbuffer 시멘틱을 사용함 각 변수들은 전역변수 처럼 간단히 사용하게 됨
 struct VS_CONSTANT_BUFFER
 {
 	Matrix matWorld;
@@ -43,6 +46,7 @@ public:
 	ID3D11Buffer* _pVertexBuffer = nullptr;
 	ID3D11Buffer* _pIndexBuffer = nullptr;
 	VS_CONSTANT_BUFFER _cbData;
+	//상수버퍼를 선언하고 생성해야 함
 	ID3D11Buffer* _pConstantBuffer = nullptr;
 	ID3D11InputLayout* _pVertexLayout = nullptr;
 	Shader* _pShader = nullptr;

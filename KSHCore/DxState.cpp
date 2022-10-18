@@ -75,7 +75,9 @@ bool DxState::SetState(ID3D11Device* pd3dDevice)
 	ZeroMemory(&dsd, sizeof(dsd));
 	dsd.DepthEnable = TRUE;
 	// 0.5f * mask(1) --> output(0.5)
+	// 깊이 버퍼에 쓸 수 있도록
 	dsd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	//함수 지정 기본 값은 작다면 성공
 	dsd.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 	/* BOOL StencilEnable;
 	UINT8 StencilReadMask;

@@ -199,7 +199,8 @@ HRESULT Device::CreateDepthStencilView()
 	td.CPUAccessFlags = 0;
 	td.MiscFlags = 0;
 	td.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-
+	//깊이-스텐실 뷰 리소스는 깊이 버퍼와 스텐실 버퍼로 나뉘며 두개의 버퍼를 저장할 장소가 필요하기 때문에
+	// 깊이-스텐실 버퍼로 사용할 텍스처 리소스를 생성해야 함
 	hr = _pd3dDevice->CreateTexture2D(&td, NULL, pDSTexture.GetAddressOf());
 	// 2번 깊이스텐실 뷰로 생성한다.
 	D3D11_DEPTH_STENCIL_VIEW_DESC dtvd;
