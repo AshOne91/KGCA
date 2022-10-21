@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DefaultShape.txt" />
     <ClInclude Include="Device.h" />
@@ -28,6 +29,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="TMath.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Npc2D.h" />
     <ClInclude Include="Object2D.h" />
@@ -50,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DxState.cpp" />
@@ -57,6 +60,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="TMath.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Npc2D.cpp" />
     <ClCompile Include="Object2D.cpp" />

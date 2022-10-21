@@ -33,10 +33,13 @@
     <ClCompile Include="Shape.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="Map.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
+    <ClCompile Include="Object3D.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraDebug.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,10 +62,13 @@
     <ClInclude Include="Shape.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="Map.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
+    <ClInclude Include="Object3D.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDebug.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,6 +80,9 @@
       <Filter>소스 파일</Filter>
     </Text>
     <Text Include="DefaultObject.txt">
+      <Filter>소스 파일</Filter>
+    </Text>
+    <Text Include="DefaultShape.txt">
       <Filter>소스 파일</Filter>
     </Text>
   </ItemGroup>

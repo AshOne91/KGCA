@@ -5,7 +5,7 @@
 #define PI 3.141592f
 #define DegreeToRadian(x) (x *(PI / 180.0f))
 #define RadianToDegree(x) (x *(180.0f / PI))
-#define Epsilon 0.001f
+#define Epsilon_ 0.001f
 enum class Sign { clockwise = 1, anticlockwise = -1 };
 
 class Matrix;

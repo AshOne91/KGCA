@@ -1,21 +1,14 @@
 #pragma once
 #include "BaseObject.h"
 
-class Object3D : public BaseObject
-{
-public:
-	Object3D() {};
-	virtual ~Object3D() {};
-};
-
-class Shape : public Object3D
+class Shape : public BaseObject
 {
 public:
 	Shape() {};
 	virtual ~Shape() {};
 };
 
-class ShapeBox : public Object3D
+class ShapeBox : public Shape
 {
 public:
 	virtual void CreateVertexData() override;
@@ -28,3 +21,26 @@ public:
 	virtual ~ShapeBox() {}
 };
 
+class ShapeLine : public Shape
+{
+public:
+	virtual void CreateVertexData() override;
+	virtual void CreateIndexData() override;
+	virtual bool Frame() override;
+	virtual bool Render() override;
+
+public:
+	ShapeLine() {};
+	virtual ~ShapeLine() {};
+};
+
+class ShapeDirectionLine : public ShapeLine
+{
+public:
+	virtual void CreateVertexData() override;
+	virtual void CreateIndexData() override;
+
+public:
+	ShapeDirectionLine() {};
+	virtual ~ShapeDirectionLine() {};
+};

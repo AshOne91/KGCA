@@ -3,6 +3,9 @@
 bool Input::Init()
 {
     ZeroMemory(_dwKeyState, sizeof(DWORD) * 256);
+    GetCursorPos(&_ptPos);
+    ScreenToClient(g_hWnd, &_ptPos);
+    _ptPrePos = _ptPos;
     return true;
 }
 
@@ -10,6 +13,8 @@ bool Input::Frame()
 {
     GetCursorPos(&_ptPos);
     ScreenToClient(g_hWnd, &_ptPos);
+    _ptOffset.x = _ptPos.x - _ptPrePos.x;
+    _ptOffset.y = _ptPos.y - _ptPrePos.y;
 
     for (int iKey = 0; iKey < 256; ++iKey)
     {
@@ -37,6 +42,7 @@ bool Input::Frame()
             }
         }
     }
+    _ptPrePos = _ptPos;
     return true;
 }
 

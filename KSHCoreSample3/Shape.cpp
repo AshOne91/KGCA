@@ -79,3 +79,61 @@ bool ShapeBox::Render()
 	PostRender();
 	return true;
 }
+
+void ShapeLine::CreateVertexData()
+{
+	_VertexList.resize(2);
+	_VertexList[0] = SimpleVertex(Vector3D(0.0f, 0.0f, 0.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(0.0f, 0.0f));
+	_VertexList[1] = SimpleVertex(Vector3D(0.0f, 0.0f, 1000.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(1.0f, 0.0f));
+	_InitVertexList = _VertexList;
+}
+
+void ShapeLine::CreateIndexData()
+{
+	_IndexList.resize(2);
+	int iIndex = 0;
+	_IndexList[iIndex++] = 0; 	_IndexList[iIndex++] = 1;
+}
+
+bool ShapeLine::Frame()
+{
+	_cbData.fTimer = g_fGameTimer;
+	return true;
+}
+
+bool ShapeLine::Render()
+{
+	_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
+	PreRender();
+	PostRender();
+	_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	return true;
+}
+
+void ShapeDirectionLine::CreateVertexData()
+{
+	// 상단
+  // 5    6
+  // 1    2
+  // 하단
+  // 4    7
+  // 0    3  
+  // 앞면
+	_VertexList.resize(6);
+	_VertexList[0] = SimpleVertex(Vector3D(0.0f, 0.0f, 0.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(0.0f, 0.0f));
+	_VertexList[1] = SimpleVertex(Vector3D(1.0f, 0.0f, 0.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(1.0f, 0.0f));
+	_VertexList[2] = SimpleVertex(Vector3D(0.0f, 0.0f, 0.0f), Vector4D(0.0f, 1.0f, 0.0f, 1.0f), Vector2D(0.0f, 0.0f));
+	_VertexList[3] = SimpleVertex(Vector3D(0.0f, 1.0f, 0.0f), Vector4D(0.0f, 1.0f, 0.0f, 1.0f), Vector2D(1.0f, 0.0f));
+	_VertexList[4] = SimpleVertex(Vector3D(0.0f, 0.0f, 0.0f), Vector4D(0.0f, 0.0f, 1.0f, 1.0f), Vector2D(0.0f, 0.0f));
+	_VertexList[5] = SimpleVertex(Vector3D(0.0f, 0.0f, 1.0f), Vector4D(0.0f, 0.0f, 1.0f, 1.0f), Vector2D(1.0f, 0.0f));
+	_InitVertexList = _VertexList;
+}
+
+void ShapeDirectionLine::CreateIndexData()
+{
+	_IndexList.resize(6);
+	int iIndex = 0;
+	_IndexList[iIndex++] = 0; 	_IndexList[iIndex++] = 1;
+	_IndexList[iIndex++] = 2; 	_IndexList[iIndex++] = 3;
+	_IndexList[iIndex++] = 4; 	_IndexList[iIndex++] = 5;
+}

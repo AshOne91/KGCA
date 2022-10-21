@@ -40,13 +40,13 @@ struct Rect : stRect
     float  cy;
     bool   operator == (const Rect& dest)
     {
-        if (fabs(x1 - dest.x1) < Epsilon)
+        if (fabs(x1 - dest.x1) < Epsilon_)
         {
-            if (fabs(y1 - dest.y1) < Epsilon)
+            if (fabs(y1 - dest.y1) < Epsilon_)
             {
-                if (fabs(w - dest.w) < Epsilon)
+                if (fabs(w - dest.w) < Epsilon_)
                 {
-                    if (fabs(h - dest.h) < Epsilon)
+                    if (fabs(h - dest.h) < Epsilon_)
                     {
                         return true;
                     }

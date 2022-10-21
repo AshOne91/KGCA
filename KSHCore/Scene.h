@@ -2,12 +2,14 @@
 #include "MapObject.h"
 #include "User2D.h"
 #include "Npc2D.h"
+#include "Camera.h"
 
 class Scene
 {
 public:
 	ID3D11Device* _pd3dDevice = nullptr;
 	ID3D11DeviceContext* _pImmediateContext = nullptr;
+	Camera* _pMainCamera = nullptr;
 
 public:
 	Vector2D _vCamera = { 0,0 };

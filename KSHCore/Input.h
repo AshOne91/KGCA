@@ -13,8 +13,11 @@ class Input : public Singleton<Input>
 {
 private:
 	DWORD _dwKeyState[256];
+
 public:
 	POINT _ptPos;
+	POINT _ptPrePos;
+	POINT _ptOffset;
 
 public:
 	virtual bool Init();

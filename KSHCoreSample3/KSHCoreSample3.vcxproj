@@ -154,9 +154,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraDebug.cpp" />
     <ClCompile Include="Effect2D.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="Projectile2D.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="SceneInGame.cpp" />
@@ -164,9 +165,10 @@
     <ClCompile Include="Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraDebug.h" />
     <ClInclude Include="Effect2D.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Object3D.h" />
     <ClInclude Include="Projectile2D.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SceneInGame.h" />
@@ -175,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="DefaultObject.txt" />
+    <Text Include="DefaultShape.txt" />
     <Text Include="SpriteInfo.txt" />
     <Text Include="ui.txt" />
   </ItemGroup>

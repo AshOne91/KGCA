@@ -2,8 +2,8 @@
 #include "Scene.h"
 #include "Interface.h"
 #include "Projectile2D.h"
-#include "Shape.h"
-#include "Camera.h"
+#include "Object3D.h"
+#include "CameraDebug.h"
 #include "Map.h"
 
 class SceneTitle : public Scene
@@ -17,9 +17,8 @@ public:
 	Interface* _listControl;
 	Interface* _Dlg;
 	Map* _pMap = nullptr;
-	ShapeBox* _pBoxObjA = nullptr;
-	ShapeBox* _pBoxObjB = nullptr;
-	Camera* _pMainCamera = nullptr;
+	Object3D* _pBoxObjA = nullptr;
+	Object3D* _pBoxObjB = nullptr;
 
 public:
 	virtual bool		Init();

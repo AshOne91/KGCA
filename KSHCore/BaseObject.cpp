@@ -40,6 +40,11 @@ bool BaseObject::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediat
     {
         _pTextureSRV = _pTexture->_pTextureSRV;
     }
+
+    if (!Init())
+    {
+        return false;
+    }
 	return true;
 }
 

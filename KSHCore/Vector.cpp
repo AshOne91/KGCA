@@ -194,9 +194,9 @@ Vector2D& Vector2D::operator /= (float scala)
 
 bool Vector2D::operator==(const Vector2D& vector) const
 {
-	if (fabsf(x - vector.x) < Epsilon)
+	if (fabsf(x - vector.x) < Epsilon_)
 	{
-		if (fabsf(y - vector.y) < Epsilon)
+		if (fabsf(y - vector.y) < Epsilon_)
 		{
 			return true;
 		}
@@ -206,9 +206,9 @@ bool Vector2D::operator==(const Vector2D& vector) const
 
 bool Vector2D::operator>(const Vector2D& vector) const
 {
-	if (fabsf(x - vector.x) > Epsilon)
+	if (fabsf(x - vector.x) > Epsilon_)
 	{
-		if (fabsf(y - vector.y) > Epsilon)
+		if (fabsf(y - vector.y) > Epsilon_)
 		{
 			return true;
 		}
@@ -218,9 +218,9 @@ bool Vector2D::operator>(const Vector2D& vector) const
 
 bool Vector2D::operator<(const Vector2D& vector) const
 {
-	if (fabsf(x - vector.x) < Epsilon)
+	if (fabsf(x - vector.x) < Epsilon_)
 	{
-		if (fabsf(y - vector.y) < Epsilon)
+		if (fabsf(y - vector.y) < Epsilon_)
 		{
 			return true;
 		}
@@ -230,9 +230,9 @@ bool Vector2D::operator<(const Vector2D& vector) const
 
 bool Vector2D::operator>=(const Vector2D& vector) const
 {
-	if (fabsf(x - vector.x) >= Epsilon)
+	if (fabsf(x - vector.x) >= Epsilon_)
 	{
-		if (fabsf(y - vector.y) >= Epsilon)
+		if (fabsf(y - vector.y) >= Epsilon_)
 		{
 			return true;
 		}
@@ -242,9 +242,9 @@ bool Vector2D::operator>=(const Vector2D& vector) const
 
 bool Vector2D::operator<=(const Vector2D& vector) const
 {
-	if (fabsf(x - vector.x) <= Epsilon)
+	if (fabsf(x - vector.x) <= Epsilon_)
 	{
-		if (fabsf(y - vector.y) <= Epsilon)
+		if (fabsf(y - vector.y) <= Epsilon_)
 		{
 			return true;
 		}
@@ -454,11 +454,11 @@ Vector3D& Vector3D::operator/=(const Vector3D& vector)
 
 bool Vector3D::operator==(const Vector3D& vector) const
 {
-	if (fabsf(x - vector.x) < Epsilon)
+	if (fabsf(x - vector.x) < Epsilon_)
 	{
-		if (fabsf(y - vector.y) < Epsilon)
+		if (fabsf(y - vector.y) < Epsilon_)
 		{
-			if (fabsf(z - vector.z) < Epsilon)
+			if (fabsf(z - vector.z) < Epsilon_)
 			{
 				return true;
 			}
@@ -469,11 +469,11 @@ bool Vector3D::operator==(const Vector3D& vector) const
 
 bool Vector3D::operator>(const Vector3D& vector) const
 {
-	if (fabsf(x - vector.x) > Epsilon)
+	if (fabsf(x - vector.x) > Epsilon_)
 	{
-		if (fabsf(y - vector.y) > Epsilon)
+		if (fabsf(y - vector.y) > Epsilon_)
 		{
-			if (fabsf(z - vector.z) > Epsilon)
+			if (fabsf(z - vector.z) > Epsilon_)
 			{
 				return true;
 			}
@@ -484,11 +484,11 @@ bool Vector3D::operator>(const Vector3D& vector) const
 
 bool Vector3D::operator<(const Vector3D& vector) const
 {
-	if (fabsf(x - vector.x) < Epsilon)
+	if (fabsf(x - vector.x) < Epsilon_)
 	{
-		if (fabsf(y - vector.y) < Epsilon)
+		if (fabsf(y - vector.y) < Epsilon_)
 		{
-			if (fabsf(z - vector.z) < Epsilon)
+			if (fabsf(z - vector.z) < Epsilon_)
 			{
 				return true;
 			}
@@ -499,11 +499,11 @@ bool Vector3D::operator<(const Vector3D& vector) const
 
 bool Vector3D::operator>=(const Vector3D& vector) const
 {
-	if (fabsf(x - vector.x) >= Epsilon)
+	if (fabsf(x - vector.x) >= Epsilon_)
 	{
-		if (fabsf(y - vector.y) >= Epsilon)
+		if (fabsf(y - vector.y) >= Epsilon_)
 		{
-			if (fabsf(z - vector.z) >= Epsilon)
+			if (fabsf(z - vector.z) >= Epsilon_)
 			{
 				return true;
 			}
@@ -514,11 +514,11 @@ bool Vector3D::operator>=(const Vector3D& vector) const
 
 bool Vector3D::operator<=(const Vector3D& vector) const
 {
-	if (fabsf(x - vector.x) <= Epsilon)
+	if (fabsf(x - vector.x) <= Epsilon_)
 	{
-		if (fabsf(y - vector.y) <= Epsilon)
+		if (fabsf(y - vector.y) <= Epsilon_)
 		{
-			if (fabsf(z - vector.z) <= Epsilon)
+			if (fabsf(z - vector.z) <= Epsilon_)
 			{
 				return true;
 			}
@@ -759,13 +759,13 @@ Vector4D& Vector4D::operator/=(const Vector4D& vector)
 
 bool Vector4D::operator==(const Vector4D& vector)
 {
-	if (fabsf(x - vector.x) < Epsilon)
+	if (fabsf(x - vector.x) < Epsilon_)
 	{
-		if (fabsf(y - vector.y) < Epsilon)
+		if (fabsf(y - vector.y) < Epsilon_)
 		{
-			if (fabsf(z - vector.z) < Epsilon)
+			if (fabsf(z - vector.z) < Epsilon_)
 			{
-				if (fabsf(w - vector.w) < Epsilon)
+				if (fabsf(w - vector.w) < Epsilon_)
 				{
 					return true;
 				}
@@ -777,13 +777,13 @@ bool Vector4D::operator==(const Vector4D& vector)
 
 bool Vector4D::operator>(const Vector4D& vector)
 {
-	if (fabsf(x - vector.x) > Epsilon)
+	if (fabsf(x - vector.x) > Epsilon_)
 	{
-		if (fabsf(y - vector.y) > Epsilon)
+		if (fabsf(y - vector.y) > Epsilon_)
 		{
-			if (fabsf(z - vector.z) > Epsilon)
+			if (fabsf(z - vector.z) > Epsilon_)
 			{
-				if (fabsf(w - vector.w) > Epsilon)
+				if (fabsf(w - vector.w) > Epsilon_)
 				{
 					return true;
 				}
@@ -795,13 +795,13 @@ bool Vector4D::operator>(const Vector4D& vector)
 
 bool Vector4D::operator<(const Vector4D& vector)
 {
-	if (fabsf(x - vector.x) < Epsilon)
+	if (fabsf(x - vector.x) < Epsilon_)
 	{
-		if (fabsf(y - vector.y) < Epsilon)
+		if (fabsf(y - vector.y) < Epsilon_)
 		{
-			if (fabsf(z - vector.z) < Epsilon)
+			if (fabsf(z - vector.z) < Epsilon_)
 			{
-				if (fabsf(w - vector.w) < Epsilon)
+				if (fabsf(w - vector.w) < Epsilon_)
 				{
 					return true;
 				}
@@ -813,13 +813,13 @@ bool Vector4D::operator<(const Vector4D& vector)
 
 bool Vector4D::operator>=(const Vector4D& vector)
 {
-	if (fabsf(x - vector.x) >= Epsilon)
+	if (fabsf(x - vector.x) >= Epsilon_)
 	{
-		if (fabsf(y - vector.y) >= Epsilon)
+		if (fabsf(y - vector.y) >= Epsilon_)
 		{
-			if (fabsf(z - vector.z) >= Epsilon)
+			if (fabsf(z - vector.z) >= Epsilon_)
 			{
-				if (fabsf(z - vector.z) >= Epsilon)
+				if (fabsf(z - vector.z) >= Epsilon_)
 				{
 					return true;
 				}
@@ -831,13 +831,13 @@ bool Vector4D::operator>=(const Vector4D& vector)
 
 bool Vector4D::operator<=(const Vector4D& vector)
 {
-	if (fabsf(x - vector.x) <= Epsilon)
+	if (fabsf(x - vector.x) <= Epsilon_)
 	{
-		if (fabsf(y - vector.y) <= Epsilon)
+		if (fabsf(y - vector.y) <= Epsilon_)
 		{
-			if (fabsf(z - vector.z) <= Epsilon)
+			if (fabsf(z - vector.z) <= Epsilon_)
 			{
-				if (fabsf(w - vector.w) <= Epsilon)
+				if (fabsf(w - vector.w) <= Epsilon_)
 				{
 					return true;
 				}
