@@ -113,4 +113,117 @@ void ObjectBox::CreateIndexData()
 	_IndexList[iIndex++] = 12; _IndexList[iIndex++] = 13; _IndexList[iIndex++] = 14; _IndexList[iIndex++] = 12;	_IndexList[iIndex++] = 14; _IndexList[iIndex++] = 15;
 	_IndexList[iIndex++] = 16; _IndexList[iIndex++] = 17; _IndexList[iIndex++] = 18; _IndexList[iIndex++] = 16;	_IndexList[iIndex++] = 18; _IndexList[iIndex++] = 19;
 	_IndexList[iIndex++] = 20; _IndexList[iIndex++] = 21; _IndexList[iIndex++] = 22; _IndexList[iIndex++] = 20;	_IndexList[iIndex++] = 22; _IndexList[iIndex++] = 23;
+	_dwFace = _IndexList.size() / 3;
+}
+
+void Object3D::UpdateCollision()
+{
+	_BoxCollision.vAxis[0] = _vRight;
+	_BoxCollision.vAxis[1] = _vUp;
+	_BoxCollision.vAxis[2] = _vLook;
+
+	_BoxCollision.vMin = Vector3D(100000, 100000, 100000);
+	_BoxCollision.vMax = Vector3D(-100000, -100000, -100000);
+	for (int iV = 0; iV < 8; ++iV)
+	{
+		Vector3D pos;
+		TBASIS_EX::D3DXVec3TransformCoord((TBASIS_EX::TVector3*)&pos, (TBASIS_EX::TVector3*)&_BoxCollision.vPos[iV], (TBASIS_EX::TMatrix*)&_matWorld);
+		if (_BoxCollision.vMin.x > pos.x)
+		{
+			_BoxCollision.vMin.x = pos.x;
+		}
+		if (_BoxCollision.vMin.y > pos.y)
+		{
+			_BoxCollision.vMin.y = pos.y;
+		}
+		if (_BoxCollision.vMin.z > pos.z)
+		{
+			_BoxCollision.vMin.z = pos.z;
+		}
+
+		if (_BoxCollision.vMax.x < pos.x)
+		{
+			_BoxCollision.vMax.x = pos.x;
+		}
+		if (_BoxCollision.vMax.y < pos.y)
+		{
+			_BoxCollision.vMax.y = pos.y;
+		}
+		if (_BoxCollision.vMax.z < pos.z)
+		{
+			_BoxCollision.vMax.z = pos.z;
+		}
+	}
+
+	Vector3D vHalf = _BoxCollision.vMax - _BoxCollision.vCenter;
+	_BoxCollision.fExten[0] = fabs(TBASIS_EX::D3DXVec3Dot((TBASIS_EX::TVector3*)&_BoxCollision.vAxis[0], (TBASIS_EX::TVector3*)&vHalf));
+	_BoxCollision.fExten[1] = fabs(TBASIS_EX::D3DXVec3Dot((TBASIS_EX::TVector3*)&_BoxCollision.vAxis[1], (TBASIS_EX::TVector3*)&vHalf));
+	_BoxCollision.fExten[2] = fabs(TBASIS_EX::D3DXVec3Dot((TBASIS_EX::TVector3*)&_BoxCollision.vAxis[2], (TBASIS_EX::TVector3*)&vHalf));
+	_BoxCollision.vCenter = (_BoxCollision.vMin + _BoxCollision.vMax);
+	_BoxCollision.vCenter /= 2.0f;
+}
+
+void Object3D::GenAABB()
+{
+	_BoxCollision.vMin = Vector3D(100000, 100000, 100000);
+	_BoxCollision.vMax = Vector3D(-100000, -100000, -100000);
+	for (int i = 0; i < _VertexList.size(); ++i)
+	{
+		if (_BoxCollision.vMin.x > _VertexList[i].p.x)
+		{						   
+			_BoxCollision.vMin.x = _VertexList[i].p.x;
+		}						   
+		if (_BoxCollision.vMin.y > _VertexList[i].p.y)
+		{						   
+			_BoxCollision.vMin.y = _VertexList[i].p.y;
+		}						   
+		if (_BoxCollision.vMin.z > _VertexList[i].p.z)
+		{						   
+			_BoxCollision.vMin.z = _VertexList[i].p.z;
+		}						   
+								   
+		if (_BoxCollision.vMax.x < _VertexList[i].p.x)
+		{						   
+			_BoxCollision.vMax.x = _VertexList[i].p.x;
+		}						   
+		if (_BoxCollision.vMax.y < _VertexList[i].p.y)
+		{						   
+			_BoxCollision.vMax.y = _VertexList[i].p.y;
+		}						   
+		if (_BoxCollision.vMax.z < _VertexList[i].p.z)
+		{						   
+			_BoxCollision.vMax.z = _VertexList[i].p.z;
+		}
+	}
+
+	// 4      5
+	// 6      7
+
+	// 0     1
+	// 2     3
+	_BoxCollision.vPos[0] = Vector3D(_BoxCollision.vMin.x,
+	_BoxCollision.vMax.y,		   
+	_BoxCollision.vMin.z);		   
+	_BoxCollision.vPos[1] = Vector3D(_BoxCollision.vMax.x,
+	_BoxCollision.vMax.y,		   
+	_BoxCollision.vMin.z);		   
+	_BoxCollision.vPos[2] = Vector3D(_BoxCollision.vMin.x,
+	_BoxCollision.vMin.y,		   
+	_BoxCollision.vMin.z);		   
+	_BoxCollision.vPos[3] = Vector3D(_BoxCollision.vMax.x,
+	_BoxCollision.vMin.y,		   
+	_BoxCollision.vMin.z);		   
+								   
+	_BoxCollision.vPos[4] = Vector3D(_BoxCollision.vMin.x,
+	_BoxCollision.vMax.y,		   
+	_BoxCollision.vMax.z);		   
+	_BoxCollision.vPos[5] = Vector3D(_BoxCollision.vMax.x,
+	_BoxCollision.vMax.y,		   
+	_BoxCollision.vMax.z);		   
+	_BoxCollision.vPos[6] = Vector3D(_BoxCollision.vMin.x,
+	_BoxCollision.vMin.y,		   
+	_BoxCollision.vMax.z);		   
+	_BoxCollision.vPos[7] = Vector3D(_BoxCollision.vMax.x,
+		_BoxCollision.vMin.y,
+		_BoxCollision.vMax.z);
 }

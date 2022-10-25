@@ -39,6 +39,7 @@ public:
 	Matrix _matWorld;
 	Matrix _matView;
 	Matrix _matProj;
+	DWORD _dwFace;
 
 public:
 	ID3D11Device* _pd3dDevice = nullptr;

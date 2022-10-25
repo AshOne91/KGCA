@@ -99,3 +99,24 @@ bool CameraDebug::Frame()
 	Update();
 	return true;
 }
+
+void CameraDebug::Update()
+{
+	_vRight.x = _matView._11;
+	_vRight.y = _matView._21;
+	_vRight.z = _matView._31;
+
+	_vUp.x = _matView._12;
+	_vUp.y = _matView._22;
+	_vUp.z = _matView._32;
+
+	_vLook.x = _matView._13;
+	_vLook.y = _matView._23;
+	_vLook.z = _matView._33;
+
+	_vRight.Normalized();
+	_vUp.Normalized();
+	_vLook.Normalized();
+
+	_vFrustum.CreateFrustum(&_matView, &_matProj);
+}

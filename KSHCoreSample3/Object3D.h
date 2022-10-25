@@ -8,9 +8,13 @@ public:
 	Vector3D _vLook; // z axis
 	Vector3D _vUp;	 // y
 	Vector3D _vRight;// z
+	K_BOX _BoxCollision;
+
 public:
 	Object3D() {}
 	virtual ~Object3D() {}
+	void UpdateCollision();
+	void GenAABB();
 };
 
 class ObjectBox : public Object3D

@@ -77,7 +77,11 @@ void BaseObject::CreateVertexData()
 
 void BaseObject::CreateIndexData()
 {
-    if (_IndexList.size() > 0) return;
+    if (_IndexList.size() > 0)
+    {
+        _dwFace = _IndexList.size() / 3;
+        return;
+    }
     _IndexList.resize(6);
 	_IndexList[0] = 0;
 	_IndexList[1] = 1;
@@ -91,6 +95,8 @@ void BaseObject::CreateIndexData()
     _IndexList[3] = 3;
     _IndexList[4] = 0;
     _IndexList[5] = 2;*/
+
+    _dwFace = _IndexList.size() / 3;
 }
 
 void BaseObject::CreateConstantData()
@@ -348,7 +354,7 @@ bool BaseObject::PostRender()
     if (_pIndexBuffer == nullptr)
         _pImmediateContext->Draw(_VertexList.size(), 0);
     else
-        _pImmediateContext->DrawIndexed(_IndexList.size(), 0, 0);
+        _pImmediateContext->DrawIndexed(_dwFace*3, 0, 0);
     return true;
 }
 

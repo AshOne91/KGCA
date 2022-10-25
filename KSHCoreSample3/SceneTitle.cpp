@@ -52,14 +52,25 @@ bool SceneTitle::Render()
 	_pImmediateContext->OMSetDepthStencilState(DxState::g_pDefaultDepthStencil,
 	0xff);
 	_pMap->SetMatrix(nullptr, &_pMainCamera->_matView, &_pMainCamera->_matProj);
+	_pMap->UpdateBuffer((CameraDebug*)_pMainCamera);
 	_pMap->Render();
 
-	_pBoxObjA->SetMatrix(nullptr, &_pMainCamera->_matView, &_pMainCamera->_matProj);
-	_pBoxObjA->Render();
+	CameraDebug* pDCam = (CameraDebug*)_pMainCamera;
+	bool bRender = pDCam->_vFrustum.ClassifyPoint(_pBoxObjA->_vPos);
+	if (bRender)
+	{
+		_pBoxObjA->SetMatrix(nullptr, &_pMainCamera->_matView, &_pMainCamera->_matProj);
+		_pBoxObjA->Render();
+	}
+
 	/*m_pImmediateContext->OMSetDepthStencilState(TDxState::g_pGreaterDepthStencil,
 	0xff);*/
-	_pBoxObjB->SetMatrix(nullptr, &_pMainCamera->_matView, &_pMainCamera->_matProj);
-	_pBoxObjB->Render();
+	bRender = pDCam->_vFrustum.ClassifyPoint(_pBoxObjB->_vPos);
+	if (bRender)
+	{
+		_pBoxObjB->SetMatrix(nullptr, &_pMainCamera->_matView, &_pMainCamera->_matProj);
+		_pBoxObjB->Render();
+	}
 	//m_pBG->SetMatrix(nullptr, &m_pMainCamera->m_matView, &m_pMainCamera->m_matProj);
 	//m_pBG->Render();
 	return true;

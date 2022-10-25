@@ -452,6 +452,14 @@ Vector3D& Vector3D::operator/=(const Vector3D& vector)
 	return *this;
 }
 
+Vector3D& Vector3D::operator/=(float scala)
+{
+	x /= scala;
+	y /= scala;
+	z /= scala;
+	return *this;
+}
+
 bool Vector3D::operator==(const Vector3D& vector) const
 {
 	if (fabsf(x - vector.x) < Epsilon_)

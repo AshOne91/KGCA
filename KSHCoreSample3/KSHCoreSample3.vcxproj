@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="CameraDebug.cpp" />
     <ClCompile Include="Effect2D.cpp" />
+    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="Projectile2D.cpp" />
@@ -167,6 +168,7 @@
   <ItemGroup>
     <ClInclude Include="CameraDebug.h" />
     <ClInclude Include="Effect2D.h" />
+    <ClInclude Include="Frustum.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Object3D.h" />
     <ClInclude Include="Projectile2D.h" />

@@ -43,5 +43,37 @@ bool Map::Build(UINT iWidth, UINT iHeight)
             iIndex += 6;
         }
     }
+    indexlist.resize(_IndexList.size());
+    _dwFace = _IndexList.size() / 3;
+    return true;
+}
+
+bool Map::UpdateBuffer(CameraDebug* pMainCamera)
+{
+    _dwFace = 0;
+    DWORD index = 0;
+    Vector3D v[3];
+    for (int iFace = 0; iFace < _IndexList.size() / 3; ++iFace)
+    {
+        UINT i0 = _IndexList[iFace * 3 + 0];
+        UINT i1 = _IndexList[iFace * 3 + 1];
+        UINT i2 = _IndexList[iFace * 3 + 2];
+        v[0] = _VertexList[i0].p;
+        v[1] = _VertexList[i1].p;
+        v[2] = _VertexList[i2].p;
+        for (int i = 0; i < 3; ++i)
+        {
+            bool bRender = pMainCamera->_vFrustum.ClassifyPoint(v[i]);
+            if (bRender)
+            {
+                indexlist[index++] = i0;
+                indexlist[index++] = i1;
+                indexlist[index++] = i2;
+                _dwFace++;
+                break;
+            }
+        }
+    }
+    _pImmediateContext->UpdateSubresource(_pIndexBuffer, 0, nullptr, &indexlist.at(0), 0, 0);
     return true;
 }

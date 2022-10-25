@@ -87,6 +87,32 @@ struct stBox
     Vector3D vMin;
     Vector3D vSize;
 };
+
+struct AABB
+{
+    Vector3D vMin;
+    Vector3D vMax;
+};
+
+struct OBB
+{
+    Vector3D vCenter;
+    Vector3D vAxis[3];
+    float fDistance[3];
+};
+
+struct K_BOX
+{
+    Vector3D vPos[8];
+    // aabb
+    Vector3D vMin;
+    Vector3D vMax;
+    // obb
+    Vector3D vCenter;
+    Vector3D vAxis[3];
+    float fExten[3];
+};
+
 struct Box : stBox
 {
     Vector3D vMax;

@@ -158,6 +158,7 @@ public:
 	Vector3D& operator += (const Vector3D& vector);
 	Vector3D& operator -= (const Vector3D& vector);
 	Vector3D& operator /= (const Vector3D& vector);
+	Vector3D& operator /= (float scala);
 	bool operator == (const Vector3D& vector) const;
 	bool operator > (const Vector3D& vector) const;
 	bool operator < (const Vector3D& vector) const;

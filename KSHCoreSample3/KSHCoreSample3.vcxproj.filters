@@ -42,6 +42,9 @@
     <ClCompile Include="CameraDebug.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Frustum.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
@@ -69,6 +72,9 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="CameraDebug.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Frustum.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>

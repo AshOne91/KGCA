@@ -59,6 +59,7 @@ void ShapeBox::CreateIndexData()
 	_IndexList[iIndex++] = 12; _IndexList[iIndex++] = 13; _IndexList[iIndex++] = 14; _IndexList[iIndex++] = 12;	_IndexList[iIndex++] = 14; _IndexList[iIndex++] = 15;
 	_IndexList[iIndex++] = 16; _IndexList[iIndex++] = 17; _IndexList[iIndex++] = 18; _IndexList[iIndex++] = 16;	_IndexList[iIndex++] = 18; _IndexList[iIndex++] = 19;
 	_IndexList[iIndex++] = 20; _IndexList[iIndex++] = 21; _IndexList[iIndex++] = 22; _IndexList[iIndex++] = 20;	_IndexList[iIndex++] = 22; _IndexList[iIndex++] = 23;
+	_dwFace = _IndexList.size() / 3;
 }
 
 bool ShapeBox::Frame()
@@ -93,6 +94,7 @@ void ShapeLine::CreateIndexData()
 	_IndexList.resize(2);
 	int iIndex = 0;
 	_IndexList[iIndex++] = 0; 	_IndexList[iIndex++] = 1;
+	_dwFace = _IndexList.size() / 3;
 }
 
 bool ShapeLine::Frame()
@@ -136,4 +138,5 @@ void ShapeDirectionLine::CreateIndexData()
 	_IndexList[iIndex++] = 0; 	_IndexList[iIndex++] = 1;
 	_IndexList[iIndex++] = 2; 	_IndexList[iIndex++] = 3;
 	_IndexList[iIndex++] = 4; 	_IndexList[iIndex++] = 5;
+	_dwFace = _IndexList.size() / 3;
 }
