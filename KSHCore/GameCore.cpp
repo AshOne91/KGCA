@@ -23,6 +23,9 @@ bool GameCore::CoreInit()
     _Writer.Set(pBackBuffer);
     pBackBuffer->Release();
 
+    std::wstring shaderfilename = L"../../data/shader/DefaultRT.hlsl";
+    _BG.Create(_pd3dDevice.Get(), _pImmediateContext.Get(), shaderfilename, L"../../data/_RAINBOW.bmp");
+    _RT.Create(_pd3dDevice.Get(), _pImmediateContext.Get(), 2048, 2048);
     return Init();
 }
 
@@ -58,23 +61,47 @@ bool GameCore::CorePreRender()
 bool GameCore::CoreRender()
 {
     CorePreRender();
-    Render();
-    I_Timer.Render();
+    // 랜더타켓 지정
+    _RT._pOldRTV = _pRTV.Get();
+    _RT._pOldDSV = _pDepthStencilView.Get();
+    _RT._vpOld[0] = _vp;
+
+    if (_RT.Begin(_pImmediateContext.Get()))
+    {
+        Render();
+        _RT.End(_pImmediateContext.Get());
+    }
+
+    if (_RT._pSRV)
+    {
+        _BG._pTextureSRV = _RT._pSRV.Get();
+    }
+    /*I_Timer.Render();
     I_Input.Render();
     _Writer._szDefaultText = I_Timer._szTimer;
-    _Writer.Render();
+    _Writer.Render();*/
     CorePostRender();
     return true;
 }
 
 bool GameCore::CorePostRender()
 {
+    _BG.SetMatrix(nullptr, nullptr, nullptr);
+    _BG.Render();
+
+    I_Timer.Render();
+    I_Input.Render();
+    _Writer._szDefaultText = I_Timer._szTimer;
+    _Writer.Render();
+
     _pSwapChain->Present(0, 0);
     return true;
 }
 
 bool GameCore::CoreRelease()
 {
+    _RT.Release();
+    _BG.Release();
     Release();
     I_Timer.Release();
     I_Input.Release();

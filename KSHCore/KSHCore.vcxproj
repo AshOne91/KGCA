@@ -29,6 +29,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="TMath.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Npc2D.h" />
@@ -60,6 +61,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="TMath.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Npc2D.cpp" />

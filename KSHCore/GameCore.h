@@ -8,11 +8,14 @@
 #include "ShaderManager.h"
 #include "SoundManager.h"
 #include "SpriteManager.h"
+#include "RenderTarget.h"
 
 class GameCore : public Device
 {
 public:
 	Writer _Writer;
+	BaseObject _BG;
+	RenderTarget _RT;
 	bool _bGameRun = true;
 
 public:

@@ -4,6 +4,9 @@
 
 class Map : public BaseObject
 {
+public:
+	DWORD _dwNumRows;
+	DWORD _dwNumColumns;
 	DWORD_VECTOR indexlist;
 public:
 	bool Build(UINT iWidth, UINT iHeight);

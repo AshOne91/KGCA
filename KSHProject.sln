@@ -89,6 +89,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KSHCoreSample3", "KSHCoreSa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamePhysicsEngine", "GamePhysicsEngine\GamePhysicsEngine.vcxproj", "{BC242098-FA70-4B35-A3C6-7790160853FC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameCore3D", "GameCore3D\GameCore3D.vcxproj", "{8A32BD32-F16E-4217-9BE3-C3BF1976CC63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -417,6 +419,14 @@ Global
 		{BC242098-FA70-4B35-A3C6-7790160853FC}.Release|x64.Build.0 = Release|x64
 		{BC242098-FA70-4B35-A3C6-7790160853FC}.Release|x86.ActiveCfg = Release|Win32
 		{BC242098-FA70-4B35-A3C6-7790160853FC}.Release|x86.Build.0 = Release|Win32
+		{8A32BD32-F16E-4217-9BE3-C3BF1976CC63}.Debug|x64.ActiveCfg = Debug|x64
+		{8A32BD32-F16E-4217-9BE3-C3BF1976CC63}.Debug|x64.Build.0 = Debug|x64
+		{8A32BD32-F16E-4217-9BE3-C3BF1976CC63}.Debug|x86.ActiveCfg = Debug|Win32
+		{8A32BD32-F16E-4217-9BE3-C3BF1976CC63}.Debug|x86.Build.0 = Debug|Win32
+		{8A32BD32-F16E-4217-9BE3-C3BF1976CC63}.Release|x64.ActiveCfg = Release|x64
+		{8A32BD32-F16E-4217-9BE3-C3BF1976CC63}.Release|x64.Build.0 = Release|x64
+		{8A32BD32-F16E-4217-9BE3-C3BF1976CC63}.Release|x86.ActiveCfg = Release|Win32
+		{8A32BD32-F16E-4217-9BE3-C3BF1976CC63}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

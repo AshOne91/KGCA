@@ -12,19 +12,19 @@ bool SceneTitle::Init()
 
 	_pMap = new Map;
 	// 2ÀÇ n½Â + 1
-	_pMap->Build(512 + 1, 512 + 1);
+	_pMap->Build(256 + 1, 256 + 1);
 	_pMap->Create(_pd3dDevice, _pImmediateContext, L"DefaultObject.txt", L"../../data/map/Tile50.jpg");
 
 	_pBoxObjA = new ObjectBox;
 	_pBoxObjA->Create(_pd3dDevice, _pImmediateContext, L"DefaultObject.txt", L"../../data/object/20200428_185613.jpg");
-	_pBoxObjA->_matWorld.Translation(0, 0, 2);
+	_pBoxObjA->_matWorld.Translation(0, 5, 0);
 
 	_pBoxObjB = new ObjectBox;
 	_pBoxObjB->Create(_pd3dDevice, _pImmediateContext, L"DefaultObject.txt", L"../../data/_RAINBOW.bmp");
-	_pBoxObjB->_matWorld.Translation(1, 0, 4);
+	_pBoxObjB->_matWorld.Translation(1, 5, 4);
 
 	_pMainCamera = new CameraDebug;
-	_pMainCamera->CreateViewMatrix(Vector3D(0, 0, -10), Vector3D(0, 0, 0), Vector3D(0, 1, 0));
+	_pMainCamera->CreateViewMatrix(Vector3D(0, 20, -20), Vector3D(0, 0, 0), Vector3D(0, 1, 0));
 	_pMainCamera->CreateProjMatrix(1.0f, 10000.0f, PI * 0.25f,
 		(float)g_rtClient.right / (float)g_rtClient.bottom);
 
@@ -40,10 +40,10 @@ bool SceneTitle::Frame()
 	}
 	_pMainCamera->Frame();
 	_pBoxObjA->Frame();
-	_pBoxObjA->_matWorld.RotationY(g_fGameTimer);
+	/*_pBoxObjA->_matWorld.RotationY(g_fGameTimer);
 	_pBoxObjA->_matWorld._41 = _pBoxObjA->_vPos.x;
 	_pBoxObjA->_matWorld._42 = _pBoxObjA->_vPos.y;
-	_pBoxObjA->_matWorld._43 = _pBoxObjA->_vPos.z;
+	_pBoxObjA->_matWorld._43 = _pBoxObjA->_vPos.z;*/
 	_pBoxObjB->Frame();
 	return true;
 }

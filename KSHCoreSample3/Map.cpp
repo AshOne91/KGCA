@@ -5,6 +5,8 @@ bool Map::Build(UINT iWidth, UINT iHeight)
     // 전체 셀 개수 = (iWidth-1) * (iHieght-1)
     // 전체 페이스 개수 = (iWidth-1) * (iHiehgt-1) * 2
     // 전체 정점 개수 = iWidth * iHeight
+    _dwNumRows = iWidth;
+    _dwNumColumns = iHeight;
     _VertexList.resize(iWidth * iHeight);
     int iHalfWidth = iWidth / 2;
     int iHalfHeight = iHeight / 2;

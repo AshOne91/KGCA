@@ -1,3 +1,5 @@
+#include "..\KSHCoreSample3\Node.h"
+#include "..\KSHCoreSample3\Node.h"
 #include "Node.h"
 
 Node::Node() :_pParent(nullptr), _depth(0)
