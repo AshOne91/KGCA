@@ -75,6 +75,7 @@ bool GameCore::CoreRender()
     if (_RT._pSRV)
     {
         _BG._pTextureSRV = _RT._pSRV.Get();
+        //_BG._pTextureSRV = _RT._pDsvSRV.Get();
     }
     /*I_Timer.Render();
     I_Input.Render();

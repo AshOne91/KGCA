@@ -24,8 +24,8 @@ bool SceneTitle::Init()
 	_pBoxObjB->_matWorld.Translation(1, 5, 4);
 
 	_pMainCamera = new CameraDebug;
-	_pMainCamera->CreateViewMatrix(Vector3D(0, 20, -20), Vector3D(0, 0, 0), Vector3D(0, 1, 0));
-	_pMainCamera->CreateProjMatrix(1.0f, 10000.0f, PI * 0.25f,
+	_pMainCamera->CreateViewMatrix(Vector3D(0, 30, -30), Vector3D(0, 0, 0), Vector3D(0, 1, 0));
+	_pMainCamera->CreateProjMatrix(1.0f, 1000.0f, PI * 0.25f,
 		(float)g_rtClient.right / (float)g_rtClient.bottom);
 
 	return true;

@@ -21,15 +21,21 @@
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraDebug.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DefaultShape.txt" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="DxState.h" />
+    <ClInclude Include="Effect2D.h" />
+    <ClInclude Include="Frustum.h" />
     <ClInclude Include="GameCore.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="Object3D.h" />
+    <ClInclude Include="Projectile2D.h" />
     <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="Shape.h" />
     <ClInclude Include="TMath.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Npc2D.h" />
@@ -54,14 +60,20 @@
   <ItemGroup>
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraDebug.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DxState.cpp" />
+    <ClCompile Include="Effect2D.cpp" />
+    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="GameCore.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="MapObject.cpp" />
+    <ClCompile Include="Object3D.cpp" />
+    <ClCompile Include="Projectile2D.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="Shape.cpp" />
     <ClCompile Include="TMath.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Npc2D.cpp" />

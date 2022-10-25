@@ -24,25 +24,7 @@
     <ClCompile Include="SceneTitle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Effect2D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile2D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Shape.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Object3D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraDebug.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Frustum.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Quadtree.cpp">
@@ -62,25 +44,7 @@
     <ClInclude Include="SceneTitle.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Effect2D.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile2D.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Shape.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Object3D.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraDebug.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Frustum.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Node.h">

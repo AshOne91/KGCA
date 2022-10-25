@@ -154,32 +154,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CameraDebug.cpp" />
-    <ClCompile Include="Effect2D.cpp" />
-    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Object3D.cpp" />
-    <ClCompile Include="Projectile2D.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="SceneInGame.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
-    <ClCompile Include="Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CameraDebug.h" />
-    <ClInclude Include="Effect2D.h" />
-    <ClInclude Include="Frustum.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="Object3D.h" />
-    <ClInclude Include="Projectile2D.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SceneInGame.h" />
     <ClInclude Include="SceneTitle.h" />
-    <ClInclude Include="Shape.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="DefaultObject.txt" />

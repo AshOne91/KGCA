@@ -42,9 +42,9 @@ void Frustum::CreateFrustum(Matrix* matView, Matrix* matProj)
     _Plane[3].Create(*((Vector3D*)&_vFrustum[0]),
         *((Vector3D*)&_vFrustum[7]),
         *((Vector3D*)&_vFrustum[3])); // bottom
-    _Plane[4].Create(*((Vector3D*)&_vFrustum[0]),
-        *((Vector3D*)&_vFrustum[2]),
-        *((Vector3D*)&_vFrustum[1])); // near
+    _Plane[4].Create(*((Vector3D*)&_vFrustum[2]),
+        *((Vector3D*)&_vFrustum[1]),
+        *((Vector3D*)&_vFrustum[0])); // near
     _Plane[5].Create(*((Vector3D*)&_vFrustum[5]),
         *((Vector3D*)&_vFrustum[6]),
         *((Vector3D*)&_vFrustum[4])); // far
