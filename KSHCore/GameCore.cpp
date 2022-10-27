@@ -41,7 +41,7 @@ bool GameCore::CoreFrame()
 bool GameCore::CorePreRender()
 {
     _pImmediateContext->OMSetRenderTargets(1, _pRTV.GetAddressOf(), _pDepthStencilView.Get());
-    float color[4] = { 1.0f,1.0f,1.0f,1.0f };
+    float color[4] = { 0.34324f,0.52342f,0.798320f,1.0f };
 
     //ClearRenderTargetView
     //ID3D11RenderTargetView* pRenderTargetView // ∑ª¥ı≈∏∞Ÿ∫‰ø° ¥Î«— ∆˜¿Œ≈Õ
