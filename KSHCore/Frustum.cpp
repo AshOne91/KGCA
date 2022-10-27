@@ -50,8 +50,9 @@ void Frustum::CreateFrustum(Matrix* matView, Matrix* matProj)
         *((Vector3D*)&_vFrustum[4])); // far
 }
 
-bool Frustum::ClassifyPoint(Vector3D v)
+K_POSITION Frustum::ClassifyPoint(Vector3D v)
 {
+    K_POSITION k_POSITION = P_FRONT;
     for (int iPlane = 0; iPlane < 6; ++iPlane)
     {
         float fDistance =
@@ -59,42 +60,60 @@ bool Frustum::ClassifyPoint(Vector3D v)
             _Plane[iPlane].b * v.y +
             _Plane[iPlane].c * v.z +
             _Plane[iPlane].d;
-        if (fDistance < 0) return false;
-    }
-    return true;
-}
 
-bool Frustum::ClassifySphere(Sphere v)
-{
-    float fPlaneToCenter;
-    for (int iPlane = 0; iPlane < 6; ++iPlane)
-    {
+        if (fDistance < 0.0f)
         {
-            float fPlaneToCenter =
-                _Plane[iPlane].a * v.vCenter.x +
-                _Plane[iPlane].b * v.vCenter.y +
-                _Plane[iPlane].c * v.vCenter.z +
-                _Plane[iPlane].d;
-
-            if (fPlaneToCenter <= -v.fRadius)
-            {
-                return false;
-            }
+            return P_BACK;
         }
     }
-    return true;
+    return P_FRONT;
 }
 
-bool Frustum::ClassifyAABB(AABB v)
+K_POSITION Frustum::ClassifySphere(Sphere v)
 {
-    return true;
+    K_POSITION k_POSITION = P_FRONT;
+    for (int iPlane = 0; iPlane < 6; ++iPlane)
+    {
+        float fPlaneToCenter =
+            _Plane[iPlane].a * v.vCenter.x +
+            _Plane[iPlane].b * v.vCenter.y +
+            _Plane[iPlane].c * v.vCenter.z +
+            _Plane[iPlane].d;
+
+        if (fPlaneToCenter > 0)
+        {
+            if ((fPlaneToCenter - v.fRadius) < 0)
+            {
+                k_POSITION = P_SPANNING;
+                break;
+            }
+        }
+        else if (fPlaneToCenter < 0)
+        {
+            k_POSITION = P_BACK;
+            if(fPlaneToCenter > -v.fRadius)
+            {
+                k_POSITION = P_SPANNING;
+            }
+            break;
+        }
+    }
+    return k_POSITION;
 }
 
-bool Frustum::ClassifyOBB(OBB v)
+K_POSITION Frustum::ClassifyAABB(AABB v)
+{
+    return P_SPANNING;
+}
+
+K_POSITION Frustum::ClassifyOBB(OBB v)
 {
     float		fPlaneToCenter = 0.0;
     float		fDistance = 0.0f;
     Vector3D vDir;
+    K_POSITION k_Position;
+
+    k_Position = P_FRONT;
     for (int iPlane = 0; iPlane < 6; iPlane++)
     {
         vDir = v.vAxis[0] * v.fDistance[0];
@@ -107,15 +126,64 @@ bool Frustum::ClassifyOBB(OBB v)
         fPlaneToCenter = _Plane[iPlane].a * v.vCenter.x + _Plane[iPlane].b * v.vCenter.y +
             _Plane[iPlane].c * v.vCenter.z + _Plane[iPlane].d;
 
-        if (fPlaneToCenter <= -fDistance)
+        if (fPlaneToCenter > 0)
         {
-            return FALSE;
+            if (fPlaneToCenter < fDistance)
+            {
+                k_Position = P_SPANNING;
+                break;
+            }
+        }
+        else if (fPlaneToCenter < 0)
+        {
+            k_Position = P_BACK;
+            if (fPlaneToCenter > -fDistance)
+            {
+                k_Position = P_SPANNING;
+            }
+            break;
         }
     }
-    return true;
+    return k_Position;
 }
 
-bool Frustum::ClassifyBox(K_BOX v)
+K_POSITION Frustum::ClassifyBox(K_BOX v)
 {
-    return true;
+    float		fPlaneToCenter = 0.0;
+    float		fDistance = 0.0f;
+    Vector3D vDir;
+    K_POSITION k_Position;
+
+    k_Position = P_FRONT;
+    for (int iPlane = 0; iPlane < 6; iPlane++)
+    {
+        vDir = v.vAxis[0] * v.fExtent[0];
+        fDistance = fabs(_Plane[iPlane].a * vDir.x + _Plane[iPlane].b * vDir.y + _Plane[iPlane].c * vDir.z);
+        vDir = v.vAxis[1] * v.fExtent[1];
+        fDistance += fabs(_Plane[iPlane].a * vDir.x + _Plane[iPlane].b * vDir.y + _Plane[iPlane].c * vDir.z);
+        vDir = v.vAxis[2] * v.fExtent[2];
+        fDistance += fabs(_Plane[iPlane].a * vDir.x + _Plane[iPlane].b * vDir.y + _Plane[iPlane].c * vDir.z);
+
+        fPlaneToCenter = _Plane[iPlane].a * v.vCenter.x + _Plane[iPlane].b * v.vCenter.y +
+            _Plane[iPlane].c * v.vCenter.z + _Plane[iPlane].d;
+
+        if (fPlaneToCenter > 0)
+        {
+            if (fPlaneToCenter < fDistance)
+            {
+                k_Position = P_SPANNING;
+                break;
+            }
+        }
+        else if (fPlaneToCenter < 0)
+        {
+            k_Position = P_BACK;
+            if (fPlaneToCenter > -fDistance)
+            {
+                k_Position = P_SPANNING;
+            }
+            break;
+        }
+    }
+    return k_Position;
 }

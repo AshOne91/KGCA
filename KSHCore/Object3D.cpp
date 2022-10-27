@@ -156,9 +156,9 @@ void Object3D::UpdateCollision()
 	}
 
 	Vector3D vHalf = _BoxCollision.vMax - _BoxCollision.vCenter;
-	_BoxCollision.fExten[0] = fabs(TBASIS_EX::D3DXVec3Dot((TBASIS_EX::TVector3*)&_BoxCollision.vAxis[0], (TBASIS_EX::TVector3*)&vHalf));
-	_BoxCollision.fExten[1] = fabs(TBASIS_EX::D3DXVec3Dot((TBASIS_EX::TVector3*)&_BoxCollision.vAxis[1], (TBASIS_EX::TVector3*)&vHalf));
-	_BoxCollision.fExten[2] = fabs(TBASIS_EX::D3DXVec3Dot((TBASIS_EX::TVector3*)&_BoxCollision.vAxis[2], (TBASIS_EX::TVector3*)&vHalf));
+	_BoxCollision.fExtent[0] = fabs(TBASIS_EX::D3DXVec3Dot((TBASIS_EX::TVector3*)&_BoxCollision.vAxis[0], (TBASIS_EX::TVector3*)&vHalf));
+	_BoxCollision.fExtent[1] = fabs(TBASIS_EX::D3DXVec3Dot((TBASIS_EX::TVector3*)&_BoxCollision.vAxis[1], (TBASIS_EX::TVector3*)&vHalf));
+	_BoxCollision.fExtent[2] = fabs(TBASIS_EX::D3DXVec3Dot((TBASIS_EX::TVector3*)&_BoxCollision.vAxis[2], (TBASIS_EX::TVector3*)&vHalf));
 	_BoxCollision.vCenter = (_BoxCollision.vMin + _BoxCollision.vMax);
 	_BoxCollision.vCenter /= 2.0f;
 }

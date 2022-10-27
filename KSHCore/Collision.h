@@ -110,7 +110,7 @@ struct K_BOX
     // obb
     Vector3D vCenter;
     Vector3D vAxis[3];
-    float fExten[3];
+    float fExtent[3];
 };
 
 struct Box : stBox

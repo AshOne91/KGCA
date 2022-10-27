@@ -66,6 +66,7 @@ bool GameCore::CoreRender()
     _RT._pOldDSV = _pDepthStencilView.Get();
     _RT._vpOld[0] = _vp;
 
+    //ID3D11DeviceContext::OMSetRenderTargets: Resource being set to OM RenderTarget slot 0 is still bound on input
     if (_RT.Begin(_pImmediateContext.Get()))
     {
         Render();

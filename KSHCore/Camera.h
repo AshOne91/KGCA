@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseObject.h"
+#include "Frustum.h"
 
 class Camera : public BaseObject
 {
@@ -13,6 +14,8 @@ public:
 	float     _fRoll = 0.0f;
 	float     _fDistance = 0.0f;
 	float     _fSpeed = 10.0f;
+public:
+	Frustum _vFrustum;
 public:
 	Vector3D			_vTarget = { 0,0,0 };
 	float			_fNear;

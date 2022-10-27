@@ -9,6 +9,11 @@ bool Sample::Init()
 	_pTitle->Init();
 	_pInGame->Init();
 	_pCurrentScene = _pTitle;
+
+	_Quadtree.Create(
+		((SceneTitle*)_pCurrentScene.get())->_pMainCamera,
+		((SceneTitle*)_pCurrentScene.get())->_pMap);
+
 	return true;
 }
 bool Sample::Frame()
@@ -27,6 +32,13 @@ bool Sample::Render()
 	{
 		_pImmediateContext->RSSetState(DxState::g_pDefaultRSWireFrame);
 	}
+	_pImmediateContext->OMSetDepthStencilState(DxState::g_pDefaultDepthStencil, 0xff);
+	SceneTitle* pScene = (SceneTitle*)_pCurrentScene.get();
+	pScene->_pMap->SetMatrix(nullptr,
+		&pScene->_pMainCamera->_matView,
+		&pScene->_pMainCamera->_matProj);
+	_Quadtree.Frame();
+	_Quadtree.Render();
 	_pCurrentScene->Render();
 	return true;
 }

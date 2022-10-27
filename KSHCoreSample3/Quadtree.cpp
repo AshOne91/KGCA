@@ -1,15 +1,17 @@
 #include "Quadtree.h"
 #include "Collision.h"
 
-bool Quadtree::Create(Map* pMap, int iMaxDepth)
+bool Quadtree::Create(Camera* pMainCamera, Map* pMap, int iMaxDepth)
 {
+	_pCamera = pMainCamera;
 	_pMap = pMap;
 	_iMaxDepth = iMaxDepth;
-	_pRootNode = new Node(nullptr, 
+	_pRootNode = new Node(nullptr, _pMap, 
 		0, 
 		pMap->_dwNumRows - 1, 
 		pMap->_dwNumRows * (pMap->_dwNumColumns - 1), 
-		pMap->_dwNumRows * pMap->_dwNumColumns - 1);
+		pMap->_dwNumRows * pMap->_dwNumColumns - 1,
+		pMap->_dwNumColumns, pMap->_dwNumRows);
 	BuildTree(_pRootNode);
 	return true;
 }
@@ -34,10 +36,11 @@ void Quadtree::BuildTree(Node* pNode)
 	if (IsSubDivide(pNode) == false)
 	{
 		pNode->_bLeaf = true;
+		_pLeafNodeList.push_back(pNode);
 		return;
 	}
 
-	pNode->CreateChildNode(pNode);
+	pNode->CreateChildNode(pNode, _pMap, _pMap->_dwNumRows, _pMap->_dwNumColumns);
 
 	BuildTree(pNode->_pChild[0]);
 	BuildTree(pNode->_pChild[1]);
@@ -56,6 +59,66 @@ bool Quadtree::IsSubDivide(Node* pNode)
 		return true;
 	}
 	return false;
+}
+
+Node* Quadtree::VisibleNode(Node* pNode)
+{
+	K_POSITION dwRet = _pCamera->_vFrustum.ClassifyBox(pNode->_kBox);
+	if (P_FRONT == dwRet)
+	{
+		_pDrawLeafNodeList.push_back(pNode);
+		return pNode;
+	}
+	if (P_SPANNING == dwRet)
+	{
+		if (pNode->_bLeaf)
+		{
+			_pDrawLeafNodeList.push_back(pNode);
+		}
+		else
+		{
+			for (int iNode = 0; iNode < 4; ++iNode)
+			{
+				VisibleNode(pNode->_pChild[iNode]);
+			}
+		}
+	}
+}
+
+bool Quadtree::Frame()
+{
+	_pDrawLeafNodeList.clear();
+	VisibleNode(_pRootNode);
+	/*
+		for (auto node : _pLeafNodeList)
+		{
+			if (_pCamera->_vFrustum.ClassifyBox(node->_kBox))
+			{
+				_pDrawLeafNodeList.push_back(node);
+			}
+		}
+	*/
+	return true;
+}
+
+bool Quadtree::Render()
+{
+	for (auto node : _pDrawLeafNodeList)
+	{
+		_pMap->PreRender();
+		_pMap->_pImmediateContext->IASetIndexBuffer(node->_pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+		_pMap->_pImmediateContext->DrawIndexed(node->_dwFace * 3, 0, 0);
+	}
+	return true;
+}
+
+Quadtree::~Quadtree()
+{
+	if (_pRootNode)
+	{
+		delete _pRootNode;
+		_pRootNode = nullptr;
+	}
 }
 
 Node* Quadtree::FindNode(Node* pNode, Object3D* pObj)

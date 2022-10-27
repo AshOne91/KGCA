@@ -49,11 +49,11 @@ bool SceneTitle::Frame()
 }
 bool SceneTitle::Render()
 {
-	_pImmediateContext->OMSetDepthStencilState(DxState::g_pDefaultDepthStencil,
-	0xff);
-	_pMap->SetMatrix(nullptr, &_pMainCamera->_matView, &_pMainCamera->_matProj);
-	_pMap->UpdateBuffer((CameraDebug*)_pMainCamera);
-	_pMap->Render();
+	//_pImmediateContext->OMSetDepthStencilState(DxState::g_pDefaultDepthStencil,
+	//0xff);
+	//_pMap->SetMatrix(nullptr, &_pMainCamera->_matView, &_pMainCamera->_matProj);
+	//_pMap->UpdateBuffer((CameraDebug*)_pMainCamera);
+	//_pMap->Render();
 
 	CameraDebug* pDCam = (CameraDebug*)_pMainCamera;
 	bool bRender = pDCam->_vFrustum.ClassifyPoint(_pBoxObjA->_vPos);
