@@ -16,6 +16,8 @@ public:
 	Texture* Load(const std::wstring& name);
 	Texture* Find(const std::wstring& name);
 	bool Release();
+	W_STR GetSplitName(std::wstring fullpath);
+	W_STR GetSplitName(std::string fullpath);
 
 private:
 	TextureManager();

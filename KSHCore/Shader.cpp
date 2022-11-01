@@ -36,6 +36,11 @@ HRESULT Shader::Load(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediateCo
 	_pd3dDevice = pd3dDevice;
 	_pImmediateContext = pImmediateContext;
 
+	DWORD dwShaderFlags = D3DCOMPILE_SKIP_OPTIMIZATION;
+#if defined(_DEBUG)
+	dwShaderFlags |= D3DCOMPILE_DEBUG;
+#endif
+
 	ID3DBlob* pErrorCode = nullptr;
 	hr = D3DCompileFromFile(
 		name.c_str(),
@@ -43,7 +48,7 @@ HRESULT Shader::Load(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediateCo
 		NULL,
 		"VS",
 		"vs_5_0",
-		0,
+		dwShaderFlags,
 		0,
 		&_pVSCode,
 		&pErrorCode);
@@ -69,7 +74,7 @@ HRESULT Shader::Load(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediateCo
 		NULL,
 		"PS",
 		"ps_5_0",
-		0,
+		dwShaderFlags,
 		0,
 		&_pPSCode,
 		&pErrorCode);

@@ -23,6 +23,12 @@ void CameraDebug::CreateProjMatrix(float fNear, float fFar, float fFovY, float f
 
 bool CameraDebug::Frame()
 {
+	//_fYaw, _fPitch, _fRoll
+	if (I_Input.GetKey(VK_LBUTTON) == KEY_HOLD)
+	{
+		_fYaw += I_Input._ptOffset.x * 0.002f;
+		_fPitch += I_Input._ptOffset.y * 0.002f;
+	}
 	if (I_Input.GetKey(VK_SPACE) == KEY_HOLD)
 	{
 		_fSpeed += g_fSecondPerFrame * 100.0f;

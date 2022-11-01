@@ -67,12 +67,6 @@ bool Writer::Init(std::wstring& font, int size)
 		return false;
 	}
 
-	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &_pd2dFactory);
-	if (FAILED(hr))
-	{
-		return false;
-	}
-
 	hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,
 		__uuidof(IDWriteFactory),
 		(IUnknown**)&_pdWriteFactory);

@@ -82,6 +82,7 @@ public:
 	virtual void UpdateVertexBuffer();
 	virtual void UpdateConstantBuffer();
 	virtual void Rotation();
+	virtual bool LoadTexture(W_STR texturename);
 
 public:
 	virtual bool Init();

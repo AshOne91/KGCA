@@ -35,8 +35,12 @@ bool BaseObject::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pImmediat
         return false;
     }
 
-    _pTexture = I_Tex.Load(textureName);
+    /*_pTexture = I_Tex.Load(textureName);
     if (_pTexture != nullptr)
+    {
+        _pTextureSRV = _pTexture->_pTextureSRV;
+    }*/
+    if (LoadTexture(textureName))
     {
         _pTextureSRV = _pTexture->_pTextureSRV;
     }
@@ -314,6 +318,18 @@ void BaseObject::UpdateConstantBuffer()
         _pConstantBuffer, 0, nullptr,
         &_cbData, 0, 0);
 }
+
+bool BaseObject::LoadTexture(W_STR texturename)
+{
+    _pTexture = I_Tex.Load(texturename);
+    if (_pTexture != nullptr)
+    {
+        _pTextureSRV = _pTexture->_pTextureSRV;
+        return true;
+    }
+    return false;
+}
+
 bool BaseObject::Init()
 {
     return true;

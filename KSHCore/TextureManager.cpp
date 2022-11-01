@@ -47,6 +47,35 @@ bool TextureManager::Release()
 	return true;
 }
 
+W_STR TextureManager::GetSplitName(std::wstring fullpath)
+{
+	W_STR name;
+	TCHAR drive[MAX_PATH] = { 0, };
+	TCHAR dir[MAX_PATH] = { 0, };
+	TCHAR filename[MAX_PATH] = { 0, };
+	TCHAR ext[MAX_PATH] = { 0, };
+	_tsplitpath_s(fullpath.c_str(),
+		drive, dir, filename, ext);
+	name = filename;
+	name += ext;
+	return name;
+}
+
+W_STR TextureManager::GetSplitName(std::string fullpath)
+{
+	W_STR szUnicode = to_mw(fullpath);
+	W_STR name;
+	TCHAR drive[MAX_PATH] = { 0, };
+	TCHAR dir[MAX_PATH] = { 0, };
+	TCHAR filename[MAX_PATH] = { 0, };
+	TCHAR ext[MAX_PATH] = { 0, };
+	_tsplitpath_s(szUnicode.c_str(),
+		drive, dir, filename, ext);
+	name = filename;
+	name += ext;
+	return name;
+}
+
 TextureManager::TextureManager()
 {
 	
