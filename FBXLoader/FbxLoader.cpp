@@ -5,6 +5,11 @@ bool FbxLoader::Init()
     _pFbxManager = FbxManager::Create();
     _pFbxImporter = FbxImporter::Create(_pFbxManager, "");
     _pFbxScene = FbxScene::Create(_pFbxManager, "");
+
+    // 단위
+    FbxSystemUnit::cm.ConvertScene(_pFbxScene);
+    // 기저(행렬)
+    FbxAxisSystem::MayaZUp.ConvertScene(_pFbxScene);
     return true;
 }
 
@@ -53,6 +58,10 @@ bool FbxLoader::Load(C_STR filename)
 {
     _pFbxImporter->Initialize(filename.c_str());
     _pFbxImporter->Import(_pFbxScene);
+    //FbxGeometryConverter converter(_pFbxmanager);
+    // 면 -> 삼각형으로
+    //converter.Triangulate(_pFbxScene, true);
+
     _pRootNode = _pFbxScene->GetRootNode();
     PreProcess(_pRootNode);
 
@@ -87,9 +96,43 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh)
     FbxNode* pNode = pFbxMesh->GetNode();
     KFbxObject* pObject = new KFbxObject;
 
+    FbxAMatrix geom; // 기하(로칼)행렬(초기 정점 위치를 변환할 때 사용한다.)
+    FbxVector4 trans = pNode->GetGeometricTranslation(FbxNode::eSourcePivot);
+    FbxVector4 rot = pNode->GetGeometricRotation(FbxNode::eSourcePivot);
+    FbxVector4 scale = pNode->GetGeometricScaling(FbxNode::eSourcePivot);
+    geom.SetT(trans);
+    geom.SetR(rot);
+    geom.SetS(scale);
+
+    FbxAMatrix normalLocalMatrix = geom;
+    normalLocalMatrix = normalLocalMatrix.Inverse();
+    normalLocalMatrix = normalLocalMatrix.Transpose();
+
+    // 월드행렬
+    FbxVector4 Translation;
+    if (pNode->LclTranslation.IsValid())
+        Translation = pNode->LclTranslation.Get();
+
+    FbxVector4 Rotation;
+    if (pNode->LclRotation.IsValid())
+        Rotation = pNode->LclRotation.Get();
+
+    FbxVector4 Scale;
+    if (pNode->LclScaling.IsValid())
+        Scale = pNode->LclScaling.Get();
+
+    FbxAMatrix matWorldTransform(Translation, Rotation, Scale);
+    FbxAMatrix normalWorldMatrix = matWorldTransform;
+    normalWorldMatrix = normalWorldMatrix.Inverse();
+    normalWorldMatrix = normalWorldMatrix.Transpose();
+
+
+
+
     //Layer 개념
     FbxLayerElementUV* VertexUVSet = nullptr;
     FbxLayerElementVertexColor* VertexColorSet = nullptr;
+    FbxLayerElementNormal* VertexNormalSet = nullptr;
     FbxLayerElementMaterial* MaterialSet = nullptr;
     FbxLayer* pFbxLayer = pFbxMesh->GetLayer(0);
     if (pFbxLayer->GetUVs() != nullptr)
@@ -99,6 +142,10 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh)
     if (pFbxLayer->GetUVs() != nullptr)
     {
         VertexColorSet = pFbxLayer->GetVertexColors();
+    }
+    if (pFbxLayer->GetNormals() != nullptr)
+    {
+        VertexNormalSet = pFbxLayer->GetNormals();
     }
     if (pFbxLayer->GetMaterials() != nullptr)
     {
@@ -175,8 +222,10 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh)
             for (int iIndex = 0; iIndex < 3; ++iIndex)
             {
                 int vertexID = iCornerIndex[iIndex];
-                FbxVector4 v = pVertexPositions[vertexID];
-                SimpleVertex tVertex;
+                FbxVector4 v2 = pVertexPositions[vertexID];
+                PNCT_VERTEX tVertex;
+                FbxVector4 v = geom.MultT(v2);
+                v = matWorldTransform.MultT(v);
                 tVertex.p.x = v.mData[0];
                 tVertex.p.y = v.mData[2];
                 tVertex.p.z = v.mData[1];
@@ -194,6 +243,19 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh)
                     FbxVector2 t = ReadTextureCoord(pFbxMesh, VertexUVSet, iCornerIndex[iIndex], iUVIndex[iIndex]);
                     tVertex.t.x = t.mData[0];
                     tVertex.t.y = 1.0f - t.mData[1];
+                }
+                if (VertexNormalSet)
+                {
+                    FbxVector4 n = ReadNormal(
+                        pFbxMesh,
+                        VertexNormalSet,
+                        iCornerIndex[iIndex],
+                        iBasePolyIndex + VertexColor[iIndex]);
+                    n = normalLocalMatrix.MultT(n);
+                    n = normalWorldMatrix.MultT(n);
+                    tVertex.n.x = n.mData[0];
+                    tVertex.n.y = n.mData[2];
+                    tVertex.n.z = n.mData[1];
                 }
                 if (iNumMtrl <= 1)
                 {
@@ -249,6 +311,46 @@ FbxColor FbxLoader::ReadColor(FbxMesh* pFbxMesh, FbxLayerElementVertexColor* Ver
     }break;
     }
     return color;
+}
+
+FbxVector4 FbxLoader::ReadNormal(FbxMesh* pFbxMesh, FbxLayerElementNormal* VertexNormalSet, int posIndex, int colorIndex)
+{
+    FbxVector4 normal(1, 1, 1, 1);
+    FbxLayerElement::EMappingMode mode = VertexNormalSet->GetMappingMode();
+    switch (mode)
+    {
+    case FbxLayerElementUV::eDirect:
+    {
+        switch (VertexNormalSet->GetReferenceMode())
+        {
+        case FbxLayerElementUV::eDirect:
+        {
+            normal = VertexNormalSet->GetDirectArray().GetAt(posIndex);
+        }break;
+        case FbxLayerElementUV::eIndexToDirect:
+        {
+            int index = VertexNormalSet->GetIndexArray().GetAt(posIndex);
+            normal = VertexNormalSet->GetDirectArray().GetAt(index);
+        }break;
+        }
+    }break;
+    case FbxLayerElementUV::eByPolygonVertex:
+    {
+        switch (VertexNormalSet->GetReferenceMode())
+        {
+        case FbxLayerElementUV::eDirect:
+        {
+            normal = VertexNormalSet->GetDirectArray().GetAt(colorIndex);
+        }break;
+        case FbxLayerElementUV::eIndexToDirect:
+        {
+            int index = VertexNormalSet->GetIndexArray().GetAt(colorIndex);
+            normal = VertexNormalSet->GetDirectArray().GetAt(index);
+        }break;
+        }
+    }break;
+    }
+    return normal;
 }
 
 FbxVector2 FbxLoader::ReadTextureCoord(FbxMesh* pFbxMesh, FbxLayerElementUV* pUVSet, int vertexIndex, int uvIndex)

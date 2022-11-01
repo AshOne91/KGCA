@@ -34,5 +34,8 @@
     <Text Include="..\..\data\shader\DefaultObject.txt">
       <Filter>소스 파일</Filter>
     </Text>
+    <Text Include="..\..\data\shader\DefaultShape.txt">
+      <Filter>소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>

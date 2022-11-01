@@ -65,39 +65,39 @@ void ObjectBox::CreateVertexData()
 // 0    3  
 // ¾Õ¸é
 	_VertexList.resize(24);
-	_VertexList[0] = SimpleVertex(Vector3D(-1.0f, 1.0f, -1.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(0.0f, 0.0f));
-	_VertexList[1] = SimpleVertex(Vector3D(1.0f, 1.0f, -1.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(1.0f, 0.0f));
-	_VertexList[2] = SimpleVertex(Vector3D(1.0f, -1.0f, -1.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(1.0f, 1.0f));
-	_VertexList[3] = SimpleVertex(Vector3D(-1.0f, -1.0f, -1.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(0.0f, 1.0f));
+	_VertexList[0] = PNCT_VERTEX(Vector3D(-1.0f, 1.0f, -1.0f), Vector3D(0.0f, 0.0f, -1.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(0.0f, 0.0f));
+	_VertexList[1] = PNCT_VERTEX(Vector3D(1.0f, 1.0f, -1.0f), Vector3D(0.0f, 0.0f, -1.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(1.0f, 0.0f));
+	_VertexList[2] = PNCT_VERTEX(Vector3D(1.0f, -1.0f, -1.0f), Vector3D(0.0f, 0.0f, -1.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(1.0f, 1.0f));
+	_VertexList[3] = PNCT_VERTEX(Vector3D(-1.0f, -1.0f, -1.0f), Vector3D(0.0f, 0.0f, -1.0f), Vector4D(1.0f, 0.0f, 0.0f, 1.0f), Vector2D(0.0f, 1.0f));
 	// µÞ¸é
-	_VertexList[4] = SimpleVertex(Vector3D(1.0f, 1.0f, 1.0f), Vector4D(0.0f, 0.0f, 0.0f, 1.0f), Vector2D(0.0f, 0.0f));
-	_VertexList[5] = SimpleVertex(Vector3D(-1.0f, 1.0f, 1.0f), Vector4D(0.0f, 1.0f, 0.0f, 1.0f), Vector2D(1.0f, 0.0f));
-	_VertexList[6] = SimpleVertex(Vector3D(-1.0f, -1.0f, 1.0f), Vector4D(0.0f, 1.0f, 0.0f, 1.0f), Vector2D(1.0f, 1.0f));
-	_VertexList[7] = SimpleVertex(Vector3D(1.0f, -1.0f, 1.0f), Vector4D(0.0f, 1.0f, 0.0f, 1.0f), Vector2D(0.0f, 1.0f));
+	_VertexList[4] = PNCT_VERTEX(Vector3D(1.0f, 1.0f, 1.0f), Vector3D(0.0f, 0.0f, 1.0f), Vector4D(0.0f, 0.0f, 0.0f, 1.0f), Vector2D(0.0f, 0.0f));
+	_VertexList[5] = PNCT_VERTEX(Vector3D(-1.0f, 1.0f, 1.0f), Vector3D(0.0f, 0.0f, 1.0f), Vector4D(0.0f, 1.0f, 0.0f, 1.0f), Vector2D(1.0f, 0.0f));
+	_VertexList[6] = PNCT_VERTEX(Vector3D(-1.0f, -1.0f, 1.0f), Vector3D(0.0f, 0.0f, 1.0f), Vector4D(0.0f, 1.0f, 0.0f, 1.0f), Vector2D(1.0f, 1.0f));
+	_VertexList[7] = PNCT_VERTEX(Vector3D(1.0f, -1.0f, 1.0f), Vector3D(0.0f, 0.0f, 1.0f), Vector4D(0.0f, 1.0f, 0.0f, 1.0f), Vector2D(0.0f, 1.0f));
 
 	// ¿À¸¥ÂÊ
-	_VertexList[8] = SimpleVertex(Vector3D(1.0f, 1.0f, -1.0f), Vector4D(0.0f, 0.0f, 1.0f, 1.0f), Vector2D(0.0f, 0.0f));
-	_VertexList[9] = SimpleVertex(Vector3D(1.0f, 1.0f, 1.0f), Vector4D(0.0f, 0.0f, 1.0f, 1.0f), Vector2D(1.0f, 0.0f));
-	_VertexList[10] = SimpleVertex(Vector3D(1.0f, -1.0f, 1.0f), Vector4D(0.0f, 0.0f, 1.0f, 1.0f), Vector2D(1.0f, 1.0f));
-	_VertexList[11] = SimpleVertex(Vector3D(1.0f, -1.0f, -1.0f), Vector4D(0.0f, 0.0f, 1.0f, 1.0f), Vector2D(0.0f, 1.0f));
+	_VertexList[8] = PNCT_VERTEX(Vector3D(1.0f, 1.0f, -1.0f), Vector3D(1.0f, 0.0f, 0.0f), Vector4D(0.0f, 0.0f, 1.0f, 1.0f), Vector2D(0.0f, 0.0f));
+	_VertexList[9] = PNCT_VERTEX(Vector3D(1.0f, 1.0f, 1.0f), Vector3D(1.0f, 0.0f, -1.0f), Vector4D(0.0f, 0.0f, 1.0f, 1.0f), Vector2D(1.0f, 0.0f));
+	_VertexList[10] = PNCT_VERTEX(Vector3D(1.0f, -1.0f, 1.0f), Vector3D(1.0f, 0.0f, -1.0f), Vector4D(0.0f, 0.0f, 1.0f, 1.0f), Vector2D(1.0f, 1.0f));
+	_VertexList[11] = PNCT_VERTEX(Vector3D(1.0f, -1.0f, -1.0f), Vector3D(1.0f, 0.0f, -1.0f), Vector4D(0.0f, 0.0f, 1.0f, 1.0f), Vector2D(0.0f, 1.0f));
 
 	// ¿ÞÂÊ
-	_VertexList[12] = SimpleVertex(Vector3D(-1.0f, 1.0f, 1.0f), Vector4D(1.0f, 1.0f, 0.0f, 1.0f), Vector2D(0.0f, 0.0f));
-	_VertexList[13] = SimpleVertex(Vector3D(-1.0f, 1.0f, -1.0f), Vector4D(1.0f, 1.0f, 0.0f, 1.0f), Vector2D(1.0f, 0.0f));
-	_VertexList[14] = SimpleVertex(Vector3D(-1.0f, -1.0f, -1.0f), Vector4D(1.0f, 1.0f, 0.0f, 1.0f), Vector2D(1.0f, 1.0f));
-	_VertexList[15] = SimpleVertex(Vector3D(-1.0f, -1.0f, 1.0f), Vector4D(1.0f, 1.0f, 0.0f, 1.0f), Vector2D(0.0f, 1.0f));
+	_VertexList[12] = PNCT_VERTEX(Vector3D(-1.0f, 1.0f, 1.0f), Vector3D(-1.0f, 0.0f, 0.0f), Vector4D(1.0f, 1.0f, 0.0f, 1.0f), Vector2D(0.0f, 0.0f));
+	_VertexList[13] = PNCT_VERTEX(Vector3D(-1.0f, 1.0f, -1.0f), Vector3D(-1.0f, 0.0f, 0.0f), Vector4D(1.0f, 1.0f, 0.0f, 1.0f), Vector2D(1.0f, 0.0f));
+	_VertexList[14] = PNCT_VERTEX(Vector3D(-1.0f, -1.0f, -1.0f), Vector3D(-1.0f, 0.0f, 0.0f), Vector4D(1.0f, 1.0f, 0.0f, 1.0f), Vector2D(1.0f, 1.0f));
+	_VertexList[15] = PNCT_VERTEX(Vector3D(-1.0f, -1.0f, 1.0f), Vector3D(-1.0f, 0.0f, 0.0f), Vector4D(1.0f, 1.0f, 0.0f, 1.0f), Vector2D(0.0f, 1.0f));
 
 	// À­¸é
-	_VertexList[16] = SimpleVertex(Vector3D(-1.0f, 1.0f, 1.0f), Vector4D(1.0f, 0.5f, 1.0f, 1.0f), Vector2D(0.0f, 0.0f));
-	_VertexList[17] = SimpleVertex(Vector3D(1.0f, 1.0f, 1.0f), Vector4D(1.0f, 0.5f, 1.0f, 1.0f), Vector2D(1.0f, 0.0f));
-	_VertexList[18] = SimpleVertex(Vector3D(1.0f, 1.0f, -1.0f), Vector4D(1.0f, 0.5f, 1.0f, 1.0f), Vector2D(1.0f, 1.0f));
-	_VertexList[19] = SimpleVertex(Vector3D(-1.0f, 1.0f, -1.0f), Vector4D(1.0f, 0.5f, 1.0f, 1.0f), Vector2D(0.0f, 1.0f));
+	_VertexList[16] = PNCT_VERTEX(Vector3D(-1.0f, 1.0f, 1.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector4D(1.0f, 0.5f, 1.0f, 1.0f), Vector2D(0.0f, 0.0f));
+	_VertexList[17] = PNCT_VERTEX(Vector3D(1.0f, 1.0f, 1.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector4D(1.0f, 0.5f, 1.0f, 1.0f), Vector2D(1.0f, 0.0f));
+	_VertexList[18] = PNCT_VERTEX(Vector3D(1.0f, 1.0f, -1.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector4D(1.0f, 0.5f, 1.0f, 1.0f), Vector2D(1.0f, 1.0f));
+	_VertexList[19] = PNCT_VERTEX(Vector3D(-1.0f, 1.0f, -1.0f), Vector3D(0.0f, 1.0f, 0.0f), Vector4D(1.0f, 0.5f, 1.0f, 1.0f), Vector2D(0.0f, 1.0f));
 
 	// ¾Æ·§¸é
-	_VertexList[20] = SimpleVertex(Vector3D(-1.0f, -1.0f, -1.0f), Vector4D(0.0f, 1.0f, 1.0f, 1.0f), Vector2D(0.0f, 0.0f));
-	_VertexList[21] = SimpleVertex(Vector3D(1.0f, -1.0f, -1.0f), Vector4D(0.0f, 1.0f, 1.0f, 1.0f), Vector2D(1.0f, 0.0f));
-	_VertexList[22] = SimpleVertex(Vector3D(1.0f, -1.0f, 1.0f), Vector4D(0.0f, 1.0f, 1.0f, 1.0f), Vector2D(1.0f, 1.0f));
-	_VertexList[23] = SimpleVertex(Vector3D(-1.0f, -1.0f, 1.0f), Vector4D(0.0f, 1.0f, 1.0f, 1.0f), Vector2D(0.0f, 1.0f));
+	_VertexList[20] = PNCT_VERTEX(Vector3D(-1.0f, -1.0f, -1.0f), Vector3D(0.0f, -1.0f, 0.0f), Vector4D(0.0f, 1.0f, 1.0f, 1.0f), Vector2D(0.0f, 0.0f));
+	_VertexList[21] = PNCT_VERTEX(Vector3D(1.0f, -1.0f, -1.0f), Vector3D(0.0f, -1.0f, 0.0f), Vector4D(0.0f, 1.0f, 1.0f, 1.0f), Vector2D(1.0f, 0.0f));
+	_VertexList[22] = PNCT_VERTEX(Vector3D(1.0f, -1.0f, 1.0f), Vector3D(0.0f, -1.0f, 0.0f), Vector4D(0.0f, 1.0f, 1.0f, 1.0f), Vector2D(1.0f, 1.0f));
+	_VertexList[23] = PNCT_VERTEX(Vector3D(-1.0f, -1.0f, 1.0f), Vector3D(0.0f, -1.0f, 0.0f), Vector4D(0.0f, 1.0f, 1.0f, 1.0f), Vector2D(0.0f, 1.0f));
 
 
 	_InitVertexList = _VertexList;

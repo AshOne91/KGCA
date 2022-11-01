@@ -14,4 +14,5 @@ public:
 	virtual bool Frame() final;
 	virtual bool Render() final;
 	virtual bool Release() final;
+	void ClearD3D11DeviceContext(ID3D11DeviceContext* pd3dDeviceContext);
 };

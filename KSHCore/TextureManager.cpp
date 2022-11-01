@@ -19,10 +19,11 @@ Texture* TextureManager::Load(const std::wstring& name)
 		if (SUCCEEDED(hr))
 		{
 			_List.insert(std::make_pair(name, pNewData));
+			return pNewData;
 		}
 	}
-
-	return pNewData;
+	delete pNewData;
+	return nullptr;
 }
 
 Texture* TextureManager::Find(const std::wstring& name)

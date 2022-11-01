@@ -1,5 +1,60 @@
 #include "Sample.h"
 
+void Sample::ClearD3D11DeviceContext(ID3D11DeviceContext* pd3dDeviceContext)
+{
+	// Unbind all objects from the immediate context
+	if (pd3dDeviceContext == NULL) return;
+
+	ID3D11ShaderResourceView* pSRVs[16] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	ID3D11RenderTargetView* pRTVs[16] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	ID3D11DepthStencilView* pDSV = NULL;
+	ID3D11Buffer* pBuffers[16] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	ID3D11SamplerState* pSamplers[16] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	UINT StrideOffset[16] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+
+	// Shaders
+	//pd3dDeviceContext->VSSetShader(NULL, NULL, 0);
+	//pd3dDeviceContext->HSSetShader(NULL, NULL, 0);
+	//pd3dDeviceContext->DSSetShader(NULL, NULL, 0);
+	//pd3dDeviceContext->GSSetShader(NULL, NULL, 0);
+	//pd3dDeviceContext->PSSetShader(NULL, NULL, 0);
+
+	//// IA clear
+	//pd3dDeviceContext->IASetVertexBuffers(0, 16, pBuffers, StrideOffset, StrideOffset);
+	//pd3dDeviceContext->IASetIndexBuffer(NULL, DXGI_FORMAT_R16_UINT, 0);
+	//pd3dDeviceContext->IASetInputLayout(NULL);
+
+	//// Constant buffers
+	//pd3dDeviceContext->VSSetConstantBuffers(0, 14, pBuffers);
+	//pd3dDeviceContext->HSSetConstantBuffers(0, 14, pBuffers);
+	//pd3dDeviceContext->DSSetConstantBuffers(0, 14, pBuffers);
+	//pd3dDeviceContext->GSSetConstantBuffers(0, 14, pBuffers);
+	//pd3dDeviceContext->PSSetConstantBuffers(0, 14, pBuffers);
+
+	// Resources
+	pd3dDeviceContext->VSSetShaderResources(0, 16, pSRVs);
+	//pd3dDeviceContext->HSSetShaderResources(0, 16, pSRVs);
+	//pd3dDeviceContext->DSSetShaderResources(0, 16, pSRVs);
+	//pd3dDeviceContext->GSSetShaderResources(0, 16, pSRVs);
+	pd3dDeviceContext->PSSetShaderResources(0, 16, pSRVs);
+
+	//// Samplers
+	//pd3dDeviceContext->VSSetSamplers(0, 16, pSamplers);
+	//pd3dDeviceContext->HSSetSamplers(0, 16, pSamplers);
+	//pd3dDeviceContext->DSSetSamplers(0, 16, pSamplers);
+	//pd3dDeviceContext->GSSetSamplers(0, 16, pSamplers);
+	//pd3dDeviceContext->PSSetSamplers(0, 16, pSamplers);
+
+	//// Render targets
+	//pd3dDeviceContext->OMSetRenderTargets(8, pRTVs, pDSV);
+
+	//// States
+	//FLOAT blendFactor[4] = { 0,0,0,0 };
+	//pd3dDeviceContext->OMSetBlendState(NULL, blendFactor, 0xFFFFFFFF);
+	//pd3dDeviceContext->OMSetDepthStencilState(NULL, 0);
+	//pd3dDeviceContext->RSSetState(NULL);
+}
+
 bool Sample::Init()
 {
 	/*if (_FBXLoader.Init())
@@ -13,19 +68,19 @@ bool Sample::Init()
 	}
 	_fbxList.push_back(pFbxLoaderC);
 
-	/*TFbxLoader* pFbxLoaderA = new TFbxLoader;
+	FbxLoader* pFbxLoaderA = new FbxLoader;
 	if (pFbxLoaderA->Init())
 	{
 		pFbxLoaderA->Load("../../data/fbx/box.fbx");
 	}
-	m_fbxList.push_back(pFbxLoaderA);
+	_fbxList.push_back(pFbxLoaderA);
 
-	TFbxLoader* pFbxLoaderB = new TFbxLoader;
+	FbxLoader* pFbxLoaderB = new FbxLoader;
 	if (pFbxLoaderB->Init())
 	{
 		pFbxLoaderB->Load("../../data/fbx/sm_rock.fbx");
 	}
-	m_fbxList.push_back(pFbxLoaderB);*/
+	_fbxList.push_back(pFbxLoaderB);
 
 	W_STR szDefaultDir = L"../../data/fbx/";
 	std::wstring shaderfilename = L"../../data/shader/DefaultObject.txt";
@@ -36,24 +91,7 @@ bool Sample::Init()
 		{
 			KFbxObject* pObj = fbx->_pDrawObjList[iObj];
 			std::wstring szLoad = szDefaultDir + pObj->_szTextureName;
-			if (pObj->vbDataList.size() == 0)
-			{
-				pObj->Create(_pd3dDevice.Get(), _pImmediateContext.Get(), shaderfilename, szLoad);
-			}
-			else
-			{
-				for (int iSubObj = 0; iSubObj < pObj->vbDataList.size(); ++iSubObj)
-				{
-					KFbxObject* pSubObj = new KFbxObject;
-					std::wstring szSubLoad = szDefaultDir + pObj->vbTexList[iSubObj];
-					if (pObj->vbDataList[iSubObj].size() != 0)
-					{
-						pSubObj->_VertexList = pObj->vbDataList[iSubObj];
-						pSubObj->Create(_pd3dDevice.Get(), _pImmediateContext.Get(), shaderfilename, szSubLoad);
-						pObj->_pDrawChild.push_back(pSubObj);
-					}
-				}
-			}
+			pObj->Create(_pd3dDevice.Get(), _pImmediateContext.Get(), shaderfilename, szLoad);
 		}
 	}
 
@@ -65,6 +103,7 @@ bool Sample::Init()
 
 bool Sample::Frame()
 {
+	ClearD3D11DeviceContext(_pImmediateContext.Get());
 	//_FBXLoader.Frame();
 	_pMainCamera->Frame();
 	for (auto fbx : _fbxList)
@@ -80,33 +119,28 @@ bool Sample::Render()
 	{
 		_pImmediateContext->RSSetState(DxState::g_pDefaultRSWireFrame);
 	}
+
+	Vector3D vLight(0, 0, 1);
+	Matrix matRotation;
+	matRotation.RotationY(g_fGameTimer);
+	vLight = vLight * matRotation;
+	vLight.Normalized();
+
 	for (int iModel = 0; iModel < _fbxList.size(); ++iModel)
 	{
 		for (int iObj = 0; iObj < _fbxList[iModel]->_pDrawObjList.size(); ++iObj)
 		{
 			KFbxObject* pObj = _fbxList[iModel]->_pDrawObjList[iObj];
-			if (pObj->_pDrawChild.size() == 0)
-			{
-				Matrix matWorld;
-				matWorld._41 = 100 * iModel;
-				pObj->SetMatrix(nullptr,
-					&_pMainCamera->_matView,
-					&_pMainCamera->_matProj);
-				pObj->Render();
-			}
-			else
-			{
-				for (int iSubObj = 0; iSubObj < pObj->_pDrawChild.size(); ++iSubObj)
-				{
-					KFbxObject* pSubObj = pObj->_pDrawChild[iSubObj];
-					Matrix matWorld;
-					matWorld._41 = 100 * iModel;
-					pSubObj->SetMatrix(&matWorld,
-						&_pMainCamera->_matView,
-						&_pMainCamera->_matProj);
-					pSubObj->Render();
-				}
-			}
+			Matrix matWorld;
+			matWorld._41 = 100 * iModel;
+
+			pObj->_cbData.x = vLight.x;
+			pObj->_cbData.y = vLight.y;
+			pObj->_cbData.z = vLight.z;
+			pObj->SetMatrix(&matWorld,
+				&_pMainCamera->_matView,
+				&_pMainCamera->_matProj);
+			pObj->Render();
 		}
 	}
 
