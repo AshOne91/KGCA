@@ -18,7 +18,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DxRT.h">
+    <ClInclude Include="AshDxRT.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="AshVector.h">
@@ -36,9 +36,24 @@
     <ClInclude Include="AshSelect.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="AshWindow.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AshDevice.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AshBasisStd.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AshUtils.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AshDxHelper.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DxRT.cpp">
+    <ClCompile Include="AshDxRT.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="AshVector.cpp">
@@ -55,6 +70,12 @@
     </ClCompile>
     <ClCompile Include="AshSelect.cpp">
       <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="AshWindow.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="AshDevice.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

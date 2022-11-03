@@ -24,18 +24,18 @@
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 
-namespace TBASIS_EX
+namespace AshBASIS_EX
 {
-	struct TVector2;
-	struct TVector3;
-	struct TVector4;
-	struct TMatrix;
-	struct TQuaternion;
-	struct TPlane;
+	struct AshVector2;
+	struct AshVector3;
+	struct AshVector4;
+	struct AshMatrix;
+	struct AshQuaternion;
+	struct AshPlane;
 
 	//------------------------------------------------------------------------------
 	// 2D rectangle
-	struct TRectangle
+	struct AshRectangle
 	{
 		long x;
 		long y;
