@@ -65,37 +65,58 @@ bool FbxLoader::Load(C_STR filename)
     _pRootNode = _pFbxScene->GetRootNode();
     PreProcess(_pRootNode);
 
-    for (auto mesh : _pFbxMeshList)
+    for (auto kObj : _pObjectList)
     {
-        ParseMesh(mesh);
+        if (kObj->_pFbxParentNode != nullptr)
+        {
+            auto data = _pObjectMap.find(kObj->_pFbxParentNode);
+            kObj->SetParent(data->second);
+        }
+        FbxMesh* pFbxMesh = kObj->_pFbxNode->GetMesh();
+        if (pFbxMesh)
+        {
+            _pFbxMeshList.push_back(pFbxMesh);
+            ParseMesh(pFbxMesh, kObj);
+        }
     }
     return true;
 }
 
 void FbxLoader::PreProcess(FbxNode* pFbxNode)
 {
+    //if (pFbxNode && (pFbxNode->GetCamera() || pFbxNode->GetLight())
     if (pFbxNode == nullptr)
     {
         return;
     }
-    FbxMesh* pFbxMesh = pFbxNode->GetMesh();
-    if (pFbxMesh)
-    {
-        _pFbxMeshList.push_back(pFbxMesh);
-    }
+
+    KFbxObject* pObject = new KFbxObject;
+    std::string name = pFbxNode->GetName();
+    pObject->_csName = to_mw(name);
+    pObject->_pFbxNode = pFbxNode;
+    pObject->_pFbxParentNode = pFbxNode->GetParent();
+
+    _pObjectList.push_back(pObject);
+    _pObjectMap.insert(std::make_pair(pFbxNode, pObject));
+
     int iNumChild = pFbxNode->GetChildCount();
     for (int iChild = 0; iChild < iNumChild; ++iChild)
     {
         FbxNode* pChild = pFbxNode->GetChild(iChild);
-        PreProcess(pChild);
+        // 헬퍼오브젝트 + 지오메트리 오브젝트
+        FbxNodeAttribute::EType type = pChild->GetNodeAttribute()->GetAttributeType();
+        if (type == FbxNodeAttribute::eMesh ||
+            type == FbxNodeAttribute::eSkeleton ||
+            type == FbxNodeAttribute::eNull)
+        {
+            PreProcess(pChild);
+        }
     }
 }
 
-void FbxLoader::ParseMesh(FbxMesh* pFbxMesh)
+void FbxLoader::ParseMesh(FbxMesh* pFbxMesh, KFbxObject* pObject)
 {
     FbxNode* pNode = pFbxMesh->GetNode();
-    KFbxObject* pObject = new KFbxObject;
-
     FbxAMatrix geom; // 기하(로칼)행렬(초기 정점 위치를 변환할 때 사용한다.)
     FbxVector4 trans = pNode->GetGeometricTranslation(FbxNode::eSourcePivot);
     FbxVector4 rot = pNode->GetGeometricRotation(FbxNode::eSourcePivot);
@@ -139,7 +160,7 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh)
     {
         VertexUVSet = pFbxLayer->GetUVs();
     }
-    if (pFbxLayer->GetUVs() != nullptr)
+    if (pFbxLayer->GetVertexColors() != nullptr)
     {
         VertexColorSet = pFbxLayer->GetVertexColors();
     }
@@ -154,8 +175,8 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh)
 
     std::string szFileName;
     int iNumMtrl = pNode->GetMaterialCount();
-    std::vector<C_STR> texList;
-    texList.resize(iNumMtrl);
+    std::vector<C_STR> texFullNameList;
+    texFullNameList.resize(iNumMtrl);
 
     for (int iMtrl = 0; iMtrl < iNumMtrl; ++iMtrl)
     {
@@ -167,8 +188,11 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh)
             if (property.IsValid())
             {
                 const FbxFileTexture* tex = property.GetSrcObject<FbxFileTexture>(0);
-                szFileName = tex->GetFileName();
-                texList[iMtrl] = szFileName;
+                if (tex)
+                {
+                    szFileName = tex->GetFileName();
+                    texFullNameList[iMtrl] = szFileName;
+                }
             }
         }
     }
@@ -183,7 +207,7 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh)
         pObject->vbTexList.resize(iNumMtrl);
         for (int iTex = 0; iTex < iNumMtrl; ++iTex)
         {
-            pObject->vbTexList[iTex] = I_Tex.GetSplitName(texList[iTex]);
+            pObject->vbTexList[iTex] = I_Tex.GetSplitName(texFullNameList[iTex]);
         }
     }
 

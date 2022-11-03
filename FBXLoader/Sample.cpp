@@ -71,7 +71,7 @@ bool Sample::Init()
 	FbxLoader* pFbxLoaderA = new FbxLoader;
 	if (pFbxLoaderA->Init())
 	{
-		pFbxLoaderA->Load("../../data/fbx/box.fbx");
+		pFbxLoaderA->Load("../../data/fbx/Turret_Deploy1/Turret_Deploy1.fbx");
 	}
 	_fbxList.push_back(pFbxLoaderA);
 

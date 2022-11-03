@@ -150,10 +150,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="FbxLoader.h" />
+    <ClInclude Include="KFbxObject.h" />
     <ClInclude Include="Sample.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FbxLoader.cpp" />
+    <ClCompile Include="KFbxObject.cpp" />
     <ClCompile Include="Sample.cpp" />
   </ItemGroup>
   <ItemGroup>

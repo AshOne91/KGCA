@@ -4,6 +4,9 @@
 class Object3D : public BaseObject
 {
 public:
+	W_STR _csName;
+
+public:
 	Vector3D _vPos;
 	Vector3D _vLook; // z axis
 	Vector3D _vUp;	 // y
