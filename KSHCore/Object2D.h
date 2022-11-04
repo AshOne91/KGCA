@@ -16,29 +16,29 @@ public:
 	POINT _ptImageSize;
 	Rect _rtInit;
 	Rect _rtUV;
-	Vector2D _vPos;
-	Vector2D _vDir;
+	TVector2 _vPos;
+	TVector2 _vDir;
 	float _fSpeed = 100.0f;
-	Vector2D _vNDCPos;
-	Vector2D _vDrawSize;
-	Vector2D _vBeforePos;
-	Vector2D _vOffsetPos;
+	TVector2 _vNDCPos;
+	TVector2 _vDrawSize;
+	TVector2 _vBeforePos;
+	TVector2 _vOffsetPos;
 	bool _bAlpha = true;
 
 public:
-	Vector2D _vCameraPos;
-	Vector2D _vViewSize;
-	virtual void SetCameraPos(const Vector2D& vCamera);
-	virtual void SetCameraSize(const Vector2D& vSize);
+	TVector2 _vCameraPos;
+	TVector2 _vViewSize;
+	virtual void SetCameraPos(const TVector2& vCamera);
+	virtual void SetCameraSize(const TVector2& vSize);
 	virtual void ScreenToNDC();
-	virtual void ScreenToCamera(const Vector2D& vCameraPos, const Vector2D& vViewPort);
+	virtual void ScreenToCamera(const TVector2& vCameraPos, const TVector2& vViewPort);
 
 public:
 	bool Frame() override;
 	virtual void SetRect(const Rect& rt);
-	virtual void SetPosition(const Vector2D& vPos);
-	virtual void SetPosition(const Vector2D& vPos, const Vector2D& vCamera);
-	virtual void SetDirection(const Vector2D& vDir);
+	virtual void SetPosition(const TVector2& vPos);
+	virtual void SetPosition(const TVector2& vPos, const TVector2& vCamera);
+	virtual void SetDirection(const TVector2& vDir);
 	virtual void UpdateVertexBuffer() override;
 	virtual void UpdateVertexBufferFlip();
 	virtual void SetMask(Texture* pMaskTex);

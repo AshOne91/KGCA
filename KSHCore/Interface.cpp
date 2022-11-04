@@ -130,7 +130,7 @@ bool Interface::SetTextureState(const std::vector<W_STR>& texStateList)
     return true;
 }
 
-bool Interface::SetAttribute(const Vector2D& vPos, const Rect& rt, Sprite* pSprite)
+bool Interface::SetAttribute(const TVector2& vPos, const Rect& rt, Sprite* pSprite)
 {
     Init();
     SetRect(rt);
@@ -144,7 +144,7 @@ bool Interface::SetAttribute(const Vector2D& vPos, const Rect& rt, Sprite* pSpri
     return true;
 }
 
-bool Interface::SetAttribute(const Vector2D& vPos, const Rect& rt, const std::vector<W_STR>& texStateList)
+bool Interface::SetAttribute(const TVector2& vPos, const Rect& rt, const std::vector<W_STR>& texStateList)
 {
     Init();
     SetRect(rt);
@@ -153,7 +153,7 @@ bool Interface::SetAttribute(const Vector2D& vPos, const Rect& rt, const std::ve
     return true;
 }
 
-bool Interface::SetAttribute(const Vector2D& vPos, const std::vector<W_STR>& texStateList)
+bool Interface::SetAttribute(const TVector2& vPos, const std::vector<W_STR>& texStateList)
 {
     Init();
     _ptImageSize.x = _pTexture->_Desc.Width;
@@ -177,7 +177,7 @@ bool Interface::SetDrawList(float fScaleX0, float fScaleX1, float fScaleY0, floa
     }
 
     Rect rt = _rtCollision;
-    Vector2D  vCenter = _vPos;
+    TVector2  vCenter = _vPos;
     float fX[4];
     fX[0] = _rtCollision.x1;
     fX[1] = fX[0] + _rtCollision.w * fScaleX0;
@@ -326,7 +326,7 @@ bool ListControl::Frame()
 {
     for (auto data : _pChildList)
     {
-        Vector2D pos = data->_vPos + _vOffsetPos;
+        TVector2 pos = data->_vPos + _vOffsetPos;
         data->SetPosition(pos);
         data->Frame();
     }
@@ -383,12 +383,12 @@ bool Dialog::Frame()
 
     for (int iSub = 0; iSub < _rtDrawList.size(); iSub++)
     {
-        Vector2D pos = _rtDrawList[iSub]->_vPos + _vOffsetPos;
+        TVector2 pos = _rtDrawList[iSub]->_vPos + _vOffsetPos;
         _rtDrawList[iSub]->SetPosition(pos);
     }
     for (int iChild = 0; iChild < _pChildList.size(); iChild++)
     {
-        Vector2D pos = _pChildList[iChild]->_vPos + _vOffsetPos;
+        TVector2 pos = _pChildList[iChild]->_vPos + _vOffsetPos;
         _pChildList[iChild]->SetPosition(pos);
         _pChildList[iChild]->Frame();
     }

@@ -2,12 +2,13 @@
 #include "Input.h"
 #include "TMath.h"
 
-void CameraDebug::CreateViewMatrix(Vector3D vEye, Vector3D vAt, Vector3D vUp)
+void CameraDebug::CreateViewMatrix(TVector3 vEye, TVector3 vAt, TVector3 vUp)
 {
 	_vPos = vEye;
 	_vTarget = vAt;
 	_vUp = vUp;
-	_matView.ViewLookAt(vEye, vAt, vUp);
+	D3DXMatrixLookAtLH(&_matView, &vEye, &vAt, &vUp);
+	//_matView.ViewLookAt(vEye, vAt, vUp);
 }
 
 void CameraDebug::CreateProjMatrix(float fNear, float fFar, float fFovY, float fAspectRatio)
@@ -16,7 +17,8 @@ void CameraDebug::CreateProjMatrix(float fNear, float fFar, float fFovY, float f
 	_fFar = fFar;
 	_fFovY = fFovY;
 	_fAspectRatio = fAspectRatio;
-	PerspectiveFovLH(_matProj, _fNear, _fFar, _fFovY, _fAspectRatio);
+	D3DXMatrixPerspectiveFovLH(&_matProj, fFovY, fAspectRatio, fNear, fFar);
+	//PerspectiveFovLH(_matProj, _fNear, _fFar, _fFovY, _fAspectRatio);
 	//matProj.OrthoLH(800, 600, 0.0f, 100.0f);
 	//OrthoOffCenterLH(matProj ,-400, 400, -300, 300, 0.0f, 100.0f);
 }
@@ -42,32 +44,32 @@ bool CameraDebug::Frame()
 
 	if (I_Input.GetKey('W') == KEY_HOLD)
 	{
-		Vector3D v = _vLook * _fSpeed * g_fSecondPerFrame;
+		TVector3 v = _vLook * _fSpeed * g_fSecondPerFrame;
 		_vPos += v;
 	}
 	if (I_Input.GetKey('S') == KEY_HOLD)
 	{
-		Vector3D v = _vLook * -_fSpeed * g_fSecondPerFrame;
+		TVector3 v = _vLook * -_fSpeed * g_fSecondPerFrame;
 		_vPos += v;
 	}
 	if (I_Input.GetKey('A') == KEY_HOLD)
 	{
-		Vector3D v = _vRight * -_fSpeed * g_fSecondPerFrame;
+		TVector3 v = _vRight * -_fSpeed * g_fSecondPerFrame;
 		_vPos += v;
 	}
 	if (I_Input.GetKey('D') == KEY_HOLD)
 	{
-		Vector3D v = _vRight * _fSpeed * g_fSecondPerFrame;
+		TVector3 v = _vRight * _fSpeed * g_fSecondPerFrame;
 		_vPos += v;
 	}
 	if (I_Input.GetKey('Q') == KEY_HOLD)
 	{
-		Vector3D v = _vUp * _fSpeed * g_fSecondPerFrame;
+		TVector3 v = _vUp * _fSpeed * g_fSecondPerFrame;
 		_vPos += v;
 	}
 	if (I_Input.GetKey('E') == KEY_HOLD)
 	{
-		Vector3D v = _vUp * -_fSpeed * g_fSecondPerFrame;
+		TVector3 v = _vUp * -_fSpeed * g_fSecondPerFrame;
 		_vPos += v;
 	}
 
@@ -85,7 +87,7 @@ bool CameraDebug::Frame()
 	TBASIS_EX::D3DXQuaternionRotationYawPitchRoll(&m_qRotation, _fYaw, _fPitch, _fRoll);
 	TBASIS_EX::D3DXMatrixAffineTransformation(&matWorld, 1.0f, NULL, &m_qRotation, &vPos);
 	TBASIS_EX::D3DXMatrixInverse(&matView, NULL, &matWorld);
-	_matView = *((Matrix*)&matView);
+	_matView = *((TMatrix*)&matView);
 
 	//////////////////////////// Model View////////////////////////////
 	/*TVector vLocalUp = { 0.0f, 1.0f, 0.0f };
@@ -120,9 +122,13 @@ void CameraDebug::Update()
 	_vLook.y = _matView._23;
 	_vLook.z = _matView._33;
 
-	_vRight.Normalized();
-	_vUp.Normalized();
-	_vLook.Normalized();
+	//_vRight.Normalized();
+	//_vUp.Normalized();
+	//_vLook.Normalized();
+
+	D3DXVec3Normalize(&_vRight, &_vRight);
+	D3DXVec3Normalize(&_vUp, &_vUp);
+	D3DXVec3Normalize(&_vLook, &_vLook);
 
 	_vFrustum.CreateFrustum(&_matView, &_matProj);
 }

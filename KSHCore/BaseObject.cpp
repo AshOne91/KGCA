@@ -128,13 +128,19 @@ namespace KDX
 
     void BaseObject::CreateConstantData()
     {
-        _cbData.matWorld.Identity();
-        _cbData.matView.Identity();
-        _cbData.matProj.Identity();
+        //_cbData.matWorld.Identity();
+        //_cbData.matView.Identity();
+        //_cbData.matProj.Identity();
+        D3DXMatrixIdentity(&_cbData.matWorld);
+        D3DXMatrixIdentity(&_cbData.matView);
+        D3DXMatrixIdentity(&_cbData.matProj);
         _cbData.fTimer = 0.0f;
-        _cbData.matWorld.Transpose();
-        _cbData.matView.Transpose();
-        _cbData.matProj.Transpose();
+        //_cbData.matWorld.Transpose();
+        //_cbData.matView.Transpose();
+        //_cbData.matProj.Transpose();
+        D3DXMatrixTranspose(&_cbData.matWorld, &_cbData.matWorld);
+        D3DXMatrixTranspose(&_cbData.matView, &_cbData.matView);
+        D3DXMatrixTranspose(&_cbData.matProj, &_cbData.matProj);
     }
 
     HRESULT BaseObject::CreateVertexBuffer()
@@ -400,16 +406,16 @@ namespace KDX
 
     void BaseObject::Rotation()
     {
-        Vector3D vCenter;
+        TVector3 vCenter;
         vCenter.x = (_VertexList[1].p.x + _VertexList[0].p.x) / 2.0f;
         vCenter.y = (_VertexList[2].p.y + _VertexList[0].p.y) / 2.0f;
 
         float fDegree = _fAngleDegree;
         float fRadian = DegreeToRadian(fDegree);
-        Vector3D vRot;
+        TVector3 vRot;
         for (int vertex = 0; vertex < 4; ++vertex)
         {
-            Vector3D vCenterMove = _VertexList[vertex].p - vCenter;
+            TVector3 vCenterMove = _VertexList[vertex].p - vCenter;
             vRot.x = vCenterMove.x * cos(fRadian) - vCenterMove.y * sin(fRadian);
             vRot.y = vCenterMove.x * sin(fRadian) + vCenterMove.y * cos(fRadian);
             _VertexList[vertex].p = vRot + vCenter;
@@ -429,7 +435,7 @@ namespace KDX
         return true;
     }
 
-    void BaseObject::SetMatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj)
+    void BaseObject::SetMatrix(TMatrix* matWorld, TMatrix* matView, TMatrix* matProj)
     {
         if (matWorld != nullptr)
         {

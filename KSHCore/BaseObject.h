@@ -6,11 +6,11 @@
 
 struct SimpleVertex
 {
-	Vector3D p;
-	Vector4D c;
-	Vector2D t;
+	TVector3 p;
+	TVector4 c;
+	TVector2 t;
 	SimpleVertex() {}
-	SimpleVertex(Vector3D vp, Vector4D vc, Vector2D vt)
+	SimpleVertex(TVector3 vp, TVector4 vc, TVector2 vt)
 	{
 		p = vp;
 		c = vc;
@@ -19,12 +19,12 @@ struct SimpleVertex
 };
 struct PNCT_VERTEX
 {
-	Vector3D p;
-	Vector3D n;
-	Vector4D c;
-	Vector2D t;
+	TVector3 p;
+	TVector3 n;
+	TVector4 c;
+	TVector2 t;
 	PNCT_VERTEX() {}
-	PNCT_VERTEX(Vector3D vp, Vector3D vn, Vector4D vc, Vector2D vt)
+	PNCT_VERTEX(TVector3 vp, TVector3 vn, TVector4 vc, TVector2 vt)
 	{
 		p = vp;
 		n = vn;
@@ -38,9 +38,9 @@ struct PNCT_VERTEX
 //쉐이더에서 cbuffer 시멘틱을 사용함 각 변수들은 전역변수 처럼 간단히 사용하게 됨
 struct VS_CONSTANT_BUFFER
 {
-	Matrix matWorld;
-	Matrix matView;
-	Matrix matProj;
+	TMatrix matWorld;
+	TMatrix matView;
+	TMatrix matProj;
 	float x;
 	float y;
 	float z;
@@ -54,9 +54,9 @@ namespace KDX
 	{
 	public:
 		bool _IsNullable = true;
-		Matrix _matWorld;
-		Matrix _matView;
-		Matrix _matProj;
+		TMatrix _matWorld;
+		TMatrix _matView;
+		TMatrix _matProj;
 		DWORD _dwFace;
 
 	public:
@@ -109,7 +109,7 @@ namespace KDX
 		virtual bool Render();
 		virtual bool PostRender();
 		virtual bool Release();
-		virtual void SetMatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj);
+		virtual void SetMatrix(TMatrix* matWorld, TMatrix* matView, TMatrix* matProj);
 
 	public:
 		BaseObject()

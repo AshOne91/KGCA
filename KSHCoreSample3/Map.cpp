@@ -54,7 +54,7 @@ bool Map::UpdateBuffer(CameraDebug* pMainCamera)
 {
     _dwFace = 0;
     DWORD index = 0;
-    Vector3D v[3];
+    TVector3 v[3];
     for (int iFace = 0; iFace < _IndexList.size() / 3; ++iFace)
     {
         UINT i0 = _IndexList[iFace * 3 + 0];

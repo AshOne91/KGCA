@@ -48,9 +48,9 @@ public:
 	}
 	virtual void AddChild(Interface* pUI);
 	virtual bool SetTextureState(const std::vector<W_STR>& texStateList);
-	virtual bool SetAttribute(const Vector2D& vPos, const Rect& rt, const std::vector<W_STR>& texStateList = {});
-	virtual bool SetAttribute(const Vector2D& vPos, const Rect& rt, Sprite* pSprite);
-	virtual bool SetAttribute(const Vector2D& vPos, const std::vector<W_STR>& texStateList = std::vector<W_STR>());
+	virtual bool SetAttribute(const TVector2& vPos, const Rect& rt, const std::vector<W_STR>& texStateList = {});
+	virtual bool SetAttribute(const TVector2& vPos, const Rect& rt, Sprite* pSprite);
+	virtual bool SetAttribute(const TVector2& vPos, const std::vector<W_STR>& texStateList = std::vector<W_STR>());
 	virtual bool SetDrawList(
 		float fScaleX0, float fScaleX1,
 		float fScaleY0, float fScaleY1,

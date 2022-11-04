@@ -12,7 +12,7 @@ public:
 	Camera* _pMainCamera = nullptr;
 
 public:
-	Vector2D _vCamera = { 0,0 };
+	TVector2 _vCamera = { 0,0 };
 	User2D* _pUser;
 	Rect _rtMap = { -1000.0f, -1000.0f, 2000.0f, 2000.0f };
 

@@ -18,12 +18,12 @@
     return test;
 }*/
 
-void Object2D::SetCameraPos(const Vector2D& vCamera)
+void Object2D::SetCameraPos(const TVector2& vCamera)
 {
     _vCameraPos = vCamera;
 }
 
-void Object2D::SetCameraSize(const Vector2D& vSize)
+void Object2D::SetCameraSize(const TVector2& vSize)
 {
     _vViewSize = vSize;
 }
@@ -36,7 +36,7 @@ void Object2D::ScreenToNDC()
     //_vDrawSize.x = (_rtInit.w / g_rtClient.right) * 2.0f;
     //_vDrawSize.y = (_rtInit.h / g_rtClient.bottom) * 2.0f;
 
-    Vector2D vDrawSize;
+    TVector2 vDrawSize;
     vDrawSize.x = _rtInit.w / 2.0f;
     vDrawSize.y = _rtInit.h / 2.0f;
     _rtCollision.Set(
@@ -52,11 +52,11 @@ void Object2D::ScreenToNDC()
 }
 
 // 월드좌표 -> 뷰 좌표 -> NDC 좌표
-void Object2D::ScreenToCamera(const Vector2D& vCameraPos, const Vector2D& vViewPort)
+void Object2D::ScreenToCamera(const TVector2& vCameraPos, const TVector2& vViewPort)
 {
     //// 0  ~ 800   -> 0~1 ->  -1 ~ +1
-    Vector2D vPos = _vPos;
-    Vector2D vDrawSize;
+    TVector2 vPos = _vPos;
+    TVector2 vDrawSize;
     vDrawSize.x = _rtInit.w / 2.0f;
     vDrawSize.y = _rtInit.h / 2.0f;
     _rtCollision.Set(
@@ -74,7 +74,7 @@ void Object2D::ScreenToCamera(const Vector2D& vCameraPos, const Vector2D& vViewP
     _vDrawSize.y = (_rtInit.h / vViewPort.y) * 2.0f;
 }
 
-void Object2D::SetPosition(const Vector2D& vPos, const Vector2D& vCamera)
+void Object2D::SetPosition(const TVector2& vPos, const TVector2& vCamera)
 {
     _vBeforePos = _vPos;
     _vPos = vPos;
@@ -123,7 +123,7 @@ void Object2D::SetRect(const Rect& rt)
 }
 
 // 화면 좌표 -> NDC(Noramlize Device Coordinate)이며, 이 공간은 투영(Projection) 행렬에 정의
-void Object2D::SetPosition(const Vector2D& vPos)
+void Object2D::SetPosition(const TVector2& vPos)
 {
     _vBeforePos = _vPos;
     _vPos = vPos;
@@ -132,7 +132,7 @@ void Object2D::SetPosition(const Vector2D& vPos)
     _vOffsetPos = _vPos - _vBeforePos;
 }
 
-void Object2D::SetDirection(const Vector2D& vDir)
+void Object2D::SetDirection(const TVector2& vDir)
 {
     _vDir = vDir;
 }

@@ -4,8 +4,8 @@
 class Effect2D
 {
 public:
-	Vector2D   _vPos;
-	Vector2D   _vDir = { 0,-1 };
+	TVector2   _vPos;
+	TVector2   _vDir = { 0,-1 };
 	float		_fLifeTime = 1.33f;
 	float		_fSpeed = 300.0f;
 	UINT		_iIndex = 0;

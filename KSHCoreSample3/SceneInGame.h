@@ -6,14 +6,14 @@
 class SceneInGame : public Scene
 {
 public:
-	Vector2D		_vCamera;
+	TVector2		_vCamera;
 	MapObject* _pMap;
 	User2D* _pUser;
 	std::list<Effect2D*>		_pEffectList;
 	std::list<Npc2D*>		_pNpcList;
 	std::list<Projectile2D*>  _Projectile;
 public:
-	void AddProjectile(Vector2D pos);
+	void AddProjectile(TVector2 pos);
 	void AddEffect();
 	void AddEffect(float x, float y);
 public:

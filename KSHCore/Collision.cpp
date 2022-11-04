@@ -104,7 +104,7 @@ CollisionType   Collision::BoxToBox(const Box& a, const Box& b)
             if ((a.vSize.z + b.vSize.z) >= (fMaxZ - fMinZ))
             {
                 // 교차한다. 교집합
-                Vector3D vMin, vMax;
+                TVector3 vMin, vMax;
                 Box Intersect;
                 vMin.x = a.vMin.x > b.vMin.x ? a.vMin.x : b.vMin.x;
                 vMin.y = a.vMin.y > b.vMin.y ? a.vMin.y : b.vMin.y;
@@ -128,9 +128,20 @@ CollisionType   Collision::BoxToBox(const Box& a, const Box& b)
 bool   Collision::BoxToInBox(const Box& a, const Box& b)
 {
     //  |             |
-    if (a.vMin <= b.vMin)
+    //if (a.vMin <= b.vMin)
+    //{
+    //    if (a.vMax >= b.vMax)
+    //    {
+    //        return true;
+    //    }
+    //}
+    if (a.vMin.x <= b.vMin.x &&
+        a.vMin.y <= b.vMin.y &&
+        a.vMin.z <= b.vMin.z)
     {
-        if (a.vMax >= b.vMax)
+        if (a.vMax.x >= b.vMax.x &&
+            a.vMax.x >= b.vMax.x &&
+            a.vMax.x >= b.vMax.x)
         {
             return true;
         }
@@ -140,7 +151,7 @@ bool   Collision::BoxToInBox(const Box& a, const Box& b)
 bool             Collision::SphereToSphere(const Sphere& a, const Sphere& b)
 {
     float fSumRadius = a.fRadius + b.fRadius;
-    Vector3D vDir = a.vCenter - b.vCenter;
+    TVector3 vDir = a.vCenter - b.vCenter;
     float fDistance = vDir.Length();
     if (fDistance <= fSumRadius)
     {

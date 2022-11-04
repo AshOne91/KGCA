@@ -4,13 +4,13 @@
 class Object3D : public BaseObject
 {
 public:
-	W_STR _csName;
+	W_STR _szName;
 
 public:
-	Vector3D _vPos;
-	Vector3D _vLook; // z axis
-	Vector3D _vUp;	 // y
-	Vector3D _vRight;// z
+	TVector3 _vPos;
+	TVector3 _vLook; // z axis
+	TVector3 _vUp;	 // y
+	TVector3 _vRight;// z
 	K_BOX _BoxCollision;
 
 public:
@@ -30,7 +30,7 @@ public:
 	bool Frame() override;
 	bool Render() override;
 	bool Release() override;
-	virtual void SetMatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj);
+	virtual void SetMatrix(TMatrix* matWorld, TMatrix* matView, TMatrix* matProj);
 
 public:
 	virtual void CreateVertexData() override;

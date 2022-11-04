@@ -14,6 +14,12 @@ bool Sample::Init()
 		((SceneTitle*)_pCurrentScene.get())->_pMainCamera,
 		((SceneTitle*)_pCurrentScene.get())->_pMap);
 
+	//std::wstring shaderfilename = L"DefaultShape.txt";
+	//m_DirLine.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get(), shaderfilename,
+	//	L"../../data/gameHeight.png");
+
+	////m_DirLine.m_matWorld.Scale(1000.0f, 1000.0f, 1000.0f);
+	//D3DXMatrixScaling(&m_DirLine.m_matWorld, 1000.0f, 1000.0f, 1000.0f);
 	return true;
 }
 bool Sample::Frame()

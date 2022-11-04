@@ -61,12 +61,12 @@ bool Sample::Init()
 	{
 		_FBXLoader.Load("../../data/fbx/box.fbx");
 	}*/
-	FbxLoader* pFbxLoaderC = new FbxLoader;
+	/*FbxLoader* pFbxLoaderC = new FbxLoader;
 	if (pFbxLoaderC->Init())
 	{
 		pFbxLoaderC->Load("../../data/fbx/MultiCameras.fbx");
 	}
-	_fbxList.push_back(pFbxLoaderC);
+	_fbxList.push_back(pFbxLoaderC);*/
 
 	FbxLoader* pFbxLoaderA = new FbxLoader;
 	if (pFbxLoaderA->Init())
@@ -75,12 +75,12 @@ bool Sample::Init()
 	}
 	_fbxList.push_back(pFbxLoaderA);
 
-	FbxLoader* pFbxLoaderB = new FbxLoader;
+	/*FbxLoader* pFbxLoaderB = new FbxLoader;
 	if (pFbxLoaderB->Init())
 	{
 		pFbxLoaderB->Load("../../data/fbx/sm_rock.fbx");
 	}
-	_fbxList.push_back(pFbxLoaderB);
+	//_fbxList.push_back(pFbxLoaderB);*/
 
 	W_STR szDefaultDir = L"../../data/fbx/";
 	std::wstring shaderfilename = L"../../data/shader/DefaultObject.txt";
@@ -96,8 +96,9 @@ bool Sample::Init()
 	}
 
 	_pMainCamera = new CameraDebug;
-	_pMainCamera->CreateViewMatrix(Vector3D(50, 6, -50), Vector3D(0, 6, 0), Vector3D(0, 1, 0));
-	_pMainCamera->CreateProjMatrix(1.0f, 1000.0f, PI * 0.25f, (float)g_rtClient.right / (float)g_rtClient.bottom);
+	_pMainCamera->CreateViewMatrix(TVector3(0, 6, -50), TVector3(0, 0, 0), TVector3(0, 1, 0));
+	_pMainCamera->CreateProjMatrix(1.0f, 10000.0f, PI * 0.25f, 
+		(float)g_rtClient.right / (float)g_rtClient.bottom);
 	return true;
 }
 
@@ -120,20 +121,33 @@ bool Sample::Render()
 		_pImmediateContext->RSSetState(DxState::g_pDefaultRSWireFrame);
 	}
 
-	Vector3D vLight(0, 0, 1);
-	Matrix matRotation;
-	matRotation.RotationY(g_fGameTimer);
-	vLight = vLight * matRotation;
-	vLight.Normalized();
-
+	TVector3 vLight(0, 0, 1);
+	TMatrix matRotation;
+	//matRotation.RotationY(g_fGameTimer);
+	D3DXMatrixRotationY(&matRotation, g_fGameTimer);
+	//vLight = vLight * matRotation;
+	D3DXVec3TransformCoord(&vLight, &vLight, &matRotation);
+	//vLight.Normalized();
+	D3DXVec3Normalize(&vLight, &vLight);
 	for (int iModel = 0; iModel < _fbxList.size(); ++iModel)
 	{
 		for (int iObj = 0; iObj < _fbxList[iModel]->_pDrawObjList.size(); ++iObj)
 		{
 			KFbxObject* pObj = _fbxList[iModel]->_pDrawObjList[iObj];
-			Matrix matWorld;
-			matWorld._41 = 100 * iModel;
+			//Matrix matWorld;
+			//matWorld._41 = 100 * iModel;
+			pObj->_fAnimFrame = pObj->_fAnimFrame +
+				g_fSecondPerFrame * pObj->_fAnimSpeed *
+				pObj->_AnimScene.fFrameSpeed * pObj->_fAnimInverse;
+			if (pObj->_fAnimFrame > pObj->_AnimScene.iEndFrame ||
+				pObj->_fAnimFrame < pObj->_AnimScene.iStartFrame)
+			{
+				pObj->_fAnimFrame = min(pObj->_fAnimFrame, pObj->_AnimScene.iEndFrame);
+				pObj->_fAnimFrame = max(pObj->_fAnimFrame, pObj->_AnimScene.iStartFrame);
+				pObj->_fAnimInverse *= -1.0f;
+			}
 
+			TMatrix matWorld = pObj->_AnimTracks[pObj->_fAnimFrame].matAnim;
 			pObj->_cbData.x = vLight.x;
 			pObj->_cbData.y = vLight.y;
 			pObj->_cbData.z = vLight.z;

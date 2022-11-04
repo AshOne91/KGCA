@@ -20,7 +20,7 @@ void User2D::UpdateVertexBuffer()
 
 bool User2D::Frame()
 {
-    Vector2D vPos = _vPos;
+    TVector2 vPos = _vPos;
 
     if (I_Input.GetKey('P'))
     {

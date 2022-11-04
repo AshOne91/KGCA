@@ -17,14 +17,16 @@ bool SceneTitle::Init()
 
 	_pBoxObjA = new ObjectBox;
 	_pBoxObjA->Create(_pd3dDevice, _pImmediateContext, L"DefaultObject.txt", L"../../data/object/20200428_185613.jpg");
-	_pBoxObjA->_matWorld.Translation(0, 5, 0);
+	//_pBoxObjA->_matWorld.Translation(0, 5, 0);
+	D3DXMatrixTranslation(&_pBoxObjA->_matWorld, 0, 5, 0);
 
 	_pBoxObjB = new ObjectBox;
 	_pBoxObjB->Create(_pd3dDevice, _pImmediateContext, L"DefaultObject.txt", L"../../data/_RAINBOW.bmp");
-	_pBoxObjB->_matWorld.Translation(1, 5, 4);
+	//_pBoxObjB->_matWorld.Translation(1, 5, 4);
+	D3DXMatrixTranslation(&_pBoxObjB->_matWorld, 1, 5, 4);
 
 	_pMainCamera = new CameraDebug;
-	_pMainCamera->CreateViewMatrix(Vector3D(0, 30, -30), Vector3D(0, 0, 0), Vector3D(0, 1, 0));
+	_pMainCamera->CreateViewMatrix(TVector3(0, 30, -30), TVector3(0, 0, 0), TVector3(0, 1, 0));
 	_pMainCamera->CreateProjMatrix(1.0f, 1000.0f, PI * 0.25f,
 		(float)g_rtClient.right / (float)g_rtClient.bottom);
 

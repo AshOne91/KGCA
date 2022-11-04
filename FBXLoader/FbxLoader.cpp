@@ -5,11 +5,6 @@ bool FbxLoader::Init()
     _pFbxManager = FbxManager::Create();
     _pFbxImporter = FbxImporter::Create(_pFbxManager, "");
     _pFbxScene = FbxScene::Create(_pFbxManager, "");
-
-    // 단위
-    FbxSystemUnit::cm.ConvertScene(_pFbxScene);
-    // 기저(행렬)
-    FbxAxisSystem::MayaZUp.ConvertScene(_pFbxScene);
     return true;
 }
 
@@ -58,6 +53,11 @@ bool FbxLoader::Load(C_STR filename)
 {
     _pFbxImporter->Initialize(filename.c_str());
     _pFbxImporter->Import(_pFbxScene);
+    // 단위
+    FbxSystemUnit::m.ConvertScene(_pFbxScene);
+    // 기저(행렬)
+    FbxAxisSystem::MayaZUp.ConvertScene(_pFbxScene);
+
     //FbxGeometryConverter converter(_pFbxmanager);
     // 면 -> 삼각형으로
     //converter.Triangulate(_pFbxScene, true);
@@ -72,6 +72,7 @@ bool FbxLoader::Load(C_STR filename)
             auto data = _pObjectMap.find(kObj->_pFbxParentNode);
             kObj->SetParent(data->second);
         }
+        LoadAnimation(kObj);
         FbxMesh* pFbxMesh = kObj->_pFbxNode->GetMesh();
         if (pFbxMesh)
         {
@@ -84,15 +85,15 @@ bool FbxLoader::Load(C_STR filename)
 
 void FbxLoader::PreProcess(FbxNode* pFbxNode)
 {
-    //if (pFbxNode && (pFbxNode->GetCamera() || pFbxNode->GetLight())
-    if (pFbxNode == nullptr)
+    if (pFbxNode && (pFbxNode->GetCamera() || pFbxNode->GetLight()))
+    //if (pFbxNode == nullptr)
     {
         return;
     }
 
     KFbxObject* pObject = new KFbxObject;
     std::string name = pFbxNode->GetName();
-    pObject->_csName = to_mw(name);
+    pObject->_szName = to_mw(name);
     pObject->_pFbxNode = pFbxNode;
     pObject->_pFbxParentNode = pFbxNode->GetParent();
 
@@ -130,7 +131,7 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh, KFbxObject* pObject)
     normalLocalMatrix = normalLocalMatrix.Transpose();
 
     // 월드행렬
-    FbxVector4 Translation;
+    /*FbxVector4 Translation;
     if (pNode->LclTranslation.IsValid())
         Translation = pNode->LclTranslation.Get();
 
@@ -145,9 +146,19 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh, KFbxObject* pObject)
     FbxAMatrix matWorldTransform(Translation, Rotation, Scale);
     FbxAMatrix normalWorldMatrix = matWorldTransform;
     normalWorldMatrix = normalWorldMatrix.Inverse();
-    normalWorldMatrix = normalWorldMatrix.Transpose();
+    normalWorldMatrix = normalWorldMatrix.Transpose();*/
 
-
+    //FbxAMatrix matWorldTransform= pObject->m_fbxLocalMatrix;
+    ////// 최종월드행렬 = 자기(에니메이션) 행렬 * 부모((에니메이션))행렬
+    ////if (pObject->m_pParent)
+    ////{
+    ////    matWorldTransform = 
+    ////        pObject->m_pParent->m_fbxLocalMatrix * 
+    ////        pObject->m_fbxLocalMatrix;
+    ////}        
+    //FbxAMatrix normalWorldMatrix = matWorldTransform;
+    //normalWorldMatrix = normalWorldMatrix.Inverse();
+    //normalWorldMatrix = normalWorldMatrix.Transpose();
 
 
     //Layer 개념
@@ -248,12 +259,12 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh, KFbxObject* pObject)
                 int vertexID = iCornerIndex[iIndex];
                 FbxVector4 v2 = pVertexPositions[vertexID];
                 PNCT_VERTEX tVertex;
-                FbxVector4 v = geom.MultT(v2);
-                v = matWorldTransform.MultT(v);
+                FbxVector4 v = geom.MultT(v2);//결과만 저장한다.
+                //v = matWorldTransform.MultT(v);
                 tVertex.p.x = v.mData[0];
                 tVertex.p.y = v.mData[2];
                 tVertex.p.z = v.mData[1];
-                tVertex.c = Vector4D(1, 1, 1, 1);
+                tVertex.c = TVector4(1, 1, 1, 1);
                 if (VertexColorSet)
                 {
                     FbxColor c = ReadColor(pFbxMesh, VertexColorSet, iCornerIndex[iIndex], iBasePolyIndex + VertexColor[iIndex]);
@@ -276,7 +287,7 @@ void FbxLoader::ParseMesh(FbxMesh* pFbxMesh, KFbxObject* pObject)
                         iCornerIndex[iIndex],
                         iBasePolyIndex + VertexColor[iIndex]);
                     n = normalLocalMatrix.MultT(n);
-                    n = normalWorldMatrix.MultT(n);
+                    //n = normalWorldMatrix.MultT(n);
                     tVertex.n.x = n.mData[0];
                     tVertex.n.y = n.mData[2];
                     tVertex.n.z = n.mData[1];
@@ -464,4 +475,65 @@ int FbxLoader::GetSubMaterialIndex(int iPoly, FbxLayerElementMaterial* pMaterial
         }
     }
     return iSubMtrl;
+}
+
+void FbxLoader::LoadAnimation(KFbxObject* pObj)
+{
+    FbxNode* pNode = pObj->_pFbxNode;
+    FbxAnimStack* stackAnim = _pFbxScene->GetSrcObject<FbxAnimStack>(0);
+    FbxLongLong s = 0;
+    FbxLongLong n = 0;
+    FbxTime::EMode TimeMode;
+    if (stackAnim)
+    {
+        FbxString takeName = stackAnim->GetName();
+        FbxTakeInfo* take = _pFbxScene->GetTakeInfo(takeName);
+        FbxTime::SetGlobalTimeMode(FbxTime::eFrames30);
+        TimeMode = FbxTime::GetGlobalTimeMode();
+        FbxTimeSpan localTimeSpan = take->mLocalTimeSpan;
+        FbxTime start = localTimeSpan.GetStart();
+        FbxTime end = localTimeSpan.GetStop();
+        FbxTime Duration = localTimeSpan.GetDirection();
+        s = start.GetFrameCount(TimeMode);
+        n = end.GetFrameCount(TimeMode);
+    }
+    pObj->_AnimScene.iStartFrame = s;
+    pObj->_AnimScene.iEndFrame = n;
+    pObj->_AnimScene.fFrameSpeed = 30.0f;
+    pObj->_AnimScene.fTickPerFrame = 160;
+    FbxTime time;
+    for (FbxLongLong t = s; t <= n; ++t)
+    {
+        time.SetFrame(t, TimeMode);
+        AnimTrack track;
+        track.iFrame = t;
+        FbxAMatrix fbxMatrix = pNode->EvaluateGlobalTransform(time);
+        track.matAnim = DxConvertMatrix(fbxMatrix);
+        pObj->_AnimTracks.push_back(track);
+    }
+}
+
+TMatrix FbxLoader::ConvertMatrix(FbxAMatrix& fbxMatrix)
+{
+    TMatrix mat;
+    float* tArray = (float*)(&mat);
+    double* fbxArray = (double*)(&fbxMatrix);
+    for (int i = 0; i < 16; ++i)
+    {
+        tArray[i] = fbxArray[i];
+    }
+    return mat;
+}
+
+TMatrix FbxLoader::DxConvertMatrix(FbxAMatrix& fbxMatrix)
+{
+    TMatrix m = ConvertMatrix(fbxMatrix);
+    TMatrix mat;
+    mat._11 = m._11; mat._12 = m._13; mat._13 = m._12;
+    mat._21 = m._31; mat._22 = m._33; mat._23 = m._32;
+    mat._31 = m._21; mat._32 = m._23; mat._33 = m._22;
+    mat._41 = m._41; mat._42 = m._43; mat._43 = m._42;
+    mat._14 = mat._24 = mat._34 = 0.0f;
+    mat._44 = 1.0f;
+    return mat;
 }

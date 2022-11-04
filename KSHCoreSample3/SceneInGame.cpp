@@ -2,9 +2,9 @@
 #include "Input.h"
 #include "DxState.h"
 
-static Vector2D vSize = { 1024, 768 };
+static TVector2 vSize = { 1024, 768 };
 
-void SceneInGame::AddProjectile(Vector2D pos)
+void SceneInGame::AddProjectile(TVector2 pos)
 {
 	Projectile2D* pEffect = new Projectile2D;
 	pEffect->_pSprite = I_Sprite.GetPtr(L"rtProjectile");
@@ -370,7 +370,7 @@ void SceneInGame::DrawMiniMap(UINT x, UINT y, UINT w, UINT h)
 	vp.MaxDepth = 1.0f;
 	_pImmediateContext->RSSetViewports(1, &vp);
 	//TVector2D vCamera = { 0,0 };
-	Vector2D vSize = { 2000, 2000 };
+	TVector2 vSize = { 2000, 2000 };
 	_pMap->SetCameraSize(vSize);
 	_pMap->SetCameraPos(_vCamera);
 	_pMap->Frame();

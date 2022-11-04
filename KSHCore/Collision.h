@@ -1,4 +1,5 @@
 #pragma once
+#include "TMath.h"
 #include "Vector.h"
 #include "Matrix.h"
 #include <vector>
@@ -74,49 +75,49 @@ struct Rect : stRect
 
 struct Sphere
 {
-    Vector3D vCenter;
+    TVector3 vCenter;
     float fRadius;
     Sphere() {};
-    Sphere(const Vector3D& vC, float r) {
+    Sphere(const TVector3& vC, float r) {
         vCenter = vC;
         fRadius = r;
     };
 };
 struct stBox
 {
-    Vector3D vMin;
-    Vector3D vSize;
+    TVector3 vMin;
+    TVector3 vSize;
 };
 
 struct AABB
 {
-    Vector3D vMin;
-    Vector3D vMax;
+    TVector3 vMin;
+    TVector3 vMax;
 };
 
 struct OBB
 {
-    Vector3D vCenter;
-    Vector3D vAxis[3];
+    TVector3 vCenter;
+    TVector3 vAxis[3];
     float fDistance[3];
 };
 
 struct K_BOX
 {
-    Vector3D vPos[8];
+    TVector3 vPos[8];
     // aabb
-    Vector3D vMin;
-    Vector3D vMax;
+    TVector3 vMin;
+    TVector3 vMax;
     // obb
-    Vector3D vCenter;
-    Vector3D vAxis[3];
+    TVector3 vCenter;
+    TVector3 vAxis[3];
     float fExtent[3];
 };
 
 struct Box : stBox
 {
-    Vector3D vMax;
-    Vector3D vCenter;
+    TVector3 vMax;
+    TVector3 vCenter;
     bool   operator == (const Box& dest)
     {
         if (vMin == dest.vMin)
@@ -129,16 +130,17 @@ struct Box : stBox
         return false;
     }
     Box() {}
-    Box(const Vector3D& vPos, const Vector3D& vSize)
+    Box(const TVector3& vPos, const TVector3& vSize)
     {
         Set(vPos, vSize);
     }
-    void  Set(const Vector3D& vPos, const Vector3D& vSize)
+    void  Set(const TVector3& vPos, const TVector3& vSize)
     {
         vMin = vPos;
         this->vSize = vSize;
         vMax = vMin + vSize;
-        vCenter = (vMin + vMax) / 2.0f;
+        vCenter = (vMin + vMax);
+        vCenter /= 2.0f;
     }
 };
 

@@ -1,6 +1,6 @@
 #include "Frustum.h"
 
-void Frustum::CreateFrustum(Matrix* matView, Matrix* matProj)
+void Frustum::CreateFrustum(TMatrix* matView, TMatrix* matProj)
 {
     TBASIS_EX::TMatrix view = *(TBASIS_EX::TMatrix*)matView;
     TBASIS_EX::TMatrix proj = *(TBASIS_EX::TMatrix*)matProj;
@@ -30,27 +30,27 @@ void Frustum::CreateFrustum(Matrix* matView, Matrix* matProj)
     // ->   <-
     // 1    2
     // 0    3 
-    _Plane[0].Create(*((Vector3D*)&_vFrustum[1]),
-        *((Vector3D*)&_vFrustum[5]),
-        *((Vector3D*)&_vFrustum[0])); // left
-    _Plane[1].Create(*((Vector3D*)&_vFrustum[3]),
-        *((Vector3D*)&_vFrustum[6]),
-        *((Vector3D*)&_vFrustum[2])); // right
-    _Plane[2].Create(*((Vector3D*)&_vFrustum[5]),
-        *((Vector3D*)&_vFrustum[2]),
-        *((Vector3D*)&_vFrustum[6])); // top
-    _Plane[3].Create(*((Vector3D*)&_vFrustum[0]),
-        *((Vector3D*)&_vFrustum[7]),
-        *((Vector3D*)&_vFrustum[3])); // bottom
-    _Plane[4].Create(*((Vector3D*)&_vFrustum[2]),
-        *((Vector3D*)&_vFrustum[1]),
-        *((Vector3D*)&_vFrustum[0])); // near
-    _Plane[5].Create(*((Vector3D*)&_vFrustum[5]),
-        *((Vector3D*)&_vFrustum[6]),
-        *((Vector3D*)&_vFrustum[4])); // far
+    _Plane[0].Create(*((TVector3*)&_vFrustum[1]),
+        *((TVector3*)&_vFrustum[5]),
+        *((TVector3*)&_vFrustum[0])); // left
+    _Plane[1].Create(*((TVector3*)&_vFrustum[3]),
+        *((TVector3*)&_vFrustum[6]),
+        *((TVector3*)&_vFrustum[2])); // right
+    _Plane[2].Create(*((TVector3*)&_vFrustum[5]),
+        *((TVector3*)&_vFrustum[2]),
+        *((TVector3*)&_vFrustum[6])); // top
+    _Plane[3].Create(*((TVector3*)&_vFrustum[0]),
+        *((TVector3*)&_vFrustum[7]),
+        *((TVector3*)&_vFrustum[3])); // bottom
+    _Plane[4].Create(*((TVector3*)&_vFrustum[2]),
+        *((TVector3*)&_vFrustum[1]),
+        *((TVector3*)&_vFrustum[0])); // near
+    _Plane[5].Create(*((TVector3*)&_vFrustum[5]),
+        *((TVector3*)&_vFrustum[6]),
+        *((TVector3*)&_vFrustum[4])); // far
 }
 
-K_POSITION Frustum::ClassifyPoint(Vector3D v)
+K_POSITION Frustum::ClassifyPoint(TVector3 v)
 {
     K_POSITION k_POSITION = P_FRONT;
     for (int iPlane = 0; iPlane < 6; ++iPlane)
@@ -110,7 +110,7 @@ K_POSITION Frustum::ClassifyOBB(OBB v)
 {
     float		fPlaneToCenter = 0.0;
     float		fDistance = 0.0f;
-    Vector3D vDir;
+    TVector3 vDir;
     K_POSITION k_Position;
 
     k_Position = P_FRONT;
@@ -151,7 +151,7 @@ K_POSITION Frustum::ClassifyBox(K_BOX v)
 {
     float		fPlaneToCenter = 0.0;
     float		fDistance = 0.0f;
-    Vector3D vDir;
+    TVector3 vDir;
     K_POSITION k_Position;
 
     k_Position = P_FRONT;

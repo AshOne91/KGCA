@@ -24,7 +24,7 @@ bool Effect2D::Update()
 	RECT rt = _pSprite->_uvArray[_iIndex];
 	_tRect = convert(rt);
 
-	Vector2D	vDrawSize;
+	TVector2	vDrawSize;
 	vDrawSize.x = _pSprite->_rtInit.w / 2.0f;
 	vDrawSize.y = _pSprite->_rtInit.h / 2.0f;
 	_rtCollision.Set(
