@@ -46,6 +46,25 @@ struct VS_CONSTANT_BUFFER
 	float z;
 	float fTimer;
 };
+
+struct IW_VERTEX
+{
+	TVector4 i;
+	TVector4 w;
+
+	IW_VERTEX() {}
+	IW_VERTEX(TVector4 vIndex, TVector4 vWeight)
+	{
+		i = vIndex;
+		w = vWeight;
+	}
+};
+
+struct VS_CONSTANT_BONE_BUFFER
+{
+	TMatrix matBone[255];
+};
+
 namespace KDX
 {
 	ID3D11Buffer* CreateVertexBuffer(ID3D11Device* pd3dDevice, void* pDataAddress, UINT iNumVertex, UINT iVertexSize);

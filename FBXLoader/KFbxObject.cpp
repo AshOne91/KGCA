@@ -1,5 +1,37 @@
 #include "KFbxObject.h"
 
+TMatrix KFbxObject::Interplate(float fFrame)
+{
+	// 10				20
+	// A=0 ------------ B=20
+	// t=0  ~  t=0.5f ~ t = 1
+	AnimTrack A, B;
+	A = _AnimTracks[max(_AnimScene.iStartFrame, fFrame + 0)];
+	B = _AnimTracks[min(_AnimScene.iEndFrame, fFrame + 1)];
+	if (A.iFrame == B.iFrame)
+	{
+		return _AnimTracks[fFrame].matAnim;
+	}
+	float t = (fFrame - A.iFrame) / (B.iFrame - A.iFrame);
+	TVector3 pos;
+	D3DXVec3Lerp(&pos, &A.t, &B.t, t);
+	TVector3 scale;
+	D3DXVec3Lerp(&scale, &A.s, &B.s, t);
+	TQuaternion qRotation;
+	D3DXQuaternionSlerp(&qRotation, &A.r, &B.r, t);
+
+	TMatrix matScale;
+	D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);
+	TMatrix matRotation;
+	D3DXMatrixRotationQuaternion(&matRotation, &qRotation);
+
+	TMatrix matCurrent = matScale * matRotation;
+	matCurrent._41 = pos.x;
+	matCurrent._42 = pos.y;
+	matCurrent._43 = pos.z;
+	return matCurrent;
+}
+
 void KFbxObject::CreateVertexData()
 {
 

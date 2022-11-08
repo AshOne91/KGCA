@@ -23,6 +23,8 @@ struct AnimScene
 class KFbxObject : public Object3D
 {
 public:
+	TMatrix _matAnim;
+	TMatrix _matControl;
 	AnimScene _AnimScene;
 	float _fAnimFrame = 0;
 	float _fAnimInverse = 1.0f;
@@ -38,6 +40,7 @@ public:
 		pParentNode->_pFbxChilds.push_back(this);
 		_pParent = pParentNode;
 	}
+	TMatrix Interplate(float fFrame);
 
 public:
 	std::vector<ID3D11Buffer*> _pSubVB;

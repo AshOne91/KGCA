@@ -509,6 +509,7 @@ void FbxLoader::LoadAnimation(KFbxObject* pObj)
         track.iFrame = t;
         FbxAMatrix fbxMatrix = pNode->EvaluateGlobalTransform(time);
         track.matAnim = DxConvertMatrix(fbxMatrix);
+        D3DXMatrixDecompose(&track.s, &track.r, &track.t, &track.matAnim);
         pObj->_AnimTracks.push_back(track);
     }
 }
