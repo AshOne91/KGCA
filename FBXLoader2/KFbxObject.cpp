@@ -2,6 +2,12 @@
 
 TMatrix KFbxObject::Interplate(float fFrame, AnimScene tScene)
 {
+	TMatrix matIdentity;
+	D3DXMatrixIdentity(&matIdentity);
+	if (_AnimTracks.size() == 0)
+	{
+		return matIdentity;
+	}
 	// 10				20
 	// A=0 ------------ B=20
 	// t=0  ~  t=0.5f ~ t = 1
@@ -125,14 +131,16 @@ bool KFbxObject::PostRender()
 
 bool KFbxObject::Release()
 {
-	Object3D::Release();
-
 	for (int iSubObj = 0; iSubObj < _pSubVB.size(); ++iSubObj)
 	{
 		if (_pSubVB[iSubObj])
 		{
 			_pSubVB[iSubObj]->Release();
+			_pSubVB[iSubObj] = nullptr;
 		}
 	}
+	_pSubVB.clear();
+
+	Object3D::Release();
 	return true;
 }

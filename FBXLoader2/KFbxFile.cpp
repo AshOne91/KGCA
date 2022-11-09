@@ -21,7 +21,7 @@ HRESULT KFbxFile::CreateConstantBuffer(ID3D11Device* pDevice)
     hr = pDevice->CreateBuffer(
         &bd, // 버퍼 할당
         &sd, // 초기 할당된 버퍼를 채우는 CPU메모리 주소
-        &_pConstantBufferBone);
+        &_pAnimBoneCB);
     return hr;
 }
 
@@ -43,21 +43,34 @@ bool KFbxFile::UpdateFrame(ID3D11DeviceContext* pContext)
         D3DXMatrixTranspose(&_cbDataBone.matBone[iBone], &matAnim);
     }*/
 
+    // object + skinning
+    std::vector<TMatrix> matCurrentAnimList;
     for (int iBone = 0; iBone < _pObjectList.size(); ++iBone)
     {
-        TMatrix matAnim2 = _pObjectList[iBone]->Interplate(_fAnimFrame, _AnimScene);
-        if (_pObjectList[iBone]->_dxMatrixBindPseMap.size())
+        TMatrix matAnimation = _pObjectList[iBone]->Interplate(_fAnimFrame, _AnimScene);
+        D3DXMatrixTranspose(&_cbDataBone.matBone[iBone], &matAnimation);
+        matCurrentAnimList.push_back(matAnimation);
+    }
+    pContext->UpdateSubresource(_pAnimBoneCB, 0, nullptr, &_cbDataBone, 0, 0);
+
+    // skinning
+    for (int iDraw = 0; iDraw < _pDrawObjList.size(); ++iDraw)
+    {
+        if (_pDrawObjList[iDraw]->_dxMatrixBindPseMap.size())
         {
-            auto iter = _pObjectList[iBone]->_dxMatrixBindPseMap.find(iBone);
-            if (iter != _pObjectList[iBone]->_dxMatrixBindPseMap.end())
+            for (int iBone = 0; iBone < _pObjectList.size(); ++iBone)
             {
-                TMatrix matBind = iter->second;
-                TMatrix matAnim = matBind * matAnim2;
-                D3DXMatrixTranspose(&_cbDataBone.matBone[iBone], &matAnim);
+                auto iter = _pDrawObjList[iDraw]->_dxMatrixBindPseMap.find(iBone);
+                if (iter != _pDrawObjList[iDraw]->_dxMatrixBindPseMap.end())
+                {
+                    TMatrix matBind = iter->second;
+                    TMatrix matAnim = matBind * matCurrentAnimList[iBone];
+                    D3DXMatrixTranspose(&_cbDataBone.matBone[iBone], &matAnim);
+                }
             }
+            pContext->UpdateSubresource(_pDrawObjList[iDraw]->_pSkinBoneCB, 0, nullptr, &_cbDataBone, 0, 0);
         }
     }
-    pContext->UpdateSubresource(_pConstantBufferBone, 0, nullptr, &_cbDataBone, 0, 0);
     return true;
 }
 

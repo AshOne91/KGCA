@@ -68,7 +68,7 @@ bool Sample::Init()
 	}
 	_fbxList.push_back(pFbxLoaderC);*/
 
-	KFbxFile* pFbxLoaderA = new KFbxFile;
+	/*KFbxFile* pFbxLoaderA = new KFbxFile;
 	if (pFbxLoaderA->Init())
 	{
 		if (pFbxLoaderA->Load("../../data/fbx/Turret_Deploy1/Turret_Deploy1.fbx"))
@@ -76,7 +76,7 @@ bool Sample::Init()
 			pFbxLoaderA->CreateConstantBuffer(_pd3dDevice.Get());
 		}
 	}
-	_fbxList.push_back(pFbxLoaderA);
+	_fbxList.push_back(pFbxLoaderA);*/
 
 	/*FbxLoader* pFbxLoaderB = new FbxLoader;
 	if (pFbxLoaderB->Init())
@@ -84,6 +84,16 @@ bool Sample::Init()
 		pFbxLoaderB->Load("../../data/fbx/sm_rock.fbx");
 	}
 	//_fbxList.push_back(pFbxLoaderB);*/
+
+	KFbxFile* pFbxLoaderD = new KFbxFile;
+	if (pFbxLoaderD->Init())
+	{
+		if (pFbxLoaderD->Load("../../data/fbx/Man.FBX"))
+		{
+			pFbxLoaderD->CreateConstantBuffer(_pd3dDevice.Get());
+		}
+	}
+	_fbxList.push_back(pFbxLoaderD);
 
 	W_STR szDefaultDir = L"../../data/fbx/";
 	std::wstring shaderfilename = L"Skinning.txt";
@@ -99,7 +109,7 @@ bool Sample::Init()
 	}
 
 	_pMainCamera = new CameraDebug;
-	_pMainCamera->CreateViewMatrix(TVector3(0, 6, -50), TVector3(0, 0, 0), TVector3(0, 1, 0));
+	_pMainCamera->CreateViewMatrix(TVector3(0, 6, -10), TVector3(0, 0, 0), TVector3(0, 1, 0));
 	_pMainCamera->CreateProjMatrix(1.0f, 10000.0f, PI * 0.25f, 
 		(float)g_rtClient.right / (float)g_rtClient.bottom);
 	return true;
@@ -134,12 +144,12 @@ bool Sample::Render()
 	D3DXVec3Normalize(&vLight, &vLight);
 	for (int iFbxFile = 0; iFbxFile < _fbxList.size(); ++iFbxFile)
 	{
-		_pImmediateContext->VSSetConstantBuffers(1, 1, &_fbxList[iFbxFile]->_pConstantBufferBone);
+		_pImmediateContext->VSSetConstantBuffers(1, 1, &_fbxList[iFbxFile]->_pAnimBoneCB);
 		for (int iObj = 0; iObj < _fbxList[iFbxFile]->_pDrawObjList.size(); ++iObj)
 		{
-			KFbxObject* pObj = _fbxList[iFbxFile]->_pDrawObjList[iObj];
+			FbxObjectSkinning* pObj = _fbxList[iFbxFile]->_pDrawObjList[iObj];
 			TMatrix matControlWorld;
-			D3DXMatrixRotationY(&matControlWorld, g_fGameTimer);
+			//D3DXMatrixRotationY(&matControlWorld, g_fGameTimer);
 			pObj->_cbData.x = vLight.x;
 			pObj->_cbData.y = vLight.y;
 			pObj->_cbData.z = vLight.z;
@@ -155,9 +165,11 @@ bool Sample::Render()
 bool Sample::Release()
 {
 	//_FBXLoader.Release();
+	delete _pMainCamera;
 	for (auto fbx : _fbxList)
 	{
 		fbx->Release();
+		delete fbx;
 	}
 	return true;
 }

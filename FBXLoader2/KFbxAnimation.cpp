@@ -25,19 +25,18 @@ void KFbxFile::InitAnimation()
 	_AnimScene.TimeMode = TimeMode;
 }
 
-void KFbxFile::LoadAnimation(FbxObjectSkinning* pObj)
+//void KFbxFile::LoadAnimation(FbxObjectSkinning* pObj)
+void KFbxFile::LoadAnimation(FbxLongLong t, FbxTime time)
 {
-	FbxNode* pNode = pObj->_pFbxNode;
-	FbxTime time;
-	for (FbxLongLong t = _AnimScene.iStartFrame; t <= _AnimScene.iEndFrame; t++)
+	for (auto kObj : _pObjectList)
 	{
-		time.SetFrame(t, _AnimScene.TimeMode);
+		FbxNode* pNode = kObj->_pFbxNode;
 		AnimTrack track;
 		track.iFrame = t;
 		FbxAMatrix fbxMatrix = pNode->EvaluateGlobalTransform(time);
 		track.matAnim = DxConvertMatrix(fbxMatrix);
 		TBASIS_EX::D3DXMatrixDecompose(&track.s, &track.r, &track.t, &track.matAnim);
-		pObj->_AnimTracks.push_back(track);
+		kObj->_AnimTracks.push_back(track);
 	}
 }
 
@@ -75,5 +74,44 @@ bool KFbxFile::ParseMeshSkinning(FbxMesh* pFbxMesh, FbxObjectSkinning* pObject)
 		return false;
 	}
 
+	// iNumVertex == 메쉬의 정점 개수와 동일해야 한다.
+	int iNumVertex = pFbxMesh->GetControlPointsCount();
+	pObject->_WeightList.resize(iNumVertex);
 
+	for (int iDeformer = 0; iDeformer < iDeformerCount; ++iDeformer)
+	{
+		FbxDeformer* deformer = pFbxMesh->GetDeformer(iDeformer, FbxDeformer::eSkin);
+		FbxSkin* pSkin = (FbxSkin*)deformer;
+		// 뼈대가 영향을 미치는 정점 덩어리
+		int iNumClusterCount = pSkin->GetClusterCount();
+		for (int iCluster = 0; iCluster < iNumClusterCount; ++iCluster)
+		{
+			FbxCluster* pCluster = pSkin->GetCluster(iCluster);
+			FbxNode* pFbxNode = pCluster->GetLink();
+			int iBoneIndex = _pObjectIDMap.find(pFbxNode)->second;
+
+			// 뼈대공간으로 변환하는 행렬이 필요하다.
+			FbxAMatrix matXBindPose;
+			FbxAMatrix matReferenceGlobalInitPosition;
+			pCluster->GetTransformLinkMatrix(matXBindPose);
+			pCluster->GetTransformMatrix(matReferenceGlobalInitPosition);
+			FbxAMatrix matBindPos = matReferenceGlobalInitPosition.Inverse() * matXBindPose;
+
+			TMatrix matInvBindPos = DxConvertMatrix(matBindPos);
+			matInvBindPos = matInvBindPos.Invert();
+			pObject->_dxMatrixBindPseMap.insert(std::make_pair(iBoneIndex, matInvBindPos));
+
+			// 임의의 1개 정점에 영향을 미치는 뼈대의 개수
+			int iNumWeightCounter = pCluster->GetControlPointIndicesCount();
+			int* pIndices = pCluster->GetControlPointIndices();
+			double* pWeights = pCluster->GetControlPointWeights();
+			for (int iVertex = 0; iVertex < iNumWeightCounter; ++iVertex)
+			{
+				int iVertexIndex = pIndices[iVertex];
+				float fweight = pWeights[iVertex];
+				pObject->_WeightList[iVertexIndex].insert(iBoneIndex, fweight);
+			}
+		}
+	}
+	return true;
 }

@@ -35,21 +35,28 @@ bool KFbxFile::Load(C_STR filename)
             auto data = _pObjectMap.find(kObj->_pFbxParentNode);
             kObj->SetParent(data->second);
         }
-        LoadAnimation(kObj);
+        //LoadAnimation(kObj);
         FbxMesh* pFbxMesh = kObj->_pFbxNode->GetMesh();
         if (pFbxMesh)
         {
-            _pFbxMeshList.push_back(pFbxMesh);
             ParseMesh(pFbxMesh, kObj);
         }
     }
+    // animation
+    FbxTime time;
+    for (FbxLongLong t = _AnimScene.iStartFrame; t <= _AnimScene.iEndFrame; ++t)
+    {
+        time.SetFrame(t, _AnimScene.TimeMode);
+        LoadAnimation(t, time);
+    }
+
     return true;
 }
 
 void KFbxFile::ParseMesh(FbxMesh* pFbxMesh, FbxObjectSkinning* pObject)
 {
     // 스키닝 정보 확인
-    pObject->_bSkinned = ParseMeshSkinning()
+    pObject->_bSkinned = ParseMeshSkinning(pFbxMesh, pObject);
 
     FbxNode* pNode = pFbxMesh->GetNode();
     FbxAMatrix geom; // 기하(로칼)행렬(초기 정점 위치를 변환할 때 사용한다.)
@@ -228,15 +235,29 @@ void KFbxFile::ParseMesh(FbxMesh* pFbxMesh, FbxObjectSkinning* pObject)
                     tVertex.n.y = n.mData[2];
                     tVertex.n.z = n.mData[1];
                 }
-                IWVertex.i.x = _pObjectIDMap.find(pNode)->second;
-                IWVertex.i.y = 0;
-                IWVertex.i.z = 0;
-                IWVertex.i.w = 0;
-
-                IWVertex.w.x = 1.0f;
-                IWVertex.w.y = 0.0f;
-                IWVertex.w.z = 0.0f;
-                IWVertex.w.w = 0.0f;
+                if (pObject->_bSkinned == false)
+                {
+                    IWVertex.i.x = _pObjectIDMap.find(pNode)->second;
+                    IWVertex.i.y = 0;
+                    IWVertex.i.z = 0;
+                    IWVertex.i.w = 0;
+                    IWVertex.w.x = 1.0f;
+                    IWVertex.w.y = 0.0f;
+                    IWVertex.w.z = 0.0f;
+                    IWVertex.w.w = 0.0f;
+                }
+                else
+                {
+                    KWeight* pWeight = &pObject->_WeightList[vertexID];
+                    IWVertex.i.x = pWeight->Index[0];
+                    IWVertex.i.y = pWeight->Index[1];
+                    IWVertex.i.z = pWeight->Index[2];
+                    IWVertex.i.w = pWeight->Index[3];
+                    IWVertex.w.x = pWeight->weight[0];
+                    IWVertex.w.y = pWeight->weight[1];
+                    IWVertex.w.z = pWeight->weight[2];
+                    IWVertex.w.w = pWeight->weight[3];
+                }
 
                 if (iNumMtrl <= 1)
                 {
@@ -461,12 +482,18 @@ void KFbxFile::PreProcess(FbxNode* pFbxNode)
 
 bool KFbxFile::Release()
 {
-    if (_pConstantBufferBone)_pConstantBufferBone->Release();
+    if (_pAnimBoneCB)
+    {
+        _pAnimBoneCB->Release();
+        _pAnimBoneCB = nullptr;
+    }
     for (auto obj : _pDrawObjList)
     {
         obj->Release();
         delete obj;
     }
+    _pObjectList.clear();
+
     _pFbxScene->Destroy();
     //_pFbxImporter->Destroy();
     //_pFbxManager->Destroy();

@@ -31,7 +31,7 @@ struct KWeight
 		{
 			if (fWeight > weight[i])
 			{
-				for (int j = Index.size() - 1; j > i; ++j)
+				for (int j = Index.size() - 1; j > i; --j)
 				{
 					Index[j] = Index[j - 1];
 					weight[j] = weight[j - 1];
@@ -88,15 +88,47 @@ class FbxObjectSkinning : public KFbxObject
 {
 public:
 	bool _bSkinned = false;
+	// sub material
 	std::vector<ID3D11Buffer*> _pSubVB_IW;
 	std::vector<std::vector<IW_VERTEX>> vbDataList_IW;
+	// single model
 	std::vector<IW_VERTEX> _VertexListIW;
 	ID3D11Buffer* _pVertexBufferIW;
+	// skinning
 	std::vector<KWeight> _WeightList;
 	std::map<UINT, TMatrix> _dxMatrixBindPseMap;
 
+public:
 	VS_CONSTANT_BONE_BUFFER _cbDataBone;
-	ID3D11Buffer* _pConstantBufferBone;
+	ID3D11Buffer* _pSkinBoneCB;
+
+public:
+	HRESULT CreateConstantBuffer()
+	{
+		Object3D::CreateConstantBuffer();
+
+		HRESULT hr;
+		for (int iBone = 0; iBone < 255; ++iBone)
+		{
+			D3DXMatrixIdentity(&_cbDataBone.matBone[iBone]);
+		}
+
+		D3D11_BUFFER_DESC bd;
+		ZeroMemory(&bd, sizeof(bd));
+		bd.ByteWidth = sizeof(VS_CONSTANT_BONE_BUFFER) * 1; // 바이트 용량
+		// GPU 메모리에 할당
+		bd.Usage = D3D11_USAGE_DEFAULT; // 버퍼의 할당 장소 내지는 버퍼용도
+		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+		D3D11_SUBRESOURCE_DATA sd;
+		ZeroMemory(&sd, sizeof(sd));
+		sd.pSysMem = &_cbDataBone;
+		hr = _pd3dDevice->CreateBuffer(
+			&bd, // 버퍼 할당
+			&sd, // 초기 할당된 버퍼를 채우는 CPU메모리 주소
+			&_pSkinBoneCB);
+		return hr;
+	}
 
 	HRESULT CreateVertexLayout()
 	{
@@ -150,13 +182,16 @@ public:
 		}
 		else
 		{
-			hr = Object3D::CreateVertexBuffer();
 			_pVertexBufferIW = KDX::CreateVertexBuffer(_pd3dDevice, &_VertexListIW.at(0), _VertexListIW.size(), sizeof(IW_VERTEX));
 		}
 		return hr;
 	}
 	bool PostRender()
 	{
+		if (_bSkinned)
+		{
+			_pImmediateContext->VSSetConstantBuffers(1, 1, &_pSkinBoneCB);
+		}
 		if (_pIndexBuffer == nullptr)
 		{
 			if (vbDataList.size() > 0)
@@ -180,34 +215,45 @@ public:
 					_pImmediateContext->Draw(vbDataList[iSubObj].size(), 0);
 				}
 			}
+			else
+			{
+				UINT stride[2] = { sizeof(PNCT_VERTEX), sizeof(IW_VERTEX) }; // 정점1개의 바이트 용량
+				UINT offset[2] = { 0, 0 };
+				//SLOT(레지스터리)
+				ID3D11Buffer* buffer[2] = { _pVertexBuffer, _pVertexBufferIW };
+				_pImmediateContext->IASetVertexBuffers(0, 2, buffer, stride, offset);
+				_pImmediateContext->Draw(_VertexList.size(), 0);
+			}
 		}
 		else
 		{
-			UINT stride[2] = { sizeof(PNCT_VERTEX), sizeof(IW_VERTEX) }; // 정점1개의 바이트 용량
-			UINT offset[2] = { 0, 0 };
-			//SLOT(레지스터리)
-			ID3D11Buffer* buffer[2] = { _pVertexBuffer, _pVertexBufferIW };
-			_pImmediateContext->IASetVertexBuffers(0, 2, buffer, stride, offset);
-			_pImmediateContext->Draw(_VertexList.size(), 0);
+			_pImmediateContext->DrawIndexed(_dwFace * 3, 0, 0);
 		}
 		return true;
 	}
 	bool Release()
 	{
-		Object3D::Release();
-
+		if (_pSkinBoneCB)
+		{
+			_pSkinBoneCB->Release();
+			_pSkinBoneCB = nullptr;
+		}
 		if (_pVertexBufferIW)
 		{
 			_pVertexBufferIW->Release();
+			_pVertexBufferIW = nullptr;
 		}
-		for (int iSubObj = 0; iSubObj < _pSubVB.size(); ++iSubObj)
+		for (int iSubObj = 0; iSubObj < _pSubVB_IW.size(); iSubObj++)
 		{
-			if (_pSubVB[iSubObj])
+			if (_pSubVB_IW[iSubObj])
 			{
-				_pSubVB[iSubObj]->Release();
 				_pSubVB_IW[iSubObj]->Release();
+				_pSubVB_IW[iSubObj] = nullptr;
 			}
 		}
+		_pSubVB_IW.clear();
+
+		KFbxObject::Release();
 		return true;
 	}
 };

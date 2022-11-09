@@ -23,12 +23,11 @@ public:
 	std::map<FbxNode*, UINT> _pObjectIDMap;
 	std::vector<FbxObjectSkinning*> _pObjectList;
 
-	std::vector<FbxMesh*> _pFbxMeshList;
 	std::vector<FbxObjectSkinning*> _pDrawObjList;
 	ID3D11DeviceContext* _pContext = nullptr;
 
 	VS_CONSTANT_BONE_BUFFER _cbDataBone;
-	ID3D11Buffer* _pConstantBufferBone;
+	ID3D11Buffer* _pAnimBoneCB;
 	HRESULT CreateConstantBuffer(ID3D11Device* pDevice);
 	// 뼈대 공간으로 변환하는 행렬이 저장된다.
 	//std::map<FbxNode*, TMatrix> _dxMatrixBindPseMap;
@@ -57,9 +56,11 @@ public:
 		int colorIndex);
 	int GetSubMaterialIndex(int iPoly, FbxLayerElementMaterial* MaterialSet);
 	void InitAnimation();
-	void LoadAnimation(FbxObjectSkinning* pObj);
+	//void LoadAnimation(FbxObjectSkinning* pObj);
+	void LoadAnimation(FbxLongLong t, FbxTime time);
 	TMatrix ConvertMatrix(FbxAMatrix& fbxMatrix);
 	TMatrix DxConvertMatrix(FbxAMatrix& fbxMatrix);
+
 	bool ParseMeshSkinning(FbxMesh* pFbxMesh, FbxObjectSkinning* pObject);
 };
 
