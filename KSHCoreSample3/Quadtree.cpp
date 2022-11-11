@@ -8,10 +8,14 @@ bool Quadtree::Create(Camera* pMainCamera, Map* pMap, int iMaxDepth)
 	_iMaxDepth = iMaxDepth;
 	_pRootNode = new Node(nullptr, _pMap, 
 		0, 
-		pMap->_dwNumRows - 1, 
-		pMap->_dwNumRows * (pMap->_dwNumColumns - 1), 
-		pMap->_dwNumRows * pMap->_dwNumColumns - 1,
-		pMap->_dwNumColumns, pMap->_dwNumRows);
+		//pMap->_dwNumRows - 1, 
+		//pMap->_dwNumRows * (pMap->_dwNumColumns - 1), 
+		//pMap->_dwNumRows * pMap->_dwNumColumns - 1,
+		//pMap->_dwNumColumns, pMap->_dwNumRows);
+		pMap->_iNumRows - 1,
+		pMap->_iNumRows * (pMap->_iNumCols - 1),
+		pMap->_iNumRows * pMap->_iNumCols - 1,
+		pMap->_iNumCols, pMap->_iNumRows);
 	BuildTree(_pRootNode);
 	return true;
 }
@@ -40,7 +44,7 @@ void Quadtree::BuildTree(Node* pNode)
 		return;
 	}
 
-	pNode->CreateChildNode(pNode, _pMap, _pMap->_dwNumRows, _pMap->_dwNumColumns);
+	pNode->CreateChildNode(pNode, _pMap, _pMap->_iNumRows, _pMap->_iNumCols);
 
 	BuildTree(pNode->_pChild[0]);
 	BuildTree(pNode->_pChild[1]);
