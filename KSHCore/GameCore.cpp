@@ -120,8 +120,7 @@ bool GameCore::Run()
         CoreRelease();
         return false;
     }
-    MSG msg = { 0, };
-    _bGameRun = true;
+
     while (_bGameRun)
     {
         if (Window::Run() == false)
@@ -137,6 +136,16 @@ bool GameCore::Run()
         }
     }
     CoreRelease();
+    return true;
+}
+
+bool GameCore::ToolRun()
+{
+    if (!CoreFrame() || !CoreRender())
+    {
+        _bGameRun = false;
+        return false;
+    }
     return true;
 }
 

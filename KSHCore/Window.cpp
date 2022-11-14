@@ -1,11 +1,11 @@
 #include "WIndow.h"
 HWND g_hWnd;
 RECT g_rtClient;
-Window* g_pWIndow = nullptr;
+Window* g_pWindow = nullptr;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	_ASSERT(g_pWIndow);
-	return g_pWIndow->MsgProc(hWnd, message, wParam, lParam);
+	_ASSERT(g_pWindow);
+	return g_pWindow->MsgProc(hWnd, message, wParam, lParam);
 }
 
 LRESULT Window::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -18,7 +18,7 @@ LRESULT Window::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			UINT width = LOWORD(lParam);
 			UINT height = HIWORD(lParam);
-			GetWindowRect(hWnd, &_rtWIndow);
+			GetWindowRect(hWnd, &_rtWindow);
 			GetClientRect(hWnd, &_rtClient);
 			g_rtClient = _rtClient;
 
@@ -37,6 +37,19 @@ LRESULT Window::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 
 	return DefWindowProc(hWnd, message, wParam, lParam);
+}
+
+void Window::SethWnd(HWND hWnd)
+{
+	_hWnd = hWnd;
+	g_hWnd = hWnd;
+
+	GetWindowRect(hWnd, &_rtWindow);
+	GetClientRect(hWnd, &_rtClient);
+	g_rtClient = _rtClient;
+
+	_iClientWidth = _rtClient.right - _rtClient.left;
+	_iClientHeight = _rtClient.bottom - _rtClient.top;
 }
 
 bool Window::SetWindow(HINSTANCE hInst, const TCHAR* szTitle, UINT iWidth, UINT iHeight)
@@ -75,18 +88,11 @@ BOOL Window::InitInstance(const TCHAR* szTitle, UINT iWidth, UINT iHeight)
 	{
 		return FALSE;
 	}
+	SethWnd(hWnd);
 
-	_hWnd = hWnd;
-	g_hWnd = hWnd;
 	ShowWindow(hWnd, SW_SHOW);
-	GetWindowRect(hWnd, &_rtWIndow); //화면 기준 좌표
-	GetClientRect(hWnd, &_rtClient);
-	g_rtClient = _rtClient;
-
-	_iClientWidth = _rtClient.right - _rtClient.left;
-	_iClientHeight = _rtClient.bottom - _rtClient.top;
 	CenterWIndow();
-	return 0;
+	return TRUE;
 }
 
 bool Window::Run()
@@ -117,9 +123,9 @@ void Window::CenterWIndow()
 	UINT iScreenWidth = GetSystemMetrics(SM_CXFULLSCREEN);
 	UINT iScreenHieght = GetSystemMetrics(SM_CYFULLSCREEN);
 	UINT cx, cy;
-	cx = (iScreenWidth - (_rtWIndow.right - _rtWIndow.left)) * 0.5f;
-	cy = (iScreenHieght - (_rtWIndow.bottom - _rtWIndow.top)) * 0.5f;
-	MoveWindow(_hWnd, cx, cy, _rtWIndow.right - _rtWIndow.left, _rtWIndow.bottom - _rtWIndow.top, true);
+	cx = (iScreenWidth - (_rtWindow.right - _rtWindow.left)) * 0.5f;
+	cy = (iScreenHieght - (_rtWindow.bottom - _rtWindow.top)) * 0.5f;
+	MoveWindow(_hWnd, cx, cy, _rtWindow.right - _rtWindow.left, _rtWindow.bottom - _rtWindow.top, true);
 
 }
 
@@ -130,7 +136,7 @@ HRESULT Window::ResizeDevice(UINT width, UINT height)
 
 Window::Window()
 {
-	g_pWIndow = this;
+	g_pWindow = this;
 }
 
 Window::~Window()

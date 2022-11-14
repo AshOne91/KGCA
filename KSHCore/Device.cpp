@@ -236,6 +236,9 @@ HRESULT Device::ResizeDevice(UINT width, UINT height)
 	// 윈도우 크기 변경 메시지 검출(WM_SIZE)
 	if (_pd3dDevice == nullptr) 
 		return S_OK;
+	g_rtClient.right = width;
+	g_rtClient.bottom = height;
+
 	// 현재 설정된 랜더타켓 해제 및 소멸
 	DeleteDXResource();
 	_pImmediateContext->OMSetRenderTargets(0, nullptr, NULL);

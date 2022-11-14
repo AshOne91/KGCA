@@ -24,7 +24,7 @@ public:
 	virtual bool Render()  override { return true; }
 	virtual bool Release()  override { return true; }
 
-private:
+public:
 	bool CoreInit();
 	bool CoreFrame();
 	bool CorePreRender();
@@ -34,6 +34,7 @@ private:
 
 public:
 	virtual bool Run() final;
+	bool ToolRun();
 	virtual HRESULT CreateDXResource();
 	virtual HRESULT DeleteDXResource();
 };

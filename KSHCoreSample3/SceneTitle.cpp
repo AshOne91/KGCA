@@ -24,9 +24,14 @@ bool SceneTitle::Init()
 		0,
 		_pMap->GetHeight(0, 0),
 		0);
+	_pUser->_vPos.x = _pUser->_matWorld._41;
+	_pUser->_vPos.y = _pUser->_matWorld._42;
+	_pUser->_vPos.z = _pUser->_matWorld._43;
 
 	_pMainCamera = new Camera;
-	_pMainCamera->CreateViewMatrix(TVector3(0, 10, -10), _pUser->_vPos, TVector3(0, 1, 0));
+	TVector3 vCamera = _pUser->_vPos + TVector3(0, 10, -10);
+	vCamera.y = _pMap->GetHeight(vCamera.x, vCamera.z);
+	_pMainCamera->CreateViewMatrix(vCamera, _pUser->_vPos, TVector3(0, 1, 0));
 	_pMainCamera->CreateProjMatrix(1.0f, 1000.0f, PI * 0.25f,
 		(float)g_rtClient.right / (float)g_rtClient.bottom);
 	vBeforePos = _pUser->_vPos;
@@ -51,7 +56,8 @@ bool SceneTitle::Frame()
 	_pMainCamera->_vTarget = _pUser->_vPos;
 	TVector3 vOffset = _pUser->_vPos - vBeforePos;
 	_pMainCamera->_vPos += vOffset;
-	_pMainCamera->_vPos.y = _pMap->GetHeight(_pMainCamera->_vPos.x, _pMainCamera->_vPos.z) + 50.0f;
+	_pMainCamera->_vPos.y = _pMap->GetHeight(_pMainCamera->_vPos.x, _pMainCamera->_vPos.z);
+	_pMainCamera->_vPos.y = max(_pUser->_vPos.y, _pMainCamera->_vPos.y) + 10.0f;
 	_pMainCamera->Frame();
 
 	TVector3 r = _pMainCamera->_vRight;
