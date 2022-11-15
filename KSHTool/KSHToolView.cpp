@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CKSHToolView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CKSHToolView::OnFilePrintPreview)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 // CKSHToolView 생성/소멸
@@ -126,3 +127,13 @@ CKSHToolDoc* CKSHToolView::GetDocument() const // 디버그되지 않은 버전�
 
 
 // CKSHToolView 메시지 처리기
+
+
+void CKSHToolView::OnSize(UINT nType, int cx, int cy)
+{
+	CView::OnSize(nType, cx, cy);
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	CKSHToolApp* pApp = (CKSHToolApp*)AfxGetApp();
+	pApp->_Sample.ResizeDevice(cx, cy);
+}

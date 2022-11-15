@@ -13,48 +13,111 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="MFC">
+      <UniqueIdentifier>{566542c1-5e41-495b-9d7e-c1bb6d0544bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="KSHTool.h">
+    <ClInclude Include="Map.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneInGame.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTitle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="KFbxFile.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="KFbxObject.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>MFC</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MainFrm.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="KSHTool.h">
+      <Filter>MFC</Filter>
     </ClInclude>
     <ClInclude Include="KSHToolDoc.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>MFC</Filter>
     </ClInclude>
     <ClInclude Include="KSHToolView.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>MFC</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="MainFrm.h">
+      <Filter>MFC</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>MFC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="KSHTool.cpp">
+    <ClCompile Include="Map.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MainFrm.cpp">
+    <ClCompile Include="Node.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="KSHToolDoc.cpp">
+    <ClCompile Include="Quadtree.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="KSHToolView.cpp">
+    <ClCompile Include="Sample.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneInGame.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="KFbxAnimation.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="KFbxFile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="KFbxLoader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="KFbxObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="KSHToolView.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="KSHToolDoc.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="KSHTool.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>MFC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,5 +146,12 @@
     <None Include="res\KSHTool.rc2">
       <Filter>리소스 파일</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="DefaultObject.txt" />
+    <Text Include="DefaultShape.txt" />
+    <Text Include="SpriteInfo.txt" />
+    <Text Include="ui.txt" />
+    <Text Include="Skinning.txt" />
   </ItemGroup>
 </Project>

@@ -135,6 +135,11 @@ BOOL CKSHToolApp::InitInstance()
 	if (!ProcessShellCommand(cmdInfo))
 		return FALSE;
 
+	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+	CKSHToolView* pView = (CKSHToolView*)pFrame->GetActiveView();
+	_Sample.SethWnd(pView->m_hWnd);
+	_Sample.CoreInit();
+
 	// 창 하나만 초기화되었으므로 이를 표시하고 업데이트합니다.
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
@@ -145,7 +150,7 @@ int CKSHToolApp::ExitInstance()
 {
 	//TODO: 추가한 추가 리소스를 처리합니다.
 	AfxOleTerm(FALSE);
-
+	_Sample.CoreRelease();
 	return CWinAppEx::ExitInstance();
 }
 
@@ -214,3 +219,14 @@ void CKSHToolApp::SaveCustomState()
 
 
 
+
+
+BOOL CKSHToolApp::OnIdle(LONG lCount)
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	_Sample.CoreFrame();
+	_Sample.CoreRender();
+	//return CWinAppEx::OnIdle(lCount);
+	//무조건 true 리턴하기(프레임이 너무 끊김)
+	return TRUE;
+}

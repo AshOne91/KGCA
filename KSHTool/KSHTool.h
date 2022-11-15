@@ -8,6 +8,7 @@
 #endif
 
 #include "resource.h"       // 주 기호입니다.
+#include "Sample.h"
 
 
 // CKSHToolApp:
@@ -18,6 +19,7 @@ class CKSHToolApp : public CWinAppEx
 {
 public:
 	CKSHToolApp() noexcept;
+	Sample _Sample;
 
 
 // 재정의입니다.
@@ -35,6 +37,7 @@ public:
 
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
+	virtual BOOL OnIdle(LONG lCount);
 };
 
 extern CKSHToolApp theApp;
