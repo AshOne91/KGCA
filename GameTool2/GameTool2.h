@@ -1,5 +1,5 @@
 ﻿
-// GameTool.h: GameTool 애플리케이션의 기본 헤더 파일
+// GameTool2.h: GameTool2 애플리케이션의 기본 헤더 파일
 //
 #pragma once
 
@@ -11,14 +11,14 @@
 #include "Sample.h"
 
 
-// CGameToolApp:
-// 이 클래스의 구현에 대해서는 GameTool.cpp을(를) 참조하세요.
+// CGameTool2App:
+// 이 클래스의 구현에 대해서는 GameTool2.cpp을(를) 참조하세요.
 //
 
-class CGameToolApp : public CWinAppEx
+class CGameTool2App : public CWinAppEx
 {
 public:
-	CGameToolApp() noexcept;
+	CGameTool2App() noexcept;
 	Sample	_Sample;
 
 
@@ -40,4 +40,4 @@ public:
 	virtual BOOL OnIdle(LONG lCount);
 };
 
-extern CGameToolApp theApp;
+extern CGameTool2App theApp;

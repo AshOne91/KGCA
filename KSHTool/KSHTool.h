@@ -1,5 +1,5 @@
 ﻿
-// GameTool.h: GameTool 애플리케이션의 기본 헤더 파일
+// KSHTool.h: KSHTool 애플리케이션의 기본 헤더 파일
 //
 #pragma once
 
@@ -8,18 +8,16 @@
 #endif
 
 #include "resource.h"       // 주 기호입니다.
-#include "Sample.h"
 
 
-// CGameToolApp:
-// 이 클래스의 구현에 대해서는 GameTool.cpp을(를) 참조하세요.
+// CKSHToolApp:
+// 이 클래스의 구현에 대해서는 KSHTool.cpp을(를) 참조하세요.
 //
 
-class CGameToolApp : public CWinAppEx
+class CKSHToolApp : public CWinAppEx
 {
 public:
-	CGameToolApp() noexcept;
-	Sample	_Sample;
+	CKSHToolApp() noexcept;
 
 
 // 재정의입니다.
@@ -37,7 +35,6 @@ public:
 
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
-	virtual BOOL OnIdle(LONG lCount);
 };
 
-extern CGameToolApp theApp;
+extern CKSHToolApp theApp;

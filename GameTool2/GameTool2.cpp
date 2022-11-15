@@ -1,27 +1,26 @@
 ﻿
-// GameTool.cpp: 애플리케이션에 대한 클래스 동작을 정의합니다.
+// GameTool2.cpp: 애플리케이션에 대한 클래스 동작을 정의합니다.
 //
 
 #include "pch.h"
 #include "framework.h"
 #include "afxwinappex.h"
 #include "afxdialogex.h"
-#include "GameTool.h"
+#include "GameTool2.h"
 #include "MainFrm.h"
 
-#include "ChildFrm.h"
-#include "GameToolDoc.h"
-#include "GameToolView.h"
+#include "GameTool2Doc.h"
+#include "GameTool2View.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
 
-// CGameToolApp
+// CGameTool2App
 
-BEGIN_MESSAGE_MAP(CGameToolApp, CWinAppEx)
-	ON_COMMAND(ID_APP_ABOUT, &CGameToolApp::OnAppAbout)
+BEGIN_MESSAGE_MAP(CGameTool2App, CWinAppEx)
+	ON_COMMAND(ID_APP_ABOUT, &CGameTool2App::OnAppAbout)
 	// 표준 파일을 기초로 하는 문서 명령입니다.
 	ON_COMMAND(ID_FILE_NEW, &CWinAppEx::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
@@ -30,9 +29,9 @@ BEGIN_MESSAGE_MAP(CGameToolApp, CWinAppEx)
 END_MESSAGE_MAP()
 
 
-// CGameToolApp 생성
+// CGameTool2App 생성
 
-CGameToolApp::CGameToolApp() noexcept
+CGameTool2App::CGameTool2App() noexcept
 {
 	m_bHiColorIcons = TRUE;
 
@@ -49,20 +48,20 @@ CGameToolApp::CGameToolApp() noexcept
 
 	// TODO: 아래 애플리케이션 ID 문자열을 고유 ID 문자열로 바꾸십시오(권장).
 	// 문자열에 대한 서식: CompanyName.ProductName.SubProduct.VersionInformation
-	SetAppID(_T("GameTool.AppID.NoVersion"));
+	SetAppID(_T("GameTool2.AppID.NoVersion"));
 
 	// TODO: 여기에 생성 코드를 추가합니다.
 	// InitInstance에 모든 중요한 초기화 작업을 배치합니다.
 }
 
-// 유일한 CGameToolApp 개체입니다.
+// 유일한 CGameTool2App 개체입니다.
 
-CGameToolApp theApp;
+CGameTool2App theApp;
 
 
-// CGameToolApp 초기화
+// CGameTool2App 초기화
 
-BOOL CGameToolApp::InitInstance()
+BOOL CGameTool2App::InitInstance()
 {
 	// 애플리케이션 매니페스트가 ComCtl32.dll 버전 6 이상을 사용하여 비주얼 스타일을
 	// 사용하도록 지정하는 경우, Windows XP 상에서 반드시 InitCommonControlsEx()가 필요합니다. 
@@ -86,7 +85,7 @@ BOOL CGameToolApp::InitInstance()
 
 	AfxEnableControlContainer();
 
-	EnableTaskbarInteraction();
+	EnableTaskbarInteraction(FALSE);
 
 	// RichEdit 컨트롤을 사용하려면 AfxInitRichEdit2()가 있어야 합니다.
 	// AfxInitRichEdit2();
@@ -114,23 +113,15 @@ BOOL CGameToolApp::InitInstance()
 
 	// 애플리케이션의 문서 템플릿을 등록합니다.  문서 템플릿은
 	//  문서, 프레임 창 및 뷰 사이의 연결 역할을 합니다.
-	CMultiDocTemplate* pDocTemplate;
-	pDocTemplate = new CMultiDocTemplate(IDR_GameToolTYPE,
-		RUNTIME_CLASS(CGameToolDoc),
-		RUNTIME_CLASS(CChildFrame), // 사용자 지정 MDI 자식 프레임입니다.
-		RUNTIME_CLASS(CGameToolView));
+	CSingleDocTemplate* pDocTemplate;
+	pDocTemplate = new CSingleDocTemplate(
+		IDR_MAINFRAME,
+		RUNTIME_CLASS(CGameTool2Doc),
+		RUNTIME_CLASS(CMainFrame),       // 주 SDI 프레임 창입니다.
+		RUNTIME_CLASS(CGameTool2View));
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);
-
-	// 주 MDI 프레임 창을 만듭니다.
-	CMainFrame* pMainFrame = new CMainFrame;
-	if (!pMainFrame || !pMainFrame->LoadFrame(IDR_MAINFRAME))
-	{
-		delete pMainFrame;
-		return FALSE;
-	}
-	m_pMainWnd = pMainFrame;
 
 
 	// 표준 셸 명령, DDE, 파일 열기에 대한 명령줄을 구문 분석합니다.
@@ -145,26 +136,25 @@ BOOL CGameToolApp::InitInstance()
 		return FALSE;
 
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
-	CGameToolView* pView = (CGameToolView*)pFrame->GetActiveView();
+	CGameTool2View* pView = (CGameTool2View*)pFrame->GetActiveView();
 	_Sample.SethWnd(pView->m_hWnd);
 	_Sample.CoreInit();
 
-	// 주 창이 초기화되었으므로 이를 표시하고 업데이트합니다.
-	pMainFrame->ShowWindow(m_nCmdShow);
-	pMainFrame->UpdateWindow();
-
+	// 창 하나만 초기화되었으므로 이를 표시하고 업데이트합니다.
+	m_pMainWnd->ShowWindow(SW_SHOW);
+	m_pMainWnd->UpdateWindow();
 	return TRUE;
 }
 
-int CGameToolApp::ExitInstance()
+int CGameTool2App::ExitInstance()
 {
 	//TODO: 추가한 추가 리소스를 처리합니다.
 	AfxOleTerm(FALSE);
-	_Sample.CoreRelease();
+
 	return CWinAppEx::ExitInstance();
 }
 
-// CGameToolApp 메시지 처리기
+// CGameTool2App 메시지 처리기
 
 
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
@@ -200,15 +190,15 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 // 대화 상자를 실행하기 위한 응용 프로그램 명령입니다.
-void CGameToolApp::OnAppAbout()
+void CGameTool2App::OnAppAbout()
 {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
 }
 
-// CGameToolApp 사용자 지정 로드/저장 방법
+// CGameTool2App 사용자 지정 로드/저장 방법
 
-void CGameToolApp::PreLoadState()
+void CGameTool2App::PreLoadState()
 {
 	BOOL bNameValid;
 	CString strName;
@@ -217,17 +207,21 @@ void CGameToolApp::PreLoadState()
 	GetContextMenuManager()->AddMenu(strName, IDR_POPUP_EDIT);
 }
 
-void CGameToolApp::LoadCustomState()
+void CGameTool2App::LoadCustomState()
 {
 }
 
-void CGameToolApp::SaveCustomState()
+void CGameTool2App::SaveCustomState()
 {
 }
 
-// CGameToolApp 메시지 처리기
+// CGameTool2App 메시지 처리기
 
-BOOL CGameToolApp::OnIdle(LONG lCount)
+
+
+
+
+BOOL CGameTool2App::OnIdle(LONG lCount)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 	_Sample.CoreFrame();
