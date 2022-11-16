@@ -33,11 +33,11 @@ void SceneMain::OnEnter()
 	hpTextIndex = CreateText(L"°íµñ", 500, 55, 25);
 	remainTimeTextIndex = CreateText(L"°íµñ", 10, 100, 25);
 	auto pUI = CreateUI<UIHpBar>();
-	pUI->Create(_pd3dDevice, _pImmediateContext, L"../../data/shader/DefaultShape.txt", L"../../resource/hpbar.png");
+	pUI->Create(_pd3dDevice, _pImmediateContext, L"DefaultShape.txt", L"../../resource/hpbar.png");
 	pUI->SetAttribute({ 340.0f, 75.0f }, { 50, 320, 590.0f, 62.0f });
 	I_EventManager.AddListener(EventType::HpChange, pUI);
 	pUI = CreateUI<UIHpBar>();
-	pUI->Create(_pd3dDevice, _pImmediateContext, L"../../data/shader/DefaultShape.txt", L"../../resource/hpbar.png");
+	pUI->Create(_pd3dDevice, _pImmediateContext, L"DefaultShape.txt", L"../../resource/hpbar.png");
 	pUI->SetAttribute({ 350.0f, 110.0f }, { 0, 0, 689.0f, 218.0f });
 
 }

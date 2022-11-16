@@ -21,7 +21,7 @@ bool Spawner::Render()
 
 bool Spawner::CInit()
 {
-    this->Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(), L"../../data/shader/DefaultShape.txt", L"");
+    this->Create(I_GameWorld.GetDevice(), I_GameWorld.GetDeviceImmediateContext(), L"DefaultShape.txt", L"");
     return true;
 }
 

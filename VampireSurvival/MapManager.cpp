@@ -98,7 +98,7 @@ void MapManager::mapRotate(MapRotateType rotate)
 bool MapManager::CInit()
 {
     auto pTexture = I_Tex.Load(L"../../resource/bg_forest.png");
-    std::wstring mapshader = L"../../data/shader/DefaultShape.txt";
+    std::wstring mapshader = L"DefaultShape.txt";
     UINT mapWidth = pTexture->_Desc.Width;
     UINT mapHeight = pTexture->_Desc.Height;
     int MapCenterX = (mapWidth * dfMAP_X_COUNT) * 0.5f;
