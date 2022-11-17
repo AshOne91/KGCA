@@ -138,10 +138,46 @@ public:
 	std::vector<DWORD> m_IndexList;
 	ID3D11Buffer* m_pIndexBuffer = nullptr;
 
-	TConstantData _pConstantList;
+	TConstantData m_pConstantList;
+	ID3D11Buffer* m_pConstantBuffer = nullptr;
+	TLightData m_LightConstantList;
+	ID3D11Buffer* m_pLightConstantBuffer = nullptr;
 
+	ID3D11InputLayout* m_pVertexLayout = nullptr;
+	ID3D11Device* m_pd3dDevice = nullptr;
+	ID3D11DeviceContext* m_pContext = nullptr;
 
+public:
+	void SetDevice(ID3D11Device* m_pd3dDevice,
+		ID3D11DeviceContext* m_pContext);
+	virtual bool LoadTexture(const TCHAR* szColorFileName,
+		const TCHAR* szMaskFileName);
+	virtual bool SetVertexData();
+	virtual bool SetIndexData();
+	virtual bool SetConstantData();
+	virtual bool Create(ID3D11Device* m_pd3dDevice,
+		ID3D11DeviceContext* m_pContext,
+		const TCHAR* szShaderFileName = nullptr,
+		const TCHAR* szTextureFileName = nullptr,
+		const TCHAR* szMaskFileName = nullptr);
+	virtual bool CreateVertexBuffer();
+	virtual bool CreateIndexBuffer();
+	virtual bool CreateConstantBuffer();
+	virtual bool CreateVertexShader(const TCHAR* szFile);
+	virtual bool CreatePixelShader(const TCHAR* szFile);
+	virtual bool CreateInputLayout();
 
+public:
+	virtual bool Init();
+	virtual bool Frame();
+	virtual bool Render();
+	virtual bool PreRender();
+	virtual bool Draw();
+	virtual bool PostRender();
+	virtual bool Release();
 
+public:
+	TDxObject();
+	virtual ~TDxObject();
 };
 
