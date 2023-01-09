@@ -33,7 +33,7 @@ public:
 	bool CoreRelease();
 
 public:
-	virtual bool Run() final;
+	virtual bool Run() override;
 	bool ToolRun();
 	virtual HRESULT CreateDXResource();
 	virtual HRESULT DeleteDXResource();
