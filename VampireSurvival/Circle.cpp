@@ -20,6 +20,7 @@ bool CircleComponent::CRender()
 
 bool CircleComponent::CRelease()
 {
+	I_EventManager.RemoveComponentObject(GetParentPtr());
 	ComponentObject::CRelease();
 	return true;
 }

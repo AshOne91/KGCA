@@ -7,7 +7,7 @@
 #include <set>
 #include <string>
 #include <codecvt>
-#include <atlconv.h> 
+#include <atlbase.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include "Vector.h"
